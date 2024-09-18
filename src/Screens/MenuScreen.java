@@ -14,7 +14,11 @@ public class MenuScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected int currentMenuItemHovered = 0; // current menu item being "hovered" over
     protected int menuItemSelected = -1;
+    protected final int MAX_MENU_ITEMS = 2;
+    protected final Color LIT_COLOR = new Color(255, 215, 0);
+    protected final Color UNLIT_COLOR = new Color(49, 207, 240);
     protected SpriteFont playGame;
+    protected SpriteFont options;
     protected SpriteFont credits;
     protected Map background;
     protected int keyPressTimer;
@@ -30,7 +34,14 @@ public class MenuScreen extends Screen {
         playGame = new SpriteFont("PLAY GAME", 200, 123, "Arial", 30, new Color(49, 207, 240));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        credits = new SpriteFont("CREDITS", 200, 223, "Arial", 30, new Color(49, 207, 240));
+        /*
+         * WE WILL NEED TO ADD THE OPTIONS BUTTON
+         */
+        options = new SpriteFont("OPTIONS", 200, 223, "Arial", 30, new Color(49, 207, 240));
+        options.setOutlineColor(Color.black);
+        options.setOutlineThickness(3);
+
+        credits = new SpriteFont("CREDITS", 200, 323, "Arial", 30, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
         background = new TitleScreenMap();
@@ -58,23 +69,31 @@ public class MenuScreen extends Screen {
         }
 
         // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
-        if (currentMenuItemHovered > 1) {
+        if (currentMenuItemHovered > MAX_MENU_ITEMS) {
             currentMenuItemHovered = 0;
         } else if (currentMenuItemHovered < 0) {
-            currentMenuItemHovered = 1;
+            currentMenuItemHovered = MAX_MENU_ITEMS;
         }
 
         // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
         if (currentMenuItemHovered == 0) {
-            playGame.setColor(new Color(255, 215, 0));
-            credits.setColor(new Color(49, 207, 240));
+            playGame.setColor(LIT_COLOR);
+            options.setColor(UNLIT_COLOR);
+            credits.setColor(UNLIT_COLOR);
             pointerLocationX = 170;
             pointerLocationY = 130;
         } else if (currentMenuItemHovered == 1) {
-            playGame.setColor(new Color(49, 207, 240));
-            credits.setColor(new Color(255, 215, 0));
+            playGame.setColor(UNLIT_COLOR);
+            options.setColor(LIT_COLOR);
+            credits.setColor(UNLIT_COLOR);
             pointerLocationX = 170;
             pointerLocationY = 230;
+        } else if (currentMenuItemHovered == 2) {
+            playGame.setColor(UNLIT_COLOR);
+            options.setColor(UNLIT_COLOR);
+            credits.setColor(LIT_COLOR);
+            pointerLocationX = 170;
+            pointerLocationY = 330;
         }
 
         // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
@@ -86,6 +105,8 @@ public class MenuScreen extends Screen {
             if (menuItemSelected == 0) {
                 screenCoordinator.setGameState(GameState.LEVEL);
             } else if (menuItemSelected == 1) {
+                screenCoordinator.setGameState(GameState.OPTIONS);
+            } else if (menuItemSelected == 2) {
                 screenCoordinator.setGameState(GameState.CREDITS);
             }
         }
@@ -94,7 +115,8 @@ public class MenuScreen extends Screen {
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
         playGame.draw(graphicsHandler);
+        options.draw(graphicsHandler);
         credits.draw(graphicsHandler);
-        graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
+        graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, UNLIT_COLOR, Color.black, 2);
     }
 }
