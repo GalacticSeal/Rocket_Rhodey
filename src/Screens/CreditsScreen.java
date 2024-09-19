@@ -15,6 +15,7 @@ public class CreditsScreen extends Screen {
     protected Map background;
     protected KeyLocker keyLocker = new KeyLocker();
     protected SpriteFont creditsLabel;
+    protected SpriteFont credits0, credits1, credits2, credits3, credits4, ogCreatedByLabel;
     protected SpriteFont createdByLabel;
     protected SpriteFont returnInstructionsLabel;
 
@@ -27,8 +28,16 @@ public class CreditsScreen extends Screen {
         // setup graphics on screen (background map, spritefont text)
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
-        creditsLabel = new SpriteFont("Credits", 15, 7, "Times New Roman", 30, Color.white);
-        createdByLabel = new SpriteFont("Created by Alex Thimineur", 130, 121, "Times New Roman", 20, Color.white);
+        creditsLabel = new SpriteFont("CREDITS", 15, 7, "Impact", 30, Color.white);
+        creditsLabel.setOutlineColor(Color.black);
+        creditsLabel.setOutlineThickness(5);
+        createdByLabel = new SpriteFont("Created by:", 130, 121, "Times New Roman", 20, Color.white);
+        credits0 = new SpriteFont("Isaias Barreto", 170, 141, "Times New Roman", 20, Color.white);
+        credits1 = new SpriteFont("Jason Handrahan", 170, 161, "Times New Roman", 20, Color.white);
+        credits2 = new SpriteFont("Jeremy Wiening", 170, 181, "Times New Roman", 20, Color.white);
+        credits3 = new SpriteFont("Jesse Chaput", 170, 201, "Times New Roman", 20, Color.white);
+        credits4 = new SpriteFont("Paul Zegarek", 170, 221, "Times New Roman", 20, Color.white);
+        ogCreatedByLabel = new SpriteFont("Original game created by: Alex Thimineur", 130, 321, "Times New Roman", 20, Color.white);
         returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 532, "Times New Roman", 30, Color.white);
         keyLocker.lockKey(Key.SPACE);
     }
@@ -50,6 +59,12 @@ public class CreditsScreen extends Screen {
         background.draw(graphicsHandler);
         creditsLabel.draw(graphicsHandler);
         createdByLabel.draw(graphicsHandler);
+        credits0.draw(graphicsHandler);
+        credits1.draw(graphicsHandler);
+        credits2.draw(graphicsHandler);
+        credits3.draw(graphicsHandler);
+        credits4.draw(graphicsHandler);
+        ogCreatedByLabel.draw(graphicsHandler);
         returnInstructionsLabel.draw(graphicsHandler);
     }
 }
