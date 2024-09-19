@@ -9,57 +9,44 @@ import SpriteFont.SpriteFont;
 
 import java.awt.*;
 
-// This is the class for the main menu screen
-public class MenuScreen extends Screen {
+public class OptionsScreen extends Screen {
+    // I'm using the Title Menu screen as a reference for building the Options Screen.
     protected ScreenCoordinator screenCoordinator;
     protected int currentMenuItemHovered = 0; // current menu item being "hovered" over
     protected int menuItemSelected = -1;
-    protected final int MAX_MENU_ITEMS = 2;
-    protected final Color LIT_COLOR = new Color(255, 215, 0);
-    protected final Color UNLIT_COLOR = new Color(49, 207, 240);
-    protected SpriteFont playGame;
-    protected SpriteFont titleLabel, titleLabel2, options;
-    protected SpriteFont credits;
     protected Map background;
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
-
-    public MenuScreen(ScreenCoordinator screenCoordinator) {
+    
+    protected SpriteFont optionsLabel, keybinds, goBack;
+    protected final int MAX_MENU_ITEMS = 1;
+    protected final Color LIT_COLOR = new Color(255, 215, 0);
+    protected final Color UNLIT_COLOR = new Color(49, 207, 240);
+    
+    public OptionsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     @Override
     public void initialize() {
-        titleLabel = new SpriteFont("ROCKET", 140, 37, "Impact", 72, Color.lightGray);
-        titleLabel.setFontStyle(Font.BOLD);
-        titleLabel.setOutlineColor(Color.black);
-        titleLabel.setOutlineThickness(5);
-        titleLabel2 = new SpriteFont("RHODEY", 200, 97, "Impact", 72, Color.black);
-        titleLabel2.setFontStyle(Font.BOLD);
-        titleLabel2.setOutlineColor(Color.lightGray);
-        titleLabel2.setOutlineThickness(5);
+        optionsLabel = new SpriteFont("OPTIONS", 15, 7, "Impact", 30, Color.white);
+        optionsLabel.setOutlineColor(Color.black);
+        optionsLabel.setOutlineThickness(5);
+        // ADDS THE BUTTONS
+        keybinds = new SpriteFont("KEYBINDS", 200, 123, "Arial", 30, UNLIT_COLOR);
+        keybinds.setOutlineColor(Color.black);
+        keybinds.setOutlineThickness(3);
+        goBack = new SpriteFont("<- BACK", 200, 323, "Arial", 30, UNLIT_COLOR);
+        goBack.setOutlineColor(Color.black);
+        goBack.setOutlineThickness(3);
 
-        playGame = new SpriteFont("PLAY GAME", 100, 223, "Arial", 30, UNLIT_COLOR);
-        playGame.setOutlineColor(Color.black);
-        playGame.setOutlineThickness(3);
-        /*
-         * WE WILL NEED TO ADD THE OPTIONS BUTTON
-         */
-        options = new SpriteFont("OPTIONS", 100, 273, "Arial", 30, UNLIT_COLOR);
-        options.setOutlineColor(Color.black);
-        options.setOutlineThickness(3);
-
-        credits = new SpriteFont("CREDITS", 100, 323, "Arial", 30, UNLIT_COLOR);
-        credits.setOutlineColor(Color.black);
-        credits.setOutlineThickness(3);
+        // setup graphics on screen (background map, spritefont text)
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
-        keyPressTimer = 0;
-        menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
     }
-
+    
     public void update() {
         // update background map (to play tile animations)
         background.update(null);
@@ -86,22 +73,16 @@ public class MenuScreen extends Screen {
 
         // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
         if (currentMenuItemHovered == 0) {
-            playGame.setColor(LIT_COLOR);
-            options.setColor(UNLIT_COLOR);
-            credits.setColor(UNLIT_COLOR);
-            pointerLocationX = 70;
-            pointerLocationY = 230;
+            keybinds.setColor(LIT_COLOR);
+            //options.setColor(UNLIT_COLOR);
+            goBack.setColor(UNLIT_COLOR);
+            pointerLocationX = 170;
+            pointerLocationY = 130;
         } else if (currentMenuItemHovered == 1) {
-            playGame.setColor(UNLIT_COLOR);
-            options.setColor(LIT_COLOR);
-            credits.setColor(UNLIT_COLOR);
-            pointerLocationX = 70;
-            pointerLocationY = 280;
-        } else if (currentMenuItemHovered == 2) {
-            playGame.setColor(UNLIT_COLOR);
-            options.setColor(UNLIT_COLOR);
-            credits.setColor(LIT_COLOR);
-            pointerLocationX = 70;
+            keybinds.setColor(UNLIT_COLOR);
+            //options.setColor(UNLIT_COLOR);
+            goBack.setColor(LIT_COLOR);
+            pointerLocationX = 170;
             pointerLocationY = 330;
         }
 
@@ -112,22 +93,19 @@ public class MenuScreen extends Screen {
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
-                screenCoordinator.setGameState(GameState.LEVEL);
+                // keybind
+                //screenCoordinator.setGameState(GameState.LEVEL);
             } else if (menuItemSelected == 1) {
-                screenCoordinator.setGameState(GameState.OPTIONS);
-            } else if (menuItemSelected == 2) {
-                screenCoordinator.setGameState(GameState.CREDITS);
+                screenCoordinator.setGameState(GameState.MENU);
             }
         }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
-        titleLabel2.draw(graphicsHandler); // this is intentional so that "Rocket" goes over "Rhodey"
-        titleLabel.draw(graphicsHandler);
-        playGame.draw(graphicsHandler);
-        options.draw(graphicsHandler);
-        credits.draw(graphicsHandler);
+        optionsLabel.draw(graphicsHandler);
+        keybinds.draw(graphicsHandler);
+        goBack.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, UNLIT_COLOR, Color.black, 2);
     }
 }
