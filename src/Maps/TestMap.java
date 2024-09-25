@@ -25,10 +25,10 @@ public class TestMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(6, 10).getLocation().subtractY(5), Direction.LEFT);
         enemies.add(bugEnemy);
 
-        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
+        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(9, 1).getLocation().addY(2), getMapTile(11, 1).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy);
 
         return enemies;
@@ -40,16 +40,16 @@ public class TestMap extends Map {
 
         HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getMapTile(24, 6).getLocation(),
-                getMapTile(27, 6).getLocation(),
+                getMapTile(4, 6).getLocation(),
+                getMapTile(7, 6).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
-                new Rectangle(0, 6,16,4),
+                new Rectangle(0, 6,10,4),
                 Direction.RIGHT
         );
         enhancedMapTiles.add(hmp);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(2, 7).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
@@ -59,7 +59,7 @@ public class TestMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(getMapTile(30, 10).getLocation().subtractY(13));
+        Walrus walrus = new Walrus(getMapTile(3, 10).getLocation().subtractY(3));
         npcs.add(walrus);
 
         return npcs;
