@@ -11,6 +11,18 @@ import Utils.Direction;
 import java.util.ArrayList;
 
 public abstract class Player extends GameObject {
+    // new temp variables (this is going to be ugly)
+    protected float terminalFactorY = 0; //acceleration factor after reaching terminal velocity on the y-axis
+    protected float terminalFactorX = 0; //acceleration factor after reaching terminal velocity on the y-axis
+    protected float terminalVelocityX = 0;
+    protected float velocityX = 0;
+    protected float velocityY = 0;
+    protected float jumpPower = 0;
+    protected float groundDegrade = 0;
+    protected float degradeFactor = 0;
+    protected float accelFactor = 0; //acceleration multiplier
+    protected float movementAirFactor = 0;
+
     // values that affect player movement
     // these should be set in a subclass
     protected float walkSpeed = 0;
@@ -57,14 +69,64 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
     }
 
+    // bootleg application of momentum
+    protected void applyMomentum() {
+        moveAmountX += velocityX;
+        moveAmountY += velocityY;
+        if (airGroundState == AirGroundState.AIR) {
+            velocityY += gravity;
+        } else {
+            velocityY = 0f;
+            moveAmountY = gravity;
+        }
+    }
+
+    protected void applyMovementX() {
+        //ground movement
+        if (airGroundState == AirGroundState.GROUND) {
+            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+                velocityX -= walkSpeed/accelFactor;
+            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+                velocityX += walkSpeed/accelFactor;
+            } else {
+                if(velocityX != 0f && Math.abs(velocityX) > degradeFactor) velocityX -= degradeFactor * walkSpeed * Math.abs(velocityX)/velocityX;
+                else velocityX = 0f;
+            }
+
+            //fixes ground movement to maximum walk speed
+            if(velocityX > walkSpeed) {
+                velocityX = walkSpeed; //cannot walk faster than normal walk speed
+            } else if(velocityX < -walkSpeed) {
+                velocityX = -walkSpeed; //cannot walk faster than normal walk speed
+            }
+
+        } else {
+            //air movement - player can only slow themselves while above max air speed, determined by walk speed
+            if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && velocityX > -walkSpeed) {
+                if(velocityX >= -walkSpeed/accelFactor) {
+                    velocityX -= walkSpeed/accelFactor;
+                } else {
+                    velocityX = -walkSpeed;
+                }
+            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && velocityX < walkSpeed) {
+                if(velocityX <= walkSpeed/accelFactor) {
+                    velocityX += walkSpeed/accelFactor;
+                } else {
+                    velocityX = walkSpeed;
+                }
+            }
+        }
+    }
+
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
 
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
-            applyGravity();
-
+            //applyGravity();
+            applyMomentum();
+            applyMovementX();
             // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
             do {
                 previousPlayerState = playerState;
@@ -142,13 +204,13 @@ public abstract class Player extends GameObject {
     protected void playerWalking() {
         // if walk left key is pressed, move player to the left
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-            moveAmountX -= walkSpeed;
+            //moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
         }
 
         // if walk right key is pressed, move player to the right
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-            moveAmountX += walkSpeed;
+            //moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
         } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.STANDING;
@@ -211,16 +273,11 @@ public abstract class Player extends GameObject {
             }
 
             // allows you to move left and right while in the air
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-                moveAmountX -= walkSpeed;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-                moveAmountX += walkSpeed;
-            }
 
             // if player is falling, increases momentum as player falls so it falls faster over time
-            if (moveAmountY > 0) {
+            /*if (moveAmountY > 0) {
                 increaseMomentum();
-            }
+            }*/
         }
 
         // if player last frame was in air and this frame is now on ground, player enters STANDING state
