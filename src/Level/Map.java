@@ -330,37 +330,37 @@ public abstract class Map {
     public void update(Player player) {
         if (adjustCamera) {
             adjustMovementY(player);
-            adjustMovementX(player);
+            
         }
         camera.update(player);
     }
 
     // based on the player's current X position (which in a level can potentially be updated each frame),
     // adjust the player's and camera's positions accordingly in order to properly create the map "scrolling" effect
-    private void adjustMovementX(Player player) {
-        // if player goes past center screen (on the right side) and there is more map to show on the right side, push player back to center and move camera forward
-        if ((player.getCalibratedXLocation() + (player.getWidth() / 2)) > xMidPoint && camera.getEndBoundX() < endBoundX) {
-            float xMidPointDifference = xMidPoint - (player.getCalibratedXLocation() + (player.getWidth() / 2));
-            camera.moveX(-xMidPointDifference);
+    // private void adjustMovementX(Player player) {
+    //     // if player goes past center screen (on the right side) and there is more map to show on the right side, push player back to center and move camera forward
+    //     if ((player.getCalibratedXLocation() + (player.getWidth() / 2)) > xMidPoint && camera.getEndBoundX() < endBoundX) {
+    //         float xMidPointDifference = xMidPoint - (player.getCalibratedXLocation() + (player.getWidth() / 2));
+    //         camera.moveX(-xMidPointDifference);
 
-            // if camera moved past the right edge of the map as a result from the move above, move camera back and push player forward
-            if (camera.getEndBoundX() > endBoundX) {
-                float cameraDifference = camera.getEndBoundX() - endBoundX;
-                camera.moveX(-cameraDifference);
-            }
-        }
-        // if player goes past center screen (on the left side) and there is more map to show on the left side, push player back to center and move camera backwards
-        else if ((player.getCalibratedXLocation() + (player.getWidth() / 2)) < xMidPoint && camera.getX() > startBoundX) {
-            float xMidPointDifference = xMidPoint - (player.getCalibratedXLocation() + (player.getWidth() / 2));
-            camera.moveX(-xMidPointDifference);
+    //         // if camera moved past the right edge of the map as a result from the move above, move camera back and push player forward
+    //         if (camera.getEndBoundX() > endBoundX) {
+    //             float cameraDifference = camera.getEndBoundX() - endBoundX;
+    //             camera.moveX(-cameraDifference);
+    //         }
+    //     }
+    //     // if player goes past center screen (on the left side) and there is more map to show on the left side, push player back to center and move camera backwards
+    //     else if ((player.getCalibratedXLocation() + (player.getWidth() / 2)) < xMidPoint && camera.getX() > startBoundX) {
+    //         float xMidPointDifference = xMidPoint - (player.getCalibratedXLocation() + (player.getWidth() / 2));
+    //         camera.moveX(-xMidPointDifference);
 
-            // if camera moved past the left edge of the map as a result from the move above, move camera back and push player backward
-            if (camera.getX() < startBoundX) {
-                float cameraDifference = startBoundX - camera.getX();
-                camera.moveX(cameraDifference);
-            }
-        }
-    }
+    //         // if camera moved past the left edge of the map as a result from the move above, move camera back and push player backward
+    //         if (camera.getX() < startBoundX) {
+    //             float cameraDifference = startBoundX - camera.getX();
+    //             camera.moveX(cameraDifference);
+    //         }
+    //     }
+    // }
 
     // based on the player's current Y position (which in a level can potentially be updated each frame),
     // adjust the player's and camera's positions accordingly in order to properly create the map "scrolling" effect
