@@ -77,7 +77,7 @@ public abstract class Player extends GameObject {
             velocityY += gravity;
         } else {
             velocityY = 0f;
-            moveAmountY = -0.001f;
+            moveAmountY = gravity;
         }
     }
 
