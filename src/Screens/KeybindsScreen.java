@@ -19,9 +19,9 @@ public class KeybindsScreen extends Screen {
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
     
-    protected SpriteFont optionsLabel, movementsLabel, goBack;
+    protected SpriteFont optionsLabel, movementsLabel, movementsLabel2, goBack;
     //private String[] movementType = {"WASD","Arrow Keys"};
-    protected final int MAX_MENU_ITEMS = 1;
+    protected final int MAX_MENU_ITEMS = 2;
     protected final Color LIT_COLOR = new Color(255, 215, 0);
     protected final Color UNLIT_COLOR = new Color(49, 207, 240);
     
@@ -35,6 +35,9 @@ public class KeybindsScreen extends Screen {
         movementsLabel = new SpriteFont("MOVEMENT: W A S D", 200, 123, "Arial", 30, UNLIT_COLOR);
         movementsLabel.setOutlineColor(Color.black);
         movementsLabel.setOutlineThickness(3);
+        movementsLabel2 = new SpriteFont("MOVEMENT: arrow keys", 200, 223, "Arial", 30, UNLIT_COLOR);
+        movementsLabel2.setOutlineColor(Color.black);
+        movementsLabel2.setOutlineThickness(3);
         goBack = new SpriteFont("<- BACK", 200, 323, "Arial", 30, UNLIT_COLOR);
         goBack.setOutlineColor(Color.black);
         goBack.setOutlineThickness(3);
@@ -81,6 +84,12 @@ public class KeybindsScreen extends Screen {
             //options.setColor(UNLIT_COLOR);
             goBack.setColor(LIT_COLOR);
             pointerLocationX = 170;
+            pointerLocationY = 230;
+        } else if (currentMenuItemHovered == 2) {
+            movementsLabel.setColor(UNLIT_COLOR);
+            //options.setColor(UNLIT_COLOR);
+            goBack.setColor(LIT_COLOR);
+            pointerLocationX = 170;
             pointerLocationY = 330;
         }
 
@@ -92,8 +101,19 @@ public class KeybindsScreen extends Screen {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
                 // this will change movement settings to the movement type.
-                screenCoordinator.setGameState(GameState.KEYBINDS);
+                Keybinds.setCrouchKey(Key.S);
+                Keybinds.setJumpKey(Key.SPACE);
+                Keybinds.setMoveLeftKey(Key.A);
+                Keybinds.setMoveRightKey(Key.D);
+                screenCoordinator.setGameState(GameState.OPTIONS);
             } else if (menuItemSelected == 1) {
+                // this will change movement settings to the movement type.
+                Keybinds.setCrouchKey(Key.DOWN);
+                Keybinds.setJumpKey(Key.SPACE);
+                Keybinds.setMoveLeftKey(Key.LEFT);
+                Keybinds.setMoveRightKey(Key.RIGHT);
+                screenCoordinator.setGameState(GameState.OPTIONS);
+            } else if (menuItemSelected == 2) {
                 screenCoordinator.setGameState(GameState.OPTIONS);
             }
         }
@@ -103,6 +123,7 @@ public class KeybindsScreen extends Screen {
         background.draw(graphicsHandler);
         //optionsLabel.draw(graphicsHandler);
         movementsLabel.draw(graphicsHandler);
+        movementsLabel2.draw(graphicsHandler);
         goBack.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, UNLIT_COLOR, Color.black, 2);
     }
