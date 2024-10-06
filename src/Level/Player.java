@@ -1,12 +1,14 @@
 package Level;
 
 import Engine.Key;
+import Engine.Keybinds;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
+
 
 import java.util.ArrayList;
 
@@ -51,10 +53,10 @@ public abstract class Player extends GameObject {
 
     // define keys
     protected KeyLocker keyLocker = new KeyLocker();
-    protected Key JUMP_KEY = Key.UP;
-    protected Key MOVE_LEFT_KEY = Key.LEFT;
-    protected Key MOVE_RIGHT_KEY = Key.RIGHT;
-    protected Key CROUCH_KEY = Key.DOWN;
+    protected Key JUMP_KEY = Keybinds.getJumpKey();//Key.UP;
+    protected Key MOVE_LEFT_KEY = Keybinds.getMoveLeftKey();//Key.LEFT;
+    protected Key MOVE_RIGHT_KEY = Keybinds.getMoveRightKey();//Key.RIGHT;
+    protected Key CROUCH_KEY = Keybinds.getCrouchKey();//Key.DOWN;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
