@@ -102,14 +102,16 @@ public class KeybindsScreen extends Screen {
             if (menuItemSelected == 0) {
                 // this will change movement settings to the movement type.
                 Keybinds.setCrouchKey(Key.S);
-                Keybinds.setJumpKey(Key.SPACE);
+                Keybinds.setJumpKey(Key.W);
+                Keybinds.setJump2Key(Key.SPACE);
                 Keybinds.setMoveLeftKey(Key.A);
                 Keybinds.setMoveRightKey(Key.D);
                 screenCoordinator.setGameState(GameState.OPTIONS);
             } else if (menuItemSelected == 1) {
                 // this will change movement settings to the movement type.
                 Keybinds.setCrouchKey(Key.DOWN);
-                Keybinds.setJumpKey(Key.SPACE);
+                Keybinds.setJumpKey(Key.UP);
+                Keybinds.setJump2Key(Key.SPACE);
                 Keybinds.setMoveLeftKey(Key.LEFT);
                 Keybinds.setMoveRightKey(Key.RIGHT);
                 screenCoordinator.setGameState(GameState.OPTIONS);
