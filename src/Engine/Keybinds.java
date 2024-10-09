@@ -3,8 +3,9 @@ package Engine;
 public class Keybinds {
     private static Key moveLeft = Key.A;
     private static Key moveRight = Key.D;
-    private static Key jump = Key.SPACE;
-    private static Key crouch = Key.DOWN;
+    private static Key jump = Key.W;
+    private static Key jump2 = Key.SPACE;
+    private static Key crouch = Key.S;
 
     // get methods
     public static Key getCrouchKey() {
@@ -12,6 +13,9 @@ public class Keybinds {
     }
     public static Key getJumpKey() {
         return jump;
+    }
+    public static Key getJump2Key() {
+        return jump2;
     }
     public static Key getMoveLeftKey() {
         return moveLeft;
@@ -26,6 +30,9 @@ public class Keybinds {
     }
     public static void setJumpKey(Key code) {
         jump = code;
+    }
+    public static void setJump2Key(Key code) {
+        jump2 = code;
     }
     public static void setMoveLeftKey(Key code) {
         moveLeft = code;

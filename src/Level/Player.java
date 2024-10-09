@@ -54,6 +54,7 @@ public abstract class Player extends GameObject {
     // define keys
     protected KeyLocker keyLocker = new KeyLocker();
     protected Key JUMP_KEY = Keybinds.getJumpKey();//Key.UP;
+    protected Key JUMP2_KEY = Keybinds.getJump2Key();//Key.SPACE;
     protected Key MOVE_LEFT_KEY = Keybinds.getMoveLeftKey();//Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Keybinds.getMoveRightKey();//Key.RIGHT;
     protected Key CROUCH_KEY = Keybinds.getCrouchKey();//Key.DOWN;
@@ -195,7 +196,10 @@ public abstract class Player extends GameObject {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
-
+        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+            keyLocker.lockKey(JUMP2_KEY);
+            playerState = PlayerState.JUMPING;
+        }
         // if crouch key is pressed, player enters CROUCHING state
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
@@ -223,6 +227,10 @@ public abstract class Player extends GameObject {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
+        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+            keyLocker.lockKey(JUMP2_KEY);
+            playerState = PlayerState.JUMPING;
+        }
 
         // if crouch key is pressed,
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
@@ -240,6 +248,10 @@ public abstract class Player extends GameObject {
         // if jump key is pressed, player enters JUMPING state
         if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
+            playerState = PlayerState.JUMPING;
+        }
+        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+            keyLocker.lockKey(JUMP2_KEY);
             playerState = PlayerState.JUMPING;
         }
     }
@@ -299,6 +311,9 @@ public abstract class Player extends GameObject {
     protected void updateLockedKeys() {
         if (Keyboard.isKeyUp(JUMP_KEY)) {
             keyLocker.unlockKey(JUMP_KEY);
+        }
+        if (Keyboard.isKeyUp(JUMP2_KEY)) {
+            keyLocker.unlockKey(JUMP2_KEY);
         }
     }
 
