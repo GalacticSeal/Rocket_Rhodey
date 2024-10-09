@@ -9,8 +9,8 @@ import SpriteFont.SpriteFont;
 
 import java.awt.*;
 
-public class OptionsScreen extends Screen {
-    // I'm using the Title Menu screen as a reference for building the Options Screen.
+public class KeybindsScreen extends Screen {
+// I'm using the Title Menu screen as a reference for building the Options Screen.
     protected ScreenCoordinator screenCoordinator;
     protected int currentMenuItemHovered = 0; // current menu item being "hovered" over
     protected int menuItemSelected = -1;
@@ -19,24 +19,25 @@ public class OptionsScreen extends Screen {
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
     
-    protected SpriteFont optionsLabel, keybinds, goBack;
-    protected final int MAX_MENU_ITEMS = 1;
+    protected SpriteFont optionsLabel, movementsLabel, movementsLabel2, goBack;
+    //private String[] movementType = {"WASD","Arrow Keys"};
+    protected final int MAX_MENU_ITEMS = 2;
     protected final Color LIT_COLOR = new Color(255, 215, 0);
     protected final Color UNLIT_COLOR = new Color(49, 207, 240);
     
-    public OptionsScreen(ScreenCoordinator screenCoordinator) {
+    public KeybindsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     @Override
     public void initialize() {
-        optionsLabel = new SpriteFont("OPTIONS", 15, 7, "Impact", 30, Color.white);
-        optionsLabel.setOutlineColor(Color.black);
-        optionsLabel.setOutlineThickness(5);
         // ADDS THE BUTTONS
-        keybinds = new SpriteFont("KEYBINDS", 200, 123, "Arial", 30, UNLIT_COLOR);
-        keybinds.setOutlineColor(Color.black);
-        keybinds.setOutlineThickness(3);
+        movementsLabel = new SpriteFont("MOVEMENT: W A S D", 200, 123, "Arial", 30, UNLIT_COLOR);
+        movementsLabel.setOutlineColor(Color.black);
+        movementsLabel.setOutlineThickness(3);
+        movementsLabel2 = new SpriteFont("MOVEMENT: arrow keys", 200, 223, "Arial", 30, UNLIT_COLOR);
+        movementsLabel2.setOutlineColor(Color.black);
+        movementsLabel2.setOutlineThickness(3);
         goBack = new SpriteFont("<- BACK", 200, 323, "Arial", 30, UNLIT_COLOR);
         goBack.setOutlineColor(Color.black);
         goBack.setOutlineThickness(3);
@@ -73,13 +74,19 @@ public class OptionsScreen extends Screen {
 
         // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
         if (currentMenuItemHovered == 0) {
-            keybinds.setColor(LIT_COLOR);
+            movementsLabel.setColor(LIT_COLOR);
             //options.setColor(UNLIT_COLOR);
             goBack.setColor(UNLIT_COLOR);
             pointerLocationX = 170;
             pointerLocationY = 130;
         } else if (currentMenuItemHovered == 1) {
-            keybinds.setColor(UNLIT_COLOR);
+            movementsLabel.setColor(UNLIT_COLOR);
+            //options.setColor(UNLIT_COLOR);
+            goBack.setColor(LIT_COLOR);
+            pointerLocationX = 170;
+            pointerLocationY = 230;
+        } else if (currentMenuItemHovered == 2) {
+            movementsLabel.setColor(UNLIT_COLOR);
             //options.setColor(UNLIT_COLOR);
             goBack.setColor(LIT_COLOR);
             pointerLocationX = 170;
@@ -93,18 +100,30 @@ public class OptionsScreen extends Screen {
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
-                // keybind
-                screenCoordinator.setGameState(GameState.KEYBINDS);
+                // this will change movement settings to the movement type.
+                Keybinds.setCrouchKey(Key.S);
+                Keybinds.setJumpKey(Key.SPACE);
+                Keybinds.setMoveLeftKey(Key.A);
+                Keybinds.setMoveRightKey(Key.D);
+                screenCoordinator.setGameState(GameState.OPTIONS);
             } else if (menuItemSelected == 1) {
-                screenCoordinator.setGameState(GameState.MENU);
+                // this will change movement settings to the movement type.
+                Keybinds.setCrouchKey(Key.DOWN);
+                Keybinds.setJumpKey(Key.SPACE);
+                Keybinds.setMoveLeftKey(Key.LEFT);
+                Keybinds.setMoveRightKey(Key.RIGHT);
+                screenCoordinator.setGameState(GameState.OPTIONS);
+            } else if (menuItemSelected == 2) {
+                screenCoordinator.setGameState(GameState.OPTIONS);
             }
         }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
-        optionsLabel.draw(graphicsHandler);
-        keybinds.draw(graphicsHandler);
+        //optionsLabel.draw(graphicsHandler);
+        movementsLabel.draw(graphicsHandler);
+        movementsLabel2.draw(graphicsHandler);
         goBack.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, UNLIT_COLOR, Color.black, 2);
     }
