@@ -12,17 +12,17 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(4, 9).getLocation();
+        this.playerStartPosition = getMapTile(4, 95).getLocation();
     }
 
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(14, 11).getLocation().subtractY(25), Direction.LEFT);
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(18, 99).getLocation().subtractY(25), Direction.RIGHT);
         enemies.add(bugEnemy);
 
-        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(2, 11).getLocation().addY(2), getMapTile(4, 13).getLocation().addY(2), Direction.RIGHT);
+        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(7, 97).getLocation().addY(2), getMapTile(8, 97).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy);
 
         return enemies;

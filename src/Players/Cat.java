@@ -19,7 +19,7 @@ public class Cat extends Player {
         super(new SpriteSheet(ImageLoader.load("SoldierSprite.png"), 30, 40), x, y, "STAND_RIGHT");//39,46 | 43,58 | 43,46 | 31,41 
         gravity = .5f;
         terminalVelocityY = 6f;
-        jumpHeight = 14.5f;
+        jumpHeight = 40f;
         jumpDegrade = .5f;
         walkSpeed = 2.3f;
         momentumYIncrease = .5f;

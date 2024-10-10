@@ -38,7 +38,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder defaultCaveTile30P2L = new MapTileBuilder(defaultCaveFrame30P2L);
+        MapTileBuilder defaultCaveTile30P2L = new MapTileBuilder(defaultCaveFrame30P2L)
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(defaultCaveTile30P2L);
 
@@ -48,7 +49,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder defaultCaveTile45L = new MapTileBuilder(defaultCaveFrame45L)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(defaultCaveTile45L);
 
@@ -104,7 +105,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder lushCaveTile45L = new MapTileBuilder(lushCaveFrame45L)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(lushCaveTile45L);
 
@@ -126,7 +127,7 @@ public class CommonTileset extends Tileset {
         .build();
 
         MapTileBuilder lushCaveTile = new MapTileBuilder(lushCaveFrame)
-        .withTileType(TileType.PASSABLE);
+        .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(lushCaveTile);
 
@@ -167,7 +168,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder lushCaveTile45LP2 = new MapTileBuilder(lushCaveFrame45LP2)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(lushCaveTile45LP2);
 
@@ -199,7 +200,7 @@ public class CommonTileset extends Tileset {
         .build();
 
         MapTileBuilder lushCaveTile30P2L = new MapTileBuilder(lushCaveFrame30P2L)  
-        .withTileType(TileType.NOT_PASSABLE);
+        .withTileType(TileType.PASSABLE);
 
         mapTiles.add(lushCaveTile30P2L);
 
@@ -228,7 +229,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder defaultCaveTile30L = new MapTileBuilder(defaultCaveFrame30L);
+        MapTileBuilder defaultCaveTile30L = new MapTileBuilder(defaultCaveFrame30L)
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(defaultCaveTile30L);
 
@@ -238,7 +240,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder defaultCaveTile30R = new MapTileBuilder(defaultCaveFrame30R);
+        MapTileBuilder defaultCaveTile30R = new MapTileBuilder(defaultCaveFrame30R)
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(defaultCaveTile30R);
 
@@ -271,7 +274,7 @@ public class CommonTileset extends Tileset {
         .build();
 
         MapTileBuilder lushCaveTile30L = new MapTileBuilder(lushCaveFrame30L)  
-        .withTileType(TileType.NOT_PASSABLE);
+        .withTileType(TileType.PASSABLE);
 
         mapTiles.add(lushCaveTile30L);
 
@@ -280,7 +283,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder defaultCaveTile30P2R = new MapTileBuilder(defaultCaveFrame30P2R);
+        MapTileBuilder defaultCaveTile30P2R = new MapTileBuilder(defaultCaveFrame30P2R)
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(defaultCaveTile30P2R);
 
