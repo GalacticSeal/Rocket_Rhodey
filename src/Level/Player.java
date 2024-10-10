@@ -161,11 +161,6 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // add gravity to player, which is a downward force
-    protected void applyGravity() {
-        moveAmountY += gravity + momentumY;
-    }
-
     // based on player's current state, call appropriate player state handling method
     protected void handlePlayerState() {
         switch (playerState) {
@@ -300,14 +295,6 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
-    protected void increaseMomentum() {
-        momentumY += momentumYIncrease;
-        if (momentumY > terminalVelocityY) {
-            momentumY = terminalVelocityY;
-        }
-    }
-
     protected void updateLockedKeys() {
         if (Keyboard.isKeyUp(JUMP_KEY)) {
             keyLocker.unlockKey(JUMP_KEY);
@@ -395,8 +382,6 @@ public abstract class Player extends GameObject {
         // if player is not on ground, player should fall until it touches the ground
         if (airGroundState != AirGroundState.GROUND && map.getCamera().containsDraw(this)) {
             currentAnimationName = "FALL_RIGHT";
-            applyGravity();
-            increaseMomentum();
             super.update();
             moveYHandleCollision(moveAmountY);
         }
