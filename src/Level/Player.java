@@ -4,13 +4,16 @@ import Engine.Key;
 import Engine.Keybinds;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.MouseControls;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
-
+import Utils.Point;
 
 import java.util.ArrayList;
+
+import Enemies.Rocket;
 
 public abstract class Player extends GameObject {
     // new temp variables (this is going to be ugly)
@@ -158,6 +161,16 @@ public abstract class Player extends GameObject {
         // if player has lost level
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
+        }
+
+        if(MouseControls.isMousePressed()) {
+            int rocketX = Math.round(getX() + getWidth()/2.0f);
+            int rocketY = Math.round(getY() + getHeight()/2.0f);
+            int rocketSpeed = 5;
+            int lifeTime = 120; 
+            Rocket rocket = new Rocket(new Point(rocketX, rocketY), 
+                new Point(rocketX+1f, rocketY-1f), rocketSpeed, lifeTime);
+            map.addEnemy(rocket);
         }
     }
 
