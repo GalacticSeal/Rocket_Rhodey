@@ -1,9 +1,10 @@
 package Maps;
 
-// import Enemies.BugEnemy;
-// import Enemies.DinosaurEnemy;
+import Enemies.BugEnemy;
+import Enemies.DinosaurEnemy;
 import Level.*;
 import Tilesets.CommonTileset;
+import Utils.Direction;
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
@@ -11,21 +12,21 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(2, 4).getLocation();
+        this.playerStartPosition = getMapTile(4, 9).getLocation();
     }
 
-    // @Override
-    // public ArrayList<Enemy> loadEnemies() {
-    //     ArrayList<Enemy> enemies = new ArrayList<>();
+    @Override
+    public ArrayList<Enemy> loadEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>();
 
-    //     BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
-    //     enemies.add(bugEnemy);
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(14, 11).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy);
 
-    //     DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
-    //     enemies.add(dinosaurEnemy);
+        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(2, 11).getLocation().addY(2), getMapTile(4, 13).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(dinosaurEnemy);
 
-    //     return enemies;
-    // }
+        return enemies;
+    }
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {

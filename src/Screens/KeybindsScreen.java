@@ -9,71 +9,68 @@ import SpriteFont.SpriteFont;
 
 import java.awt.*;
 
-// This is the class for the main menu screen
-public class MenuScreen extends Screen {
+public class KeybindsScreen extends Screen {
+// I'm using the Title Menu screen as a reference for building the Options Screen.
     protected ScreenCoordinator screenCoordinator;
     protected int currentMenuItemHovered = 0; // current menu item being "hovered" over
     protected int menuItemSelected = -1;
-    protected final int MAX_MENU_ITEMS = 2;
-    protected final Color LIT_COLOR = new Color(255, 215, 0);
-    protected final Color UNLIT_COLOR = new Color(49, 207, 240);
-    protected SpriteFont playGame;
-    protected SpriteFont titleLabel, titleLabel2, options;
-    protected SpriteFont credits;
     protected Map background;
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
     private boolean loaded = false;
     private boolean pressed = false;
-
-    public MenuScreen(ScreenCoordinator screenCoordinator) {
+    
+    protected SpriteFont optionsLabel, movementsLabel, movementsLabel2, goBack;
+    //private String[] movementType = {"WASD","Arrow Keys"};
+    protected final int MAX_MENU_ITEMS = 2;
+    protected final Color LIT_COLOR = new Color(255, 215, 0);
+    protected final Color UNLIT_COLOR = new Color(49, 207, 240);
+    
+    public KeybindsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
-        
     }
 
     @Override
     public void initialize() {
-        
-        titleLabel = new SpriteFont("ROCKET", 140, 37, "Impact", 72, Color.lightGray);
-        titleLabel.setFontStyle(Font.BOLD);
-        titleLabel.setOutlineColor(Color.black);
-        titleLabel.setOutlineThickness(5);
-        titleLabel2 = new SpriteFont("RHODEY", 200, 97, "Impact", 72, Color.black);
-        titleLabel2.setFontStyle(Font.BOLD);
-        titleLabel2.setOutlineColor(Color.lightGray);
-        titleLabel2.setOutlineThickness(5);
+        // ADDS THE BUTTONS
+        movementsLabel = new SpriteFont("MOVEMENT: W A S D", 200, 123, "Arial", 30, UNLIT_COLOR);
+        movementsLabel.setOutlineColor(Color.black);
+        movementsLabel.setOutlineThickness(3);
+        movementsLabel2 = new SpriteFont("MOVEMENT: arrow keys", 200, 223, "Arial", 30, UNLIT_COLOR);
+        movementsLabel2.setOutlineColor(Color.black);
+        movementsLabel2.setOutlineThickness(3);
+        goBack = new SpriteFont("<- BACK", 200, 323, "Arial", 30, UNLIT_COLOR);
+        goBack.setOutlineColor(Color.black);
+        goBack.setOutlineThickness(3);
 
-        playGame = new SpriteFont("PLAY GAME", 100, 223, "Arial", 30, UNLIT_COLOR);
-        playGame.setOutlineColor(Color.black);
-        playGame.setOutlineThickness(3);
-        /*
-         * WE WILL NEED TO ADD THE OPTIONS BUTTON
-         */
-        options = new SpriteFont("OPTIONS", 100, 273, "Arial", 30, UNLIT_COLOR);
-        options.setOutlineColor(Color.black);
-        options.setOutlineThickness(3);
-
-        credits = new SpriteFont("CREDITS", 100, 323, "Arial", 30, UNLIT_COLOR);
-        credits.setOutlineColor(Color.black);
-        credits.setOutlineThickness(3);
+        // setup graphics on screen (background map, spritefont text)
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
-        keyPressTimer = 0;
-        menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
     }
     private void select() {
         menuItemSelected = currentMenuItemHovered;
         if (menuItemSelected == 0) {
-            screenCoordinator.setGameState(GameState.LEVEL);
+            // this will change movement settings to the movement type.
+            Keybinds.setCrouchKey(Key.S);
+            Keybinds.setJumpKey(Key.W);
+            Keybinds.setJump2Key(Key.SPACE);
+            Keybinds.setMoveLeftKey(Key.A);
+            Keybinds.setMoveRightKey(Key.D);
+            screenCoordinator.setGameState(GameState.OPTIONS);
         } else if (menuItemSelected == 1) {
+            // this will change movement settings to the movement type.
+            Keybinds.setCrouchKey(Key.DOWN);
+            Keybinds.setJumpKey(Key.UP);
+            Keybinds.setJump2Key(Key.SPACE);
+            Keybinds.setMoveLeftKey(Key.LEFT);
+            Keybinds.setMoveRightKey(Key.RIGHT);
             screenCoordinator.setGameState(GameState.OPTIONS);
         } else if (menuItemSelected == 2) {
-            screenCoordinator.setGameState(GameState.CREDITS);
+            screenCoordinator.setGameState(GameState.OPTIONS);
         }
     }
-
     public void update() {
         if (MouseControls.isMousePressed()) {
             // it looks like im nesting but I'm trying to prevent unnecessary clicks on title screen
@@ -107,34 +104,35 @@ public class MenuScreen extends Screen {
 
             // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
             if (currentMenuItemHovered == 0) {
-                playGame.setColor(LIT_COLOR);
-                options.setColor(UNLIT_COLOR);
-                credits.setColor(UNLIT_COLOR);
-                pointerLocationX = 70;
-                pointerLocationY = 230;
+                movementsLabel.setColor(LIT_COLOR);
+                movementsLabel2.setColor(UNLIT_COLOR);
+                goBack.setColor(UNLIT_COLOR);
+                pointerLocationX = 170;
+                pointerLocationY = 130;
             } else if (currentMenuItemHovered == 1) {
-                playGame.setColor(UNLIT_COLOR);
-                options.setColor(LIT_COLOR);
-                credits.setColor(UNLIT_COLOR);
-                pointerLocationX = 70;
-                pointerLocationY = 280;
+                movementsLabel.setColor(UNLIT_COLOR);
+                movementsLabel2.setColor(LIT_COLOR);
+                goBack.setColor(UNLIT_COLOR);
+                pointerLocationX = 170;
+                pointerLocationY = 230;
             } else if (currentMenuItemHovered == 2) {
-                playGame.setColor(UNLIT_COLOR);
-                options.setColor(UNLIT_COLOR);
-                credits.setColor(LIT_COLOR);
-                pointerLocationX = 70;
+                movementsLabel.setColor(UNLIT_COLOR);
+                movementsLabel2.setColor(UNLIT_COLOR);
+                goBack.setColor(LIT_COLOR);
+                pointerLocationX = 170;
                 pointerLocationY = 330;
             }
+
             // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
             if (Keyboard.isKeyUp(Key.SPACE)) {
                 keyLocker.unlockKey(Key.SPACE);
             }
-            if (Math.abs(MouseControls.getMouseY() - 235) < 20) {
+            if (Math.abs(MouseControls.getMouseY() - 135) < 20) {
                 currentMenuItemHovered = 0;
                 if (pressed) {
                     select();
                 }
-            } else if (Math.abs(MouseControls.getMouseY() - 285) < 20) {
+            } else if (Math.abs(MouseControls.getMouseY() - 235) < 20) {
                 currentMenuItemHovered = 1;
                 if (pressed) {
                     select();
@@ -148,18 +146,15 @@ public class MenuScreen extends Screen {
             if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
                 select();
             }
-            // handles mouse
-            pressed = false;
         }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
-        titleLabel2.draw(graphicsHandler); // this is intentional so that "Rocket" goes over "Rhodey"
-        titleLabel.draw(graphicsHandler);
-        playGame.draw(graphicsHandler);
-        options.draw(graphicsHandler);
-        credits.draw(graphicsHandler);
+        //optionsLabel.draw(graphicsHandler);
+        movementsLabel.draw(graphicsHandler);
+        movementsLabel2.draw(graphicsHandler);
+        goBack.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, UNLIT_COLOR, Color.black, 2);
     }
 }

@@ -18,6 +18,8 @@ public class OptionsScreen extends Screen {
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
+    private boolean loaded = false;
+    private boolean pressed = false;
     
     protected SpriteFont optionsLabel, keybinds, goBack;
     protected final int MAX_MENU_ITEMS = 1;
@@ -46,57 +48,78 @@ public class OptionsScreen extends Screen {
         background.setAdjustCamera(false);
         keyLocker.lockKey(Key.SPACE);
     }
-    
+    private void select() {
+        menuItemSelected = currentMenuItemHovered;
+        if (menuItemSelected == 0) {
+            // keybind
+            screenCoordinator.setGameState(GameState.KEYBINDS);
+        } else if (menuItemSelected == 1) {
+            screenCoordinator.setGameState(GameState.MENU);
+        }
+    }
     public void update() {
-        // update background map (to play tile animations)
-        background.update(null);
-
-        // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
-        if (Keyboard.isKeyDown(Key.DOWN) &&  keyPressTimer == 0) {
-            keyPressTimer = 14;
-            currentMenuItemHovered++;
-        } else if (Keyboard.isKeyDown(Key.UP) &&  keyPressTimer == 0) {
-            keyPressTimer = 14;
-            currentMenuItemHovered--;
-        } else {
-            if (keyPressTimer > 0) {
-                keyPressTimer--;
+        if (MouseControls.isMousePressed()) {
+            // it looks like im nesting but I'm trying to prevent unnecessary clicks on title screen
+            if (loaded) {
+                pressed = true;
             }
-        }
+        } else {
+            loaded = true;
+            // update background map (to play tile animations)
+            background.update(null);
 
-        // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
-        if (currentMenuItemHovered > MAX_MENU_ITEMS) {
-            currentMenuItemHovered = 0;
-        } else if (currentMenuItemHovered < 0) {
-            currentMenuItemHovered = MAX_MENU_ITEMS;
-        }
+            // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
+            if (Keyboard.isKeyDown(Key.DOWN) &&  keyPressTimer == 0) {
+                keyPressTimer = 14;
+                currentMenuItemHovered++;
+            } else if (Keyboard.isKeyDown(Key.UP) &&  keyPressTimer == 0) {
+                keyPressTimer = 14;
+                currentMenuItemHovered--;
+            } else {
+                if (keyPressTimer > 0) {
+                    keyPressTimer--;
+                }
+            }
 
-        // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
-        if (currentMenuItemHovered == 0) {
-            keybinds.setColor(LIT_COLOR);
-            //options.setColor(UNLIT_COLOR);
-            goBack.setColor(UNLIT_COLOR);
-            pointerLocationX = 170;
-            pointerLocationY = 130;
-        } else if (currentMenuItemHovered == 1) {
-            keybinds.setColor(UNLIT_COLOR);
-            //options.setColor(UNLIT_COLOR);
-            goBack.setColor(LIT_COLOR);
-            pointerLocationX = 170;
-            pointerLocationY = 330;
-        }
+            // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
+            if (currentMenuItemHovered > MAX_MENU_ITEMS) {
+                currentMenuItemHovered = 0;
+            } else if (currentMenuItemHovered < 0) {
+                currentMenuItemHovered = MAX_MENU_ITEMS;
+            }
 
-        // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
-        if (Keyboard.isKeyUp(Key.SPACE)) {
-            keyLocker.unlockKey(Key.SPACE);
-        }
-        if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
-            menuItemSelected = currentMenuItemHovered;
-            if (menuItemSelected == 0) {
-                // keybind
-                //screenCoordinator.setGameState(GameState.LEVEL);
-            } else if (menuItemSelected == 1) {
-                screenCoordinator.setGameState(GameState.MENU);
+            // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
+            if (currentMenuItemHovered == 0) {
+                keybinds.setColor(LIT_COLOR);
+                //options.setColor(UNLIT_COLOR);
+                goBack.setColor(UNLIT_COLOR);
+                pointerLocationX = 170;
+                pointerLocationY = 130;
+            } else if (currentMenuItemHovered == 1) {
+                keybinds.setColor(UNLIT_COLOR);
+                //options.setColor(UNLIT_COLOR);
+                goBack.setColor(LIT_COLOR);
+                pointerLocationX = 170;
+                pointerLocationY = 330;
+            }
+
+            // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
+            if (Keyboard.isKeyUp(Key.SPACE)) {
+                keyLocker.unlockKey(Key.SPACE);
+            }
+            if (Math.abs(MouseControls.getMouseY() - 135) < 20) {
+                currentMenuItemHovered = 0;
+                if (pressed) {
+                    select();
+                }
+            } else if (Math.abs(MouseControls.getMouseY() - 335) < 20) {
+                currentMenuItemHovered = 1;
+                if (pressed) {
+                    select();
+                }
+            }
+            if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
+                select();
             }
         }
     }

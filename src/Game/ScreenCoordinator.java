@@ -4,6 +4,7 @@ import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Screens.CreditsScreen;
+import Screens.KeybindsScreen;
 import Screens.MenuScreen;
 import Screens.OptionsScreen;
 import Screens.PlayLevelScreen;
@@ -53,6 +54,9 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case OPTIONS:
 						currentScreen = new OptionsScreen(this);
+						break;
+					case KEYBINDS:
+						currentScreen = new KeybindsScreen(this);
 						break;
 				}
 				currentScreen.initialize();
