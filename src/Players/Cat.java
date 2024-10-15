@@ -16,7 +16,7 @@ public class Cat extends Player {
     public Cat(float x, float y) {
        
 
-        super(new SpriteSheet(ImageLoader.load("SoldierSprite.png"), 30, 40), x, y, "STAND_RIGHT");//39,46 | 43,58 | 43,46 | 31,41 
+        super(new SpriteSheet(ImageLoader.load("SoldierSprite.png"), 30, 40), x, y, "STAND_RIGHT");//30,40 
         gravity = .5f;
         terminalVelocityY = 6f;
         jumpHeight = 40f;
@@ -41,7 +41,7 @@ public class Cat extends Player {
         return new HashMap<String, Frame[]>() {{
             put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
+                            .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL) 
                             .withBounds(2, 4, 20, 30)
                             .build()
@@ -49,14 +49,14 @@ public class Cat extends Player {
 
             put("STAND_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
+                        .withScale(2)
                         .withBounds(2, 4, 20, 30)
                         .build()
         });
 
             put("FALL_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(2, 2))
-                        .withScale(3)
+                        .withScale(2)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL) 
                         .withBounds(2, 4, 20, 30)
                         .build()
@@ -65,7 +65,7 @@ public class Cat extends Player {
         });
         put("FALL_LEFT", new Frame[] {
             new FrameBuilder(spriteSheet.getSprite(2, 2))
-                    .withScale(3)
+                    .withScale(2)
                     .withBounds(2, 4, 20, 30)
                     .build()
         });
@@ -87,7 +87,7 @@ public class Cat extends Player {
 
         put("JUMP_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
-                        .withScale(3)
+                        .withScale(2)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL) 
                         .withBounds(2, 4, 20, 30)
                         .build()
@@ -95,7 +95,7 @@ public class Cat extends Player {
 
         put("JUMP_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
-                        .withScale(3)
+                        .withScale(2)
                         .withBounds(2, 4, 20, 30)
                         .build()
             
@@ -103,14 +103,14 @@ public class Cat extends Player {
 
         put("CROUCH_LEFT", new Frame[] {
             new FrameBuilder(spriteSheet.getSprite(1, 0))
-                    .withScale(3)
+                    .withScale(2)
                     .withBounds(2, 4, 20, 30)
                     .build()
         
         });
         put("CROUCH_RIGHT", new Frame[] {
             new FrameBuilder(spriteSheet.getSprite(1, 0))
-                    .withScale(3)
+                    .withScale(2)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .withBounds(2, 4, 20, 30)
                     .build()
@@ -119,27 +119,27 @@ public class Cat extends Player {
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 0), 14)
-                            .withScale(3)
+                            .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(2, 4, 20, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 1), 14)
-                            .withScale(3)
+                            .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(2, 4, 20, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 2), 14)
-                            .withScale(3)
+                            .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(2, 4, 20, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 3), 14)
-                            .withScale(3)
+                            .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(2, 4, 20, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 4), 14)
-                            .withScale(3)
+                            .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(2, 4, 20, 30)
                             .build()
@@ -147,23 +147,23 @@ public class Cat extends Player {
 
         put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(2, 0), 14)
-                        .withScale(3)
+                        .withScale(2)
                         .withBounds(2, 4, 20, 30)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(2, 1), 14)
-                        .withScale(3)
+                        .withScale(2)
                         .withBounds(2, 4, 20, 30)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(2, 2), 14)
-                        .withScale(3)
+                        .withScale(2)
                         .withBounds(2, 4, 20, 30)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(2, 3), 14)
-                        .withScale(3)
+                        .withScale(2)
                         .withBounds(2, 4, 20, 30)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(2, 4), 14)
-                        .withScale(3)
+                        .withScale(2)
                         .withBounds(2, 4, 20, 30)
                         .build()
     });

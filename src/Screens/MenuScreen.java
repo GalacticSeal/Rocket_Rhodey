@@ -6,7 +6,6 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-
 import java.awt.*;
 
 // This is the class for the main menu screen
@@ -58,7 +57,8 @@ public class MenuScreen extends Screen {
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
         background = new TitleScreenMap();
-        background.setAdjustCamera(false);
+        background.setAdjustCamera(false);//add code here for background 
+        
         keyPressTimer = 0;
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
