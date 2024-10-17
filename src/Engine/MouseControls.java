@@ -21,6 +21,8 @@ public class MouseControls implements MouseListener, MouseMotionListener {
     public void mouseDragged(MouseEvent e) {
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 
     @Override
