@@ -33,6 +33,8 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(defaultCaveTile);
 
+        
+
         // default cave second 30 degree slope left 
         Frame defaultCaveFrame30P2L = new FrameBuilder(getSubImage(0, 1))
                 .withScale(tileScale)
@@ -289,7 +291,7 @@ public class CommonTileset extends Tileset {
         mapTiles.add(defaultCaveTile30P2R);
 
         // empty tile
-        Frame emptyFrame = new FrameBuilder(getSubImage(3, 0))
+        Frame emptyFrame = new FrameBuilder(getSubImage(4, 5))
                 .withScale(tileScale)
                 .build();
 
@@ -360,6 +362,18 @@ public class CommonTileset extends Tileset {
         //         .withTileLayout(SlopeTileLayoutUtils.createTopLeft30SlopeLayout(spriteWidth, (int) tileScale));
 
         // mapTiles.add(leftStairsTopTile);
+
+        // default cave tile faced down
+        Frame defaultCaveFrameD = new FrameBuilder(getSubImage(0,0))
+                .withScale(tileScale)
+                .withBounds(0, 6, 16, 4)
+                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                .build();
+
+        MapTileBuilder defaultCaveTileD = new MapTileBuilder(defaultCaveFrameD)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(defaultCaveTileD);
 
         return mapTiles;
     }
