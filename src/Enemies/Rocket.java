@@ -74,6 +74,11 @@ public class Rocket extends Enemy {
 
     private void createExplosion() {
         //add code for creating explosion
+        // create Fireball enemy
+        Explosion explode = new Explosion(new Point(getX(), getY()), 15);
+
+        //add fireball enemy to the map for it to spawn in the level
+        map.addEnemy(explode);
     }
 
     @Override

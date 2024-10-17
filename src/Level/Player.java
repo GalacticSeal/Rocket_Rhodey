@@ -87,6 +87,20 @@ public abstract class Player extends GameObject {
         }
     }
 
+    public void applyKnockback(Point source, float power, boolean applyStun) {
+        //turning mouse position from rocket spawn position into right triangle
+        float distanceX = source.x-getX();
+        float distanceY = source.y-getY();
+
+        //hypotenuse of mouse position to location - used for determining movement ratios
+        double distanceH = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));
+        double powRatio = power/distanceH; //explosion knockback calculation
+
+        //Apply momentum to player from explosion
+        velocityX += (float) (distanceX*powRatio);
+        velocityY += (float) (distanceY*powRatio);
+    }
+
     protected void applyMovementX() {
         //ground movement
         if (airGroundState == AirGroundState.GROUND) {
@@ -144,6 +158,16 @@ public abstract class Player extends GameObject {
             // move player with respect to map collisions based on how much player needs to move this frame
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
+            
+            if(MouseControls.isMousePressed()) {
+                int rocketX = Math.round(getX() + getWidth()/2.0f);
+                int rocketY = Math.round(getY() + getHeight()/2.0f);
+                int rocketSpeed = 5;
+                int lifeTime = 120; 
+                Rocket rocket = new Rocket(new Point(rocketX, rocketY), 
+                    new Point(rocketX+1f, rocketY-1f), rocketSpeed, lifeTime);
+                map.addEnemy(rocket);
+            }
 
             handlePlayerAnimation();
 
@@ -160,17 +184,7 @@ public abstract class Player extends GameObject {
 
         // if player has lost level
         else if (levelState == LevelState.PLAYER_DEAD) {
-            updatePlayerDead();
-        }
-
-        if(MouseControls.isMousePressed()) {
-            int rocketX = Math.round(getX() + getWidth()/2.0f);
-            int rocketY = Math.round(getY() + getHeight()/2.0f);
-            int rocketSpeed = 5;
-            int lifeTime = 120; 
-            Rocket rocket = new Rocket(new Point(rocketX, rocketY), 
-                new Point(rocketX+1f, rocketY-1f), rocketSpeed, lifeTime);
-            map.addEnemy(rocket);
+            //updatePlayerDead();
         }
     }
 
