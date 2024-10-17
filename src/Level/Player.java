@@ -27,6 +27,7 @@ public abstract class Player extends GameObject {
     protected float degradeFactor = 0;
     protected float accelFactor = 0; //acceleration multiplier
     protected float movementAirFactor = 0;
+    protected boolean isStunned = false;
 
     // values that affect player movement
     // these should be set in a subclass
@@ -99,6 +100,10 @@ public abstract class Player extends GameObject {
         //Apply momentum to player from explosion
         velocityX += (float) (distanceX*powRatio);
         velocityY += (float) (distanceY*powRatio);
+
+        if(applyStun) {
+            isStunned = true;
+        }
     }
 
     protected void applyMovementX() {
