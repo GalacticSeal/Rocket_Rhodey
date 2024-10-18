@@ -28,6 +28,9 @@ public abstract class Player extends GameObject {
     protected float accelFactor = 0; //acceleration multiplier
     protected float movementAirFactor = 0;
     protected boolean isStunned = false;
+    protected boolean isPushed = false;
+
+    public static final float DEFAULT_KNOCKBACK = 15f;
 
     // values that affect player movement
     // these should be set in a subclass
@@ -80,11 +83,15 @@ public abstract class Player extends GameObject {
     protected void applyMomentum() {
         moveAmountX += velocityX;
         moveAmountY += velocityY;
-        if (airGroundState == AirGroundState.AIR) {
+        if(!isPushed) {
+            if (airGroundState == AirGroundState.AIR) {
             velocityY += gravity;
+            } else {
+                velocityY = 0f;
+                moveAmountY = gravity;
+            }
         } else {
-            velocityY = 0f;
-            moveAmountY = gravity;
+            isPushed = false;
         }
     }
 
@@ -95,7 +102,7 @@ public abstract class Player extends GameObject {
 
         //hypotenuse of mouse position to location - used for determining movement ratios
         double distanceH = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));
-        double powRatio = power/distanceH; //explosion knockback calculation
+        double powRatio = -power/distanceH; //explosion knockback calculation
 
         //Apply momentum to player from explosion
         velocityX += (float) (distanceX*powRatio);
@@ -104,6 +111,8 @@ public abstract class Player extends GameObject {
         if(applyStun) {
             isStunned = true;
         }
+        isPushed = true;
+        airGroundState = AirGroundState.AIR;
     }
 
     protected void applyMovementX() {
@@ -403,10 +412,12 @@ public abstract class Player extends GameObject {
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
+            applyKnockback(mapEntity.getLocation(), DEFAULT_KNOCKBACK, true);
+
             // if map entity is an enemy, kill player on touch
-            if (mapEntity instanceof Enemy) {
-                levelState = LevelState.PLAYER_DEAD;
-            }
+            // if (mapEntity instanceof Enemy) {
+            //     levelState = LevelState.PLAYER_DEAD;
+            // }
         }
     }
 

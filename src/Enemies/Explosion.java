@@ -17,6 +17,7 @@ import java.util.HashMap;
 public class Explosion extends Enemy {
     private int existenceFrames;
     private boolean pushedPlayer;
+    private float knockPower = 20;
 
     public Explosion(Point location, int existenceFrames) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
@@ -42,9 +43,9 @@ public class Explosion extends Enemy {
 
     @Override
     public void touchedPlayer(Player player) {
-        // if explosion touches player, it pushes the player\
+        // if explosion touches player, it pushes the player
         if(!pushedPlayer) {
-            //insert knockback code here
+            player.applyKnockback(getLocation(), knockPower, false);
         }
         pushedPlayer = true;
     }
