@@ -371,7 +371,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder defaultCaveTileD = new MapTileBuilder(defaultCaveFrameD)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(defaultCaveTileD);
 
@@ -381,7 +381,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder lavaCaveTile = new MapTileBuilder(lavaCaveFrame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(lavaCaveTile);
 
@@ -391,7 +391,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder defaultLavaCaveTile = new MapTileBuilder(defaultLavaCaveFrame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(defaultLavaCaveTile);
 
@@ -431,7 +431,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder lavaCaveInnerTile = new MapTileBuilder(lavaCaveInnerFrame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(lavaCaveInnerTile);
 
@@ -441,7 +441,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder DefaultCaveCornerTile = new MapTileBuilder(DefaultCaveCornerFrame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(DefaultCaveCornerTile);
 
@@ -482,7 +482,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder DefaultCaveTileR90 = new MapTileBuilder(DefaultCaveFrameR90)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(DefaultCaveTileR90);
 
@@ -494,7 +494,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder DefaultCaveCornerTile2 = new MapTileBuilder(DefaultCaveCornerFrame2)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(DefaultCaveCornerTile2);
 
@@ -506,7 +506,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder DefaultCaveCornerTile3 = new MapTileBuilder(DefaultCaveCornerFrame3)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(DefaultCaveCornerTile3);
 
@@ -516,7 +516,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder DefaultCaveCornerTile4 = new MapTileBuilder(DefaultCaveCornerFrame4)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(DefaultCaveCornerTile4);
 
@@ -528,7 +528,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder DefaultCaveTileR902 = new MapTileBuilder(DefaultCaveFrameR902)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(DefaultCaveTileR902);
 
@@ -538,7 +538,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder defaultCaveInnerTile = new MapTileBuilder(defaultCaveInnerFrame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(defaultCaveInnerTile);
         
