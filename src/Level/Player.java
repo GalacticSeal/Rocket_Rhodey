@@ -118,9 +118,9 @@ public abstract class Player extends GameObject {
     protected void applyMovementX() {
         //ground movement
         if (airGroundState == AirGroundState.GROUND) {
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+            if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
                 velocityX -= walkSpeed/accelFactor;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+            } else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 velocityX += walkSpeed/accelFactor;
             } else {
                 if(velocityX != 0f && Math.abs(velocityX) > degradeFactor) velocityX -= degradeFactor * walkSpeed * Math.abs(velocityX)/velocityX;
@@ -136,13 +136,13 @@ public abstract class Player extends GameObject {
 
         } else {
             //air movement - player can only slow themselves while above max air speed, determined by walk speed
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && velocityX > -walkSpeed) {
+            if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY) && velocityX > -walkSpeed) {
                 if(velocityX >= -walkSpeed/accelFactor) {
                     velocityX -= walkSpeed/accelFactor;
                 } else {
                     velocityX = -walkSpeed;
                 }
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && velocityX < walkSpeed) {
+            } else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY) && velocityX < walkSpeed) {
                 if(velocityX <= walkSpeed/accelFactor) {
                     velocityX += walkSpeed/accelFactor;
                 } else {
@@ -173,7 +173,7 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
             
-            if(MouseControls.isMousePressed()) {
+            if(MouseControls.isMousePressed() && !isStunned) {
                 // original position
                 int rocketX = Math.round(getX() + getWidth()/2.0f);
                 int rocketY = Math.round(getY() + getHeight()/2.0f);
@@ -229,21 +229,21 @@ public abstract class Player extends GameObject {
     // player STANDING state logic
     protected void playerStanding() {
         // if walk left or walk right key is pressed, player enters WALKING state
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        if (!isStunned && (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY))) {
             playerState = PlayerState.WALKING;
         }
 
         // if jump key is pressed, player enters JUMPING state
-        else if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
-        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
             keyLocker.lockKey(JUMP2_KEY);
             playerState = PlayerState.JUMPING;
         }
         // if crouch key is pressed, player enters CROUCHING state
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
     }
@@ -251,31 +251,32 @@ public abstract class Player extends GameObject {
     // player WALKING state logic
     protected void playerWalking() {
         // if walk left key is pressed, move player to the left
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+        
+        if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             //moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
         }
 
         // if walk right key is pressed, move player to the right
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             //moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
-        } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+        } else if (!isStunned && Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.STANDING;
         }
 
         // if jump key is pressed, player enters JUMPING state
-        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        if (!isStunned && Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
-        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
             keyLocker.lockKey(JUMP2_KEY);
             playerState = PlayerState.JUMPING;
         }
 
         // if crouch key is pressed,
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
     }
@@ -283,16 +284,16 @@ public abstract class Player extends GameObject {
     // player CROUCHING state logic
     protected void playerCrouching() {
         // if crouch key is released, player enters STANDING state
-        if (Keyboard.isKeyUp(CROUCH_KEY)) {
+        if (!isStunned && Keyboard.isKeyUp(CROUCH_KEY)) {
             playerState = PlayerState.STANDING;
         }
 
         // if jump key is pressed, player enters JUMPING state
-        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        if (!isStunned && Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
-        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
             keyLocker.lockKey(JUMP2_KEY);
             playerState = PlayerState.JUMPING;
         }
