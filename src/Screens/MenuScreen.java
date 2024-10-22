@@ -4,9 +4,11 @@ import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
-import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
@@ -25,6 +27,7 @@ public class MenuScreen extends Screen {
     protected KeyLocker keyLocker = new KeyLocker();
     private boolean loaded = false;
     private boolean pressed = false;
+    private BufferedImage menuBufferedImage;
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -56,8 +59,14 @@ public class MenuScreen extends Screen {
         credits = new SpriteFont("CREDITS", 100, 323, "Arial", 30, UNLIT_COLOR);
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
-        background = new TitleScreenMap();
-        background.setAdjustCamera(false);//add code here for background 
+        // background = new TitleScreenMap();
+        try {
+            menuBufferedImage = ImageIO.read(getClass().getResourceAsStream("/RocketMenuBack.png"));
+        } catch (IOException e) {
+            System.out.println("cannot load background");
+            e.printStackTrace();
+        }
+        // background.setAdjustCamera(false);//add code here for background 
         
         keyPressTimer = 0;
         menuItemSelected = -1;
@@ -83,7 +92,7 @@ public class MenuScreen extends Screen {
         } else {
             loaded = true;
             // update background map (to play tile animations)
-            background.update(null);
+            // background.update(null);
 
             // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
             if (Keyboard.isKeyDown(Key.DOWN) &&  keyPressTimer == 0) {
@@ -154,7 +163,7 @@ public class MenuScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        background.draw(graphicsHandler);
+        graphicsHandler.drawImage(menuBufferedImage, 0, 0);
         titleLabel2.draw(graphicsHandler); // this is intentional so that "Rocket" goes over "Rhodey"
         titleLabel.draw(graphicsHandler);
         playGame.draw(graphicsHandler);
