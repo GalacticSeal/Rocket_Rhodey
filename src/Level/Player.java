@@ -27,6 +27,7 @@ public abstract class Player extends GameObject {
     protected float degradeFactor = 0;
     protected float accelFactor = 0; //acceleration multiplier
     protected float movementAirFactor = 0;
+    protected long stunTime = 0;
     protected boolean isStunned = false;
     protected boolean isPushed = false;
 
@@ -109,6 +110,8 @@ public abstract class Player extends GameObject {
         velocityY += (float) (distanceY*powRatio);
 
         if(applyStun) {
+            if (!isStunned)
+                stunTime = System.currentTimeMillis();
             isStunned = true;
         }
         isPushed = true;
@@ -168,6 +171,11 @@ public abstract class Player extends GameObject {
             } while (previousPlayerState != playerState);
 
             previousAirGroundState = airGroundState;
+            if (isStunned) {
+                if ((System.currentTimeMillis() - stunTime) > 3000) {
+                    isStunned = false;
+                }
+            }
 
             // move player with respect to map collisions based on how much player needs to move this frame
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
