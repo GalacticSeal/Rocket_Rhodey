@@ -28,6 +28,9 @@ public abstract class Player extends GameObject {
     protected float accelFactor = 0; //acceleration multiplier
     protected float movementAirFactor = 0;
     protected boolean isStunned = false;
+    protected boolean isPushed = false;
+
+    public static final float DEFAULT_KNOCKBACK = 15f;
 
     // values that affect player movement
     // these should be set in a subclass
@@ -80,11 +83,15 @@ public abstract class Player extends GameObject {
     protected void applyMomentum() {
         moveAmountX += velocityX;
         moveAmountY += velocityY;
-        if (airGroundState == AirGroundState.AIR) {
+        if(!isPushed) {
+            if (airGroundState == AirGroundState.AIR) {
             velocityY += gravity;
+            } else {
+                velocityY = 0f;
+                moveAmountY = gravity;
+            }
         } else {
-            velocityY = 0f;
-            moveAmountY = gravity;
+            isPushed = false;
         }
     }
 
@@ -95,7 +102,7 @@ public abstract class Player extends GameObject {
 
         //hypotenuse of mouse position to location - used for determining movement ratios
         double distanceH = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));
-        double powRatio = power/distanceH; //explosion knockback calculation
+        double powRatio = -power/distanceH; //explosion knockback calculation
 
         //Apply momentum to player from explosion
         velocityX += (float) (distanceX*powRatio);
@@ -104,14 +111,16 @@ public abstract class Player extends GameObject {
         if(applyStun) {
             isStunned = true;
         }
+        isPushed = true;
+        airGroundState = AirGroundState.AIR;
     }
 
     protected void applyMovementX() {
         //ground movement
         if (airGroundState == AirGroundState.GROUND) {
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+            if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
                 velocityX -= walkSpeed/accelFactor;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+            } else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 velocityX += walkSpeed/accelFactor;
             } else {
                 if(velocityX != 0f && Math.abs(velocityX) > degradeFactor) velocityX -= degradeFactor * walkSpeed * Math.abs(velocityX)/velocityX;
@@ -127,13 +136,13 @@ public abstract class Player extends GameObject {
 
         } else {
             //air movement - player can only slow themselves while above max air speed, determined by walk speed
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && velocityX > -walkSpeed) {
+            if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY) && velocityX > -walkSpeed) {
                 if(velocityX >= -walkSpeed/accelFactor) {
                     velocityX -= walkSpeed/accelFactor;
                 } else {
                     velocityX = -walkSpeed;
                 }
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && velocityX < walkSpeed) {
+            } else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY) && velocityX < walkSpeed) {
                 if(velocityX <= walkSpeed/accelFactor) {
                     velocityX += walkSpeed/accelFactor;
                 } else {
@@ -164,13 +173,19 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
             
-            if(MouseControls.isMousePressed()) {
+            if(MouseControls.isMousePressed() && !isStunned) {
+                // original position
                 int rocketX = Math.round(getX() + getWidth()/2.0f);
                 int rocketY = Math.round(getY() + getHeight()/2.0f);
+                // ending position
+                float rocketEndX = MouseControls.getMouseX() - map.getCamera().getX();
+                float rocketEndY = map.getCamera().getY() + MouseControls.getMouseY();
                 int rocketSpeed = 5;
                 int lifeTime = 120; 
-                Rocket rocket = new Rocket(new Point(rocketX, rocketY), 
-                    new Point(rocketX+1f, rocketY-1f), rocketSpeed, lifeTime);
+                // Aiming the rocket
+                Rocket rocket = new Rocket(new Point(rocketX, rocketY),  // original position
+                    new Point(rocketEndX, rocketEndY), rocketSpeed, lifeTime
+                    ); // ^ where we want the mouse to point
                 map.addEnemy(rocket);
             }
 
@@ -214,21 +229,21 @@ public abstract class Player extends GameObject {
     // player STANDING state logic
     protected void playerStanding() {
         // if walk left or walk right key is pressed, player enters WALKING state
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        if (!isStunned && (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY))) {
             playerState = PlayerState.WALKING;
         }
 
         // if jump key is pressed, player enters JUMPING state
-        else if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
-        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
             keyLocker.lockKey(JUMP2_KEY);
             playerState = PlayerState.JUMPING;
         }
         // if crouch key is pressed, player enters CROUCHING state
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
     }
@@ -236,31 +251,32 @@ public abstract class Player extends GameObject {
     // player WALKING state logic
     protected void playerWalking() {
         // if walk left key is pressed, move player to the left
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+        
+        if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             //moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
         }
 
         // if walk right key is pressed, move player to the right
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             //moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
-        } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+        } else if (!isStunned && Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.STANDING;
         }
 
         // if jump key is pressed, player enters JUMPING state
-        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        if (!isStunned && Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
-        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
             keyLocker.lockKey(JUMP2_KEY);
             playerState = PlayerState.JUMPING;
         }
 
         // if crouch key is pressed,
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
     }
@@ -268,16 +284,16 @@ public abstract class Player extends GameObject {
     // player CROUCHING state logic
     protected void playerCrouching() {
         // if crouch key is released, player enters STANDING state
-        if (Keyboard.isKeyUp(CROUCH_KEY)) {
+        if (!isStunned && Keyboard.isKeyUp(CROUCH_KEY)) {
             playerState = PlayerState.STANDING;
         }
 
         // if jump key is pressed, player enters JUMPING state
-        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        if (!isStunned && Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
-        else if (Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
+        else if (!isStunned && Keyboard.isKeyDown(JUMP2_KEY) && !keyLocker.isKeyLocked(JUMP2_KEY)) {
             keyLocker.lockKey(JUMP2_KEY);
             playerState = PlayerState.JUMPING;
         }
@@ -397,10 +413,12 @@ public abstract class Player extends GameObject {
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
+            applyKnockback(mapEntity.getLocation(), DEFAULT_KNOCKBACK, true);
+
             // if map entity is an enemy, kill player on touch
-            if (mapEntity instanceof Enemy) {
-                levelState = LevelState.PLAYER_DEAD;
-            }
+            // if (mapEntity instanceof Enemy) {
+            //     levelState = LevelState.PLAYER_DEAD;
+            // }
         }
     }
 

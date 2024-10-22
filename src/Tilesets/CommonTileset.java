@@ -370,9 +370,181 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder defaultCaveTileD = new MapTileBuilder(defaultCaveFrameD)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(defaultCaveTileD);
+
+        // Random lava tile
+        Frame lavaCaveFrame = new FrameBuilder(getSubImage(3, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaCaveTile = new MapTileBuilder(lavaCaveFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(lavaCaveTile);
+
+        // Default lava cave tile
+        Frame defaultLavaCaveFrame = new FrameBuilder(getSubImage(3, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder defaultLavaCaveTile = new MapTileBuilder(defaultLavaCaveFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(defaultLavaCaveTile);
+
+        // Lava cave 30 degree slope p1 Right
+        Frame lavaCaveFrame30P1R = new FrameBuilder(getSubImage(3, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaCaveTile30P1R = new MapTileBuilder(lavaCaveFrame30P1R)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lavaCaveTile30P1R);
+
+        // Lava cave 45 degree slope right
+        Frame lavaCaveFrame45R = new FrameBuilder(getSubImage(3, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaCaveTile45R = new MapTileBuilder(lavaCaveFrame45R)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lavaCaveTile45R);
+
+        // Lava cave 30 degree slope p2 right
+        Frame lavaCaveFrame30P2R = new FrameBuilder(getSubImage(3, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaCaveTile30P2R = new MapTileBuilder(lavaCaveFrame30P2R)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lavaCaveTile30P2R);
+
+        // Lava cave inner tile
+        Frame lavaCaveInnerFrame = new FrameBuilder(getSubImage(3, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaCaveInnerTile = new MapTileBuilder(lavaCaveInnerFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(lavaCaveInnerTile);
+
+        // Default cave corner tile
+        Frame DefaultCaveCornerFrame = new FrameBuilder(getSubImage(4, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder DefaultCaveCornerTile = new MapTileBuilder(DefaultCaveCornerFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(DefaultCaveCornerTile);
+
+        // Lava cave 30 degree slope p2 right
+        Frame lavaCaveFrame30P2L = new FrameBuilder(getSubImage(4, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaCaveTile30P2L = new MapTileBuilder(lavaCaveFrame30P2L)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lavaCaveTile30P2L);
+
+
+        // Lava cave 30 degree slope p1 Left
+        Frame lavaCaveFrame30P1L = new FrameBuilder(getSubImage(4, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaCaveTile30P1L = new MapTileBuilder(lavaCaveFrame30P1L)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lavaCaveTile30P1L);
+
+        // Lava cave 45 degree slope left
+        Frame lavaCaveFrame45L = new FrameBuilder(getSubImage(4, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaCaveTile45L = new MapTileBuilder(lavaCaveFrame45L)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lavaCaveTile45L);
+
+        // Default cave tile R90
+        Frame DefaultCaveFrameR90 = new FrameBuilder(getSubImage(4, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder DefaultCaveTileR90 = new MapTileBuilder(DefaultCaveFrameR90)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(DefaultCaveTileR90);
+
+        // Default cave corner tile 2
+        Frame DefaultCaveCornerFrame2 = new FrameBuilder(getSubImage(4,0))
+                .withScale(tileScale)
+                .withBounds(0, 6, 16, 4)
+                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                .build();
+
+        MapTileBuilder DefaultCaveCornerTile2 = new MapTileBuilder(DefaultCaveCornerFrame2)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(DefaultCaveCornerTile2);
+
+        // Default cave corner tile 3
+        Frame DefaultCaveCornerFrame3 = new FrameBuilder(getSubImage(4,0))
+                .withScale(tileScale)
+                .withBounds(0, 6, 16, 4)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .build();
+
+        MapTileBuilder DefaultCaveCornerTile3 = new MapTileBuilder(DefaultCaveCornerFrame3)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(DefaultCaveCornerTile3);
+
+         // Default cave corner tile 4
+        Frame DefaultCaveCornerFrame4 = new FrameBuilder(getSubImage(5, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder DefaultCaveCornerTile4 = new MapTileBuilder(DefaultCaveCornerFrame4)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(DefaultCaveCornerTile4);
+
+        // Default cave tile R902
+        Frame DefaultCaveFrameR902 = new FrameBuilder(getSubImage(4,4))
+                .withScale(tileScale)
+                .withBounds(0, 6, 16, 4)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .build();
+
+        MapTileBuilder DefaultCaveTileR902 = new MapTileBuilder(DefaultCaveFrameR902)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(DefaultCaveTileR902);
+
+        // Lava cave inner tile
+        Frame defaultCaveInnerFrame = new FrameBuilder(getSubImage(5, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder defaultCaveInnerTile = new MapTileBuilder(defaultCaveInnerFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(defaultCaveInnerTile);
+        
+
+
+
+
 
         return mapTiles;
     }
