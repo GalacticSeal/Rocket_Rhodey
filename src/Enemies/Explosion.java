@@ -18,9 +18,11 @@ public class Explosion extends Enemy {
     private int existenceFrames;
     private boolean pushedPlayer;
     private float knockPower = 20;
+    protected static final int BOOM_WIDTH = 7;
+    protected static final int BOOM_HEIGHT = 7;
 
     public Explosion(Point location, int existenceFrames) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+        super(location.x-(BOOM_WIDTH-Rocket.ROCKET_WIDTH), location.y+(BOOM_HEIGHT-Rocket.ROCKET_HEIGHT), new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
 
         // how long the explosion will exist for before disappearing
         this.existenceFrames = existenceFrames;
@@ -45,7 +47,7 @@ public class Explosion extends Enemy {
     public void touchedPlayer(Player player) {
         // if explosion touches player, it pushes the player
         if(!pushedPlayer) {
-            player.applyKnockback(getLocation(), knockPower, false);
+            player.applyKnockback(this, knockPower, false);
         }
         pushedPlayer = true;
     }

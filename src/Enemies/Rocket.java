@@ -20,16 +20,18 @@ public class Rocket extends Enemy {
     private int existenceFrames;
     private float ratioX;
     private float ratioY;
+    protected static final int ROCKET_WIDTH = 7;
+    protected static final int ROCKET_HEIGHT = 7;
 
     public Rocket(Point location, Point mouseTarget, float movementSpeed, int existenceFrames) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+        super(location.x-ROCKET_WIDTH, location.y-ROCKET_HEIGHT, new SpriteSheet(ImageLoader.load("Fireball.png"), ROCKET_WIDTH, ROCKET_HEIGHT), "DEFAULT");
 
         //turning mouse position from rocket spawn position into right triangle
-        float mouseXT = mouseTarget.x-location.x;
-        float mouseYT = mouseTarget.y-location.y;
+        float mouseXT = mouseTarget.x-ROCKET_WIDTH/2f-location.x;
+        float mouseYT = mouseTarget.y-ROCKET_HEIGHT/2f-location.y;
 
         //hypotenuse of mouse position to location - used for determining movement ratios
-        double mouseHyp = Math.sqrt(Math.pow(mouseXT, 2)+Math.pow(mouseYT, 2));
+        double mouseHyp = Math.sqrt(Math.pow(mouseXT, 2f)+Math.pow(mouseYT, 2f));
         double ratioT = movementSpeed/mouseHyp; //triangle ratio calculation
         ratioX = (float) (mouseXT*ratioT);
         ratioY = (float) (mouseYT*ratioT);
