@@ -519,7 +519,7 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(DefaultCaveCornerTile4);
 
-        // Default cave tile R902
+        // Default cave tile Right 90 2
         Frame DefaultCaveFrameR902 = new FrameBuilder(getSubImage(4,4))
                 .withScale(tileScale)
                 .withBounds(0, 6, 16, 4)
@@ -531,7 +531,7 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(DefaultCaveTileR902);
 
-        // Lava cave inner tile
+        // Default cave inner tile
         Frame defaultCaveInnerFrame = new FrameBuilder(getSubImage(5, 0))
                 .withScale(tileScale)
                 .build();
@@ -540,6 +540,109 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(defaultCaveInnerTile);
+
+        // Ice cave 45 degree slope tile right
+        Frame iceCaveFrame45R = new FrameBuilder(getSubImage(5, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder iceCaveTile45R = new MapTileBuilder(iceCaveFrame45R)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(iceCaveTile45R);
+
+        // Ice cave 45 degree slope tile left
+        Frame iceCaveFrame45L = new FrameBuilder(getSubImage(5, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder iceCaveTile45L = new MapTileBuilder(iceCaveFrame45L)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(iceCaveTile45L);
+
+        // Ice cave 30 degree slope tile right
+        Frame iceCaveFrame30R = new FrameBuilder(getSubImage(5, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder iceCaveTile30R = new MapTileBuilder(iceCaveFrame30R)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(iceCaveTile30R);
+
+        // Ice cave 30 degree slope tile left 
+        Frame iceCaveFrame30L = new FrameBuilder(getSubImage(5, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder iceCaveTile30L = new MapTileBuilder(iceCaveFrame30L)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(iceCaveTile30L);
+
+        // Ice cave 30 degree slope tile right p2
+        Frame iceCaveFrame30RP2 = new FrameBuilder(getSubImage(6, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder iceCaveTile30RP2 = new MapTileBuilder(iceCaveFrame30RP2)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(iceCaveTile30RP2);
+
+        // Ice cave 30 degree slope tile left p2
+        Frame iceCaveFrame30LP2 = new FrameBuilder(getSubImage(6, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder iceCaveTile30LP2 = new MapTileBuilder(iceCaveFrame30LP2)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(iceCaveTile30LP2);
+
+        // Ice cave corner tile
+        Frame iceCaveCornerFrame = new FrameBuilder(getSubImage(6, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder iceCaveCornerTile = new MapTileBuilder(iceCaveCornerFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(iceCaveCornerTile);
+
+         // Default Ice cave tile
+         Frame iceCaveInnerFrame = new FrameBuilder(getSubImage(6, 3))
+                .withScale(tileScale)
+                .build();
+
+         MapTileBuilder iceCaveInnerTile = new MapTileBuilder(iceCaveInnerFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(iceCaveInnerTile);
+
+        //Ice Stalactite
+        Frame iceStalactiteFrame = new FrameBuilder(getSubImage(6, 4))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder iceStalactiteTile = new MapTileBuilder(iceStalactiteFrame)                         
+        .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(iceStalactiteTile);
+
+        //Ice Stalagmite
+        Frame iceStalagmiteFrame = new FrameBuilder(getSubImage(6, 5))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder iceStalagmiteTile = new MapTileBuilder(iceStalagmiteFrame)                         
+        .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(iceStalagmiteTile);
+
+
+
         
 
 
