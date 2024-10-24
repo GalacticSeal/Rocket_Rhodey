@@ -2,6 +2,8 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Engine.ImageLoader;
+import GameObject.Frame;
 import Level.*;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -15,7 +17,7 @@ public class TestMap extends Map {
         super("test_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(4, 95).getLocation();
     }
-
+    
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
@@ -28,10 +30,19 @@ public class TestMap extends Map {
 
         return enemies;
     }
-
     @Override
-    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() { 
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+        CheckpointTile checkpointTile = new CheckpointTile(getMapTile(8, 95).getLocation().x, getMapTile(5,94 ).getLocation().y, new Frame(ImageLoader.load("Checkpoint.png")));
+        enhancedMapTiles.add(checkpointTile);
+
+        return enhancedMapTiles;
+    }
+
+
+    // @Override
+    // public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+    //     ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
         // HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
         //         ImageLoader.load("GreenPlatform.png"),
@@ -47,16 +58,16 @@ public class TestMap extends Map {
         // EndLevelBox endLevelBox = new EndLevelBox(getMapTile(2, 7).getLocation());
         // enhancedMapTiles.add(endLevelBox);
 
-        return enhancedMapTiles;
-    }
+    //     return enhancedMapTiles;
+    // }
 
-    @Override
-    public ArrayList<NPC> loadNPCs() {
-        ArrayList<NPC> npcs = new ArrayList<>();
+    // @Override
+    // public ArrayList<NPC> loadNPCs() {
+    //     ArrayList<NPC> npcs = new ArrayList<>();
 
-        // Walrus walrus = new Walrus(getMapTile(3, 10).getLocation().subtractY(3));
-        // npcs.add(walrus);
+    //     // Walrus walrus = new Walrus(getMapTile(3, 10).getLocation().subtractY(3));
+    //     // npcs.add(walrus);
 
-        return npcs;
-    }
+    //     return npcs;
+    // }
 }

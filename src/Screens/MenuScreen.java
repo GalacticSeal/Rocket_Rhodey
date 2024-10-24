@@ -63,7 +63,6 @@ public class MenuScreen extends Screen {
         try {
             menuBufferedImage = ImageIO.read(getClass().getResourceAsStream("/RocketMenuBack.png"));
         } catch (IOException e) {
-            System.out.println("cannot load background");
             e.printStackTrace();
         }
         // background.setAdjustCamera(false);//add code here for background 
@@ -163,7 +162,7 @@ public class MenuScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawImage(menuBufferedImage, 0, 0);
+        graphicsHandler.drawImage(menuBufferedImage, 0, 0,800,617);
         titleLabel2.draw(graphicsHandler); // this is intentional so that "Rocket" goes over "Rhodey"
         titleLabel.draw(graphicsHandler);
         playGame.draw(graphicsHandler);

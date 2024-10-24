@@ -1,5 +1,10 @@
 package Screens;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -9,7 +14,6 @@ import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
 import Players.Cat;
-import Utils.Point;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
@@ -21,6 +25,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    private BufferedImage levelBufferedImage;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -34,6 +39,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         this.player.addListener(this);
+
+        try {
+            levelBufferedImage = ImageIO.read(getClass().getResourceAsStream("/levelBackground.png"));
+        } catch (IOException e) {
+            System.out.println("cannot load background");
+            e.printStackTrace();
+        }
 
         levelClearedScreen = new LevelClearedScreen();
         levelLoseScreen = new LevelLoseScreen(this);
@@ -73,6 +85,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
+            graphicsHandler.drawImage(levelBufferedImage,0,0);
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
                 break;

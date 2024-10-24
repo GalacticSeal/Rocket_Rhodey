@@ -6,7 +6,6 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-
 import java.awt.*;
 
 public class KeybindsScreen extends Screen {
@@ -21,7 +20,7 @@ public class KeybindsScreen extends Screen {
     private boolean loaded = false;
     private boolean pressed = false;
     
-    protected SpriteFont optionsLabel, movementsLabel, movementsLabel2, goBack;
+    protected SpriteFont optionsLabel, movementsLabel, movementsLabel2, goBack,checkPointLabel;
     //private String[] movementType = {"WASD","Arrow Keys"};
     protected final int MAX_MENU_ITEMS = 2;
     protected final Color LIT_COLOR = new Color(255, 215, 0);
@@ -40,7 +39,10 @@ public class KeybindsScreen extends Screen {
         movementsLabel2 = new SpriteFont("MOVEMENT: arrow keys", 200, 223, "Arial", 30, UNLIT_COLOR);
         movementsLabel2.setOutlineColor(Color.black);
         movementsLabel2.setOutlineThickness(3);
-        goBack = new SpriteFont("<- BACK", 200, 323, "Arial", 30, UNLIT_COLOR);
+        checkPointLabel = new SpriteFont("RETURN TO CHECKPOINT = C", 200, 323, "Arial", 30, UNLIT_COLOR);
+        checkPointLabel.setOutlineColor(Color.black);
+        checkPointLabel.setOutlineThickness(3);
+        goBack = new SpriteFont("<- BACK", 200, 423, "Arial", 30, UNLIT_COLOR);
         goBack.setOutlineColor(Color.black);
         goBack.setOutlineThickness(3);
 
@@ -154,6 +156,7 @@ public class KeybindsScreen extends Screen {
         //optionsLabel.draw(graphicsHandler);
         movementsLabel.draw(graphicsHandler);
         movementsLabel2.draw(graphicsHandler);
+        checkPointLabel.draw(graphicsHandler);
         goBack.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, UNLIT_COLOR, Color.black, 2);
     }

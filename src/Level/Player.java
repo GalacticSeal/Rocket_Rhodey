@@ -1,8 +1,9 @@
 package Level;
 
+import Enemies.Rocket;
 import Engine.Key;
-import Engine.Keybinds;
 import Engine.KeyLocker;
+import Engine.Keybinds;
 import Engine.Keyboard;
 import Engine.MouseControls;
 import GameObject.GameObject;
@@ -10,10 +11,7 @@ import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
-
 import java.util.ArrayList;
-
-import Enemies.Rocket;
 
 public abstract class Player extends GameObject {
     // new temp variables (this is going to be ugly)
@@ -96,8 +94,9 @@ public abstract class Player extends GameObject {
         }
     }
 
-    public void applyKnockback(Point source, float power, boolean applyStun) {
+    public void applyKnockback(MapEntity mapEntity, float power, boolean applyStun) {
         //turning mouse position from rocket spawn position into right triangle
+        Point source = new Point(mapEntity.getX()-mapEntity.getWidth()/2f, mapEntity.getY()+mapEntity.getHeight()/2f);
         float distanceX = source.x-getX();
         float distanceY = source.y-getY();
 
@@ -254,6 +253,20 @@ public abstract class Player extends GameObject {
         else if (!isStunned && Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
+    }
+    //checkpoint stuff
+    private Point respawnPoint;
+
+    public void respawn(){
+        if (respawnPoint != null) {
+            this.setLocation(respawnPoint.x, respawnPoint.y);
+        } else {
+            this.setLocation(4,95);
+        }
+    }
+
+    public void setRespawnPoint(Point respawnPoint) {
+        this.respawnPoint = respawnPoint;
     }
 
     // player WALKING state logic
@@ -421,7 +434,7 @@ public abstract class Player extends GameObject {
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
-            applyKnockback(mapEntity.getLocation(), DEFAULT_KNOCKBACK, true);
+            applyKnockback(mapEntity, DEFAULT_KNOCKBACK, true);
 
             // if map entity is an enemy, kill player on touch
             // if (mapEntity instanceof Enemy) {
@@ -511,7 +524,6 @@ public abstract class Player extends GameObject {
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
     }
-
     // Uncomment this to have game draw player's bounds to make it easier to visualize
     /*
     public void draw(GraphicsHandler graphicsHandler) {

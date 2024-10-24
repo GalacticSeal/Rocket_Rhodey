@@ -3,10 +3,14 @@ package Players;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Key;
+import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
+
+import java.awt.Color;
 import java.util.HashMap;
 
 // This is the class for the Cat player character
@@ -15,7 +19,6 @@ public class Cat extends Player {
 
     public Cat(float x, float y) {
        
-
         super(new SpriteSheet(ImageLoader.load("SoldierSprite.png"), 30, 40), x, y, "STAND_RIGHT");//30,40 
         gravity = .5f;
         terminalVelocityY = 6f;
@@ -29,12 +32,16 @@ public class Cat extends Player {
 
     public void update() {
         super.update();
+        if(Keyboard.isKeyDown(Key.C)){
+                this.respawn();
+        }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        // drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
+        drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
     }
+    
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -69,21 +76,6 @@ public class Cat extends Player {
                     .withBounds(2, 4, 20, 30)
                     .build()
         });
-
-        // put("WALK_RIGHT", new Frame[] {
-        //         new FrameBuilder(spriteSheet.getSprite(0, 0))
-        //                 .withScale(3)
-        //                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL) 
-        //                 .withBounds(2, 4, 35, 42)
-        //                 .build()
-        // });
-
-        // put("WALK_LEFT", new Frame[] {
-        //         new FrameBuilder(spriteSheet.getSprite(2, 0))
-        //                 .withScale(3)
-        //                 .withBounds(2, 4, 20, 30)
-        //                 .build()
-        // });
 
         put("JUMP_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
