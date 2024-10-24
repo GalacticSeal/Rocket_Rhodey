@@ -20,10 +20,10 @@ public class Cat extends Player {
     public Cat(float x, float y) {
        
         super(new SpriteSheet(ImageLoader.load("SoldierSprite.png"), 30, 40), x, y, "STAND_RIGHT");//30,40 
-        gravity = .5f;
+        gravity = .35f;
         terminalVelocityY = 6f;
-        jumpHeight = 40f;
-        jumpDegrade = .5f;
+        jumpHeight = 15f;
+        jumpDegrade = .35f;
         walkSpeed = 2.3f;
         momentumYIncrease = .5f;
         accelFactor = 10f;

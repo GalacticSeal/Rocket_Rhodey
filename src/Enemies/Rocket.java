@@ -27,8 +27,8 @@ public class Rocket extends Enemy {
         super(location.x-ROCKET_WIDTH, location.y-ROCKET_HEIGHT, new SpriteSheet(ImageLoader.load("Fireball.png"), ROCKET_WIDTH, ROCKET_HEIGHT), "DEFAULT");
 
         //turning mouse position from rocket spawn position into right triangle
-        float mouseXT = mouseTarget.x-ROCKET_WIDTH/2f-location.x;
-        float mouseYT = mouseTarget.y-ROCKET_HEIGHT/2f-location.y;
+        float mouseXT = mouseTarget.x-(location.x-ROCKET_WIDTH/2f);
+        float mouseYT = mouseTarget.y-(location.y+ROCKET_HEIGHT/2f);
 
         //hypotenuse of mouse position to location - used for determining movement ratios
         double mouseHyp = Math.sqrt(Math.pow(mouseXT, 2f)+Math.pow(mouseYT, 2f));
