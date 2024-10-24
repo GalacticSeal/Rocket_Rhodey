@@ -28,8 +28,10 @@ public abstract class Player extends GameObject {
     protected long stunTime = 0;
     protected boolean isStunned = false;
     protected boolean isPushed = false;
+    protected int fireFrame = 30;
 
-    public static final float DEFAULT_KNOCKBACK = 15f;
+    public static final float DEFAULT_KNOCKBACK = 12f;
+    public static final int FIRE_RATE = 60;
 
     // values that affect player movement
     // these should be set in a subclass
@@ -87,7 +89,7 @@ public abstract class Player extends GameObject {
             velocityY += gravity;
             } else {
                 velocityY = 0f;
-                moveAmountY = gravity;
+                moveAmountY = 0.5f;
             }
         } else {
             isPushed = false;
@@ -179,23 +181,27 @@ public abstract class Player extends GameObject {
             // move player with respect to map collisions based on how much player needs to move this frame
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
-            
-            if(MouseControls.isMousePressed() && !isStunned) {
-                // original position
-                int rocketX = Math.round(getX() + getWidth()/2.0f);
-                int rocketY = Math.round(getY() + getHeight()/2.0f);
-                // ending position
-                float rocketEndX = MouseControls.getMouseX() - map.getCamera().getX();
-                float rocketEndY = map.getCamera().getY() + MouseControls.getMouseY();
-                int rocketSpeed = 5;
-                int lifeTime = 120; 
-                // Aiming the rocket
-                Rocket rocket = new Rocket(new Point(rocketX, rocketY),  // original position
-                    new Point(rocketEndX, rocketEndY), rocketSpeed, lifeTime
-                    ); // ^ where we want the mouse to point
-                map.addEnemy(rocket);
+            if(fireFrame >= 60) {
+                if(MouseControls.isMousePressed() && !isStunned) {
+                    // original position
+                    int rocketX = Math.round(getX() + getWidth()/2.0f);
+                    int rocketY = Math.round(getY() + getHeight()/2.0f);
+                    // ending position
+                    float rocketEndX = MouseControls.getMouseX() - map.getCamera().getX();
+                    float rocketEndY = map.getCamera().getY() + MouseControls.getMouseY();
+                    int rocketSpeed = 10;
+                    int lifeTime = 120; 
+                    // Aiming the rocket
+                    Rocket rocket = new Rocket(new Point(rocketX, rocketY),  // original position
+                        new Point(rocketEndX, rocketEndY), rocketSpeed, lifeTime
+                        ); // ^ where we want the mouse to point
+                    map.addEnemy(rocket);
+                    fireFrame = 0;
+                }
+            } else {
+                fireFrame++;
             }
-
+            
             handlePlayerAnimation();
 
             updateLockedKeys();
