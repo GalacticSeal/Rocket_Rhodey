@@ -6,6 +6,9 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 import java.awt.*;
 
@@ -18,6 +21,7 @@ public class CreditsScreen extends Screen {
     protected SpriteFont credits0, credits1, credits2, credits3, credits4, ogCreatedByLabel;
     protected SpriteFont createdByLabel;
     protected SpriteFont returnInstructionsLabel;
+    private BufferedImage creditBufferedImage;
 
     public CreditsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -26,8 +30,13 @@ public class CreditsScreen extends Screen {
     @Override
     public void initialize() {
         // setup graphics on screen (background map, spritefont text)
-        background = new TitleScreenMap();
-        background.setAdjustCamera(false);
+        // background = new TitleScreenMap();
+        // background.setAdjustCamera(false);
+        try {
+            creditBufferedImage = ImageIO.read(getClass().getResourceAsStream("/RocketMenuBack.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         creditsLabel = new SpriteFont("CREDITS", 15, 7, "Impact", 30, Color.white);
         creditsLabel.setOutlineColor(Color.black);
         creditsLabel.setOutlineThickness(5);
@@ -43,7 +52,7 @@ public class CreditsScreen extends Screen {
     }
 
     public void update() {
-        background.update(null);
+        // background.update(null);
 
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
@@ -56,7 +65,7 @@ public class CreditsScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        background.draw(graphicsHandler);
+        graphicsHandler.drawImage(creditBufferedImage, 0, 0,800,617);
         creditsLabel.draw(graphicsHandler);
         createdByLabel.draw(graphicsHandler);
         credits0.draw(graphicsHandler);
