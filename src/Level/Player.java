@@ -18,10 +18,8 @@ public abstract class Player extends GameObject {
     // new temp variables (this is going to be ugly)
     protected float terminalFactorY = 0; //acceleration factor after reaching terminal velocity on the y-axis
     protected float terminalFactorX = 0; //acceleration factor after reaching terminal velocity on the y-axis
-    protected float terminalVelocityX = 0;
-    protected float velocityX = 0;
-    protected float velocityY = 0;
-    protected float jumpPower = 0;
+
+    
     protected float groundDegrade = 0;
     protected float degradeFactor = 0;
     protected float accelFactor = 0; //acceleration multiplier
@@ -39,13 +37,11 @@ public abstract class Player extends GameObject {
     // these should be set in a subclass
     protected float walkSpeed = 0;
     protected float gravity = 0;
-    protected float jumpHeight = 0;
-    protected float jumpDegrade = 0;
-    protected float terminalVelocityY = 0;
-    protected float momentumYIncrease = 0;
+    protected float jumpPower = 0;
+    protected float velocityX = 0;
+    protected float velocityY = 0;
 
     // values used to handle player movement
-    protected float jumpForce = 0;
     protected float momentumY = 0;
     protected float moveAmountX, moveAmountY;
     protected float lastAmountMovedX, lastAmountMovedY;
@@ -164,9 +160,6 @@ public abstract class Player extends GameObject {
 
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
-            //applyGravity();
-            applyMomentum();
-            applyMovementX();
             // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
             do {
                 previousPlayerState = playerState;
@@ -179,6 +172,9 @@ public abstract class Player extends GameObject {
                     isStunned = false;
                 }
             }
+
+            applyMovementX();
+            applyMomentum();
 
             // move player with respect to map collisions based on how much player needs to move this frame
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
@@ -344,32 +340,7 @@ public abstract class Player extends GameObject {
 
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
-            jumpForce = jumpHeight;
-            if (jumpForce > 0) {
-                moveAmountY -= jumpForce;
-                jumpForce -= jumpDegrade;
-                if (jumpForce < 0) {
-                    jumpForce = 0;
-                }
-            }
-        }
-
-        // if player is in air (currently in a jump) and has more jumpForce, continue sending player upwards
-        else if (airGroundState == AirGroundState.AIR) {
-            if (jumpForce > 0) {
-                moveAmountY -= jumpForce;
-                jumpForce -= jumpDegrade;
-                if (jumpForce < 0) {
-                    jumpForce = 0;
-                }
-            }
-
-            // allows you to move left and right while in the air
-
-            // if player is falling, increases momentum as player falls so it falls faster over time
-            /*if (moveAmountY > 0) {
-                increaseMomentum();
-            }*/
+            velocityY -= jumpPower;
         }
 
         // if player last frame was in air and this frame is now on ground, player enters STANDING state
@@ -440,7 +411,7 @@ public abstract class Player extends GameObject {
         // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
         else if (direction == Direction.UP) {
             if (hasCollided) {
-                jumpForce = 0;
+                velocityY = 0;
             }
         }
     }
