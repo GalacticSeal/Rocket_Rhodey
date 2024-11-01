@@ -6,6 +6,7 @@ import Engine.KeyLocker;
 import Engine.Keybinds;
 import Engine.Keyboard;
 import Engine.MouseControls;
+import Engine.Sound;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
@@ -330,7 +331,7 @@ public abstract class Player extends GameObject {
     protected void playerJumping() {
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
-
+            Sound.playSFX(Sound.JUMP_SOUND);
             // sets animation to a JUMP animation based on which way player is facing
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 

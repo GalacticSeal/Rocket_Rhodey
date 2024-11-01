@@ -2,6 +2,7 @@ package Enemies;
 
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.Enemy;
@@ -29,6 +30,7 @@ public class Rocket extends Enemy {
         //turning mouse position from rocket spawn position into right triangle
         float mouseXT = mouseTarget.x-(location.x-ROCKET_WIDTH/2f);
         float mouseYT = mouseTarget.y-(location.y+ROCKET_HEIGHT/2f);
+        Sound.playSFX(Sound.RPG_SOUND);
 
         //hypotenuse of mouse position to location - used for determining movement ratios
         double mouseHyp = Math.sqrt(Math.pow(mouseXT, 2f)+Math.pow(mouseYT, 2f));
