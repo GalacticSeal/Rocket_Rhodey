@@ -33,6 +33,7 @@ public abstract class Player extends GameObject {
 
     public static final float DEFAULT_KNOCKBACK = 12f;
     public static final int FIRE_RATE = 60;
+    public static final float LEVEL_BOUNDS_X = 800;
 
     // values that affect player movement
     // these should be set in a subclass
@@ -209,6 +210,12 @@ public abstract class Player extends GameObject {
 
             // update player's animation
             super.update();
+
+            if(getX() < 0) {
+                setX(0);
+            } else if(getX() > LEVEL_BOUNDS_X-getWidth()) {
+                setX(LEVEL_BOUNDS_X-getWidth());
+            }
         }
 
         // if player has beaten level

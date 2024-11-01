@@ -4,9 +4,12 @@ import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
-import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 
 public class KeybindsScreen extends Screen {
 // I'm using the Title Menu screen as a reference for building the Options Screen.
@@ -19,6 +22,7 @@ public class KeybindsScreen extends Screen {
     protected KeyLocker keyLocker = new KeyLocker();
     private boolean loaded = false;
     private boolean pressed = false;
+    private BufferedImage keyBufferedImage;
     
     protected SpriteFont optionsLabel, movementsLabel, movementsLabel2, goBack,checkPointLabel;
     //private String[] movementType = {"WASD","Arrow Keys"};
@@ -47,8 +51,13 @@ public class KeybindsScreen extends Screen {
         goBack.setOutlineThickness(3);
 
         // setup graphics on screen (background map, spritefont text)
-        background = new TitleScreenMap();
-        background.setAdjustCamera(false);
+        // background = new TitleScreenMap();
+        // background.setAdjustCamera(false);
+        try {
+            keyBufferedImage = ImageIO.read(getClass().getResourceAsStream("/RocketMenuBack.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         keyLocker.lockKey(Key.SPACE);
     }
     private void select() {
@@ -82,7 +91,7 @@ public class KeybindsScreen extends Screen {
         } else {
             loaded = true;
             // update background map (to play tile animations)
-            background.update(null);
+            // background.update(null);
 
             // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
             if (Keyboard.isKeyDown(Key.DOWN) &&  keyPressTimer == 0) {
@@ -152,7 +161,7 @@ public class KeybindsScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        background.draw(graphicsHandler);
+        graphicsHandler.drawImage(keyBufferedImage, 0, 0,800,617);
         //optionsLabel.draw(graphicsHandler);
         movementsLabel.draw(graphicsHandler);
         movementsLabel2.draw(graphicsHandler);

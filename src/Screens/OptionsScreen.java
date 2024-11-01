@@ -4,10 +4,11 @@ import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
-import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class OptionsScreen extends Screen {
     // I'm using the Title Menu screen as a reference for building the Options Screen.
@@ -20,6 +21,7 @@ public class OptionsScreen extends Screen {
     protected KeyLocker keyLocker = new KeyLocker();
     private boolean loaded = false;
     private boolean pressed = false;
+    private BufferedImage settingsBufferedImage;
     
     protected SpriteFont optionsLabel, keybinds, goBack;
     protected final int MAX_MENU_ITEMS = 1;
@@ -44,8 +46,13 @@ public class OptionsScreen extends Screen {
         goBack.setOutlineThickness(3);
 
         // setup graphics on screen (background map, spritefont text)
-        background = new TitleScreenMap();
-        background.setAdjustCamera(false);
+        // background = new TitleScreenMap();
+        try {
+            settingsBufferedImage = ImageIO.read(getClass().getResourceAsStream("/RocketMenuBack.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // background.setAdjustCamera(false);
         keyLocker.lockKey(Key.SPACE);
     }
     private void select() {
@@ -66,7 +73,7 @@ public class OptionsScreen extends Screen {
         } else {
             loaded = true;
             // update background map (to play tile animations)
-            background.update(null);
+            // background.update(null);
 
             // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
             if (Keyboard.isKeyDown(Key.DOWN) &&  keyPressTimer == 0) {
@@ -125,7 +132,7 @@ public class OptionsScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        background.draw(graphicsHandler);
+        graphicsHandler.drawImage(settingsBufferedImage, 0, 0,800,617);
         optionsLabel.draw(graphicsHandler);
         keybinds.draw(graphicsHandler);
         goBack.draw(graphicsHandler);
