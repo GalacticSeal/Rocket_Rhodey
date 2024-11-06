@@ -2,6 +2,7 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.FlyEnemy;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import Level.*;
@@ -25,8 +26,11 @@ public class TestMap extends Map {
         BugEnemy bugEnemy = new BugEnemy(getMapTile(10, 79).getLocation().subtractY(25), Direction.RIGHT);
         enemies.add(bugEnemy);
 
-        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(7, 247).getLocation().addY(2), getMapTile(8, 247).getLocation().addY(2), Direction.RIGHT);
+        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(8, 25).getLocation().addY(2), getMapTile(12, 150).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy);
+
+        FlyEnemy FlyEnemy = new FlyEnemy(getMapTile(16, 213).getLocation().addY(2), getMapTile(19, 150).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy);
 
         return enemies;
     }

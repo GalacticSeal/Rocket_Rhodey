@@ -18,7 +18,7 @@ import java.util.HashMap;
 // This class is for the green dinosaur enemy that shoots fireballs
 // It walks back and forth between two set points (startLocation and endLocation)
 // Every so often (based on shootTimer) it will shoot a Fireball enemy
-public class DinosaurEnemy extends Enemy {
+public class FlyEnemy extends Enemy {
 
     // start and end location defines the two points that it walks between
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
@@ -40,8 +40,8 @@ public class DinosaurEnemy extends Enemy {
     protected DinosaurState dinosaurState;
     protected DinosaurState previousDinosaurState;
 
-    public DinosaurEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("IceWizardEnemy.png"), 17, 22), "WALK_RIGHT");
+    public FlyEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("bug.png"), 53, 62), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -174,41 +174,41 @@ public class DinosaurEnemy extends Enemy {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
-                            .withScale(3)
-                            .withBounds(3, 5, 11, 15)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                            .withScale(1)
+                            .withBounds(8, 10, 30, 50)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
-                            .withScale(3)
-                            .withBounds(3, 5, 11, 15)
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                            .withScale(1)
+                            .withBounds(8, 10, 30, 50)
                             .build()
             });
 
             put("WALK_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
-                            .withScale(3)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                            .withScale(1)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 5, 11, 15)
+                            .withBounds(8, 10, 30, 50)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
-                            .withScale(3)
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                            .withScale(1)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 5, 11, 15)
+                            .withBounds(8, 10, 30, 50)
                             .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(2, 1))
-                            .withScale(3)
-                            .withBounds(3, 5, 11, 15)
+                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                            .withScale(1)
+                            .withBounds(8, 10, 30, 50)
                             .build(),
             });
 
             put("SHOOT_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(2, 1))
-                            .withScale(3)
+                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                            .withScale(1)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 5, 11, 15)
+                            .withBounds(8, 10, 30, 50)
                             .build(),
             });
         }};
