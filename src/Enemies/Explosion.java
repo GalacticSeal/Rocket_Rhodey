@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class Explosion extends Enemy {
     private int existenceFrames;
     private boolean pushedPlayer;
-    private float knockPower = 20;
+    private float knockPower = 11.20f;
     protected static final int BOOM_WIDTH = 7;
     protected static final int BOOM_HEIGHT = 7;
 
