@@ -39,6 +39,7 @@ public class GamePanel extends JPanel {
 		this.addKeyListener(Keyboard.getKeyListener());
 
 		MouseControls mouseListener = new MouseControls();
+
 		this.addMouseListener(mouseListener);
 		this.addMouseMotionListener(mouseListener);
 

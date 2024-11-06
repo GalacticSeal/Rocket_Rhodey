@@ -11,7 +11,6 @@ import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
-
 import java.util.HashMap;
 
 // This class is for the black bug enemy
@@ -100,23 +99,23 @@ public class BugEnemy extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
+                            .withScale(4)
                             .withBounds(6, 6, 12, 7)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
+                            .withScale(4)
                             .withBounds(6, 6, 12, 7)
                             .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
+                            .withScale(4)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 6, 12, 7)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
+                            .withScale(4)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 6, 12, 7)
                             .build()
