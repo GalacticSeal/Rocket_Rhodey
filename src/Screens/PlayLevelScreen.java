@@ -86,7 +86,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 if (newBiome != currentBiome) {
                     currentBiome = newBiome;
                     levelBufferedImage = biomeBackgrounds[currentBiome];
-                    System.out.println("You are in biome " + currentBiome);
+                    //System.out.println("You are in biome " + currentBiome); //debug statement
                 }
                 
                 break;

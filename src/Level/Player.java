@@ -23,15 +23,19 @@ public abstract class Player extends GameObject {
     protected float groundDegrade = 0;
     protected float degradeFactor = 0;
     protected float accelFactor = 0; //acceleration multiplier
-    protected float movementAirFactor = 0;
+    protected float airSpeed = 0;
     protected long stunTime = 0;
     protected boolean isStunned = false;
     protected boolean isPushed = false;
-    protected int fireFrame = 30;
+    protected boolean isRocketJump = false;
+    protected long fireFrame = 0;
 
-    public static final float DEFAULT_KNOCKBACK = 12f;
-    public static final int FIRE_RATE = 60;
+    public static final float DEFAULT_KNOCKBACK = 10f;
     public static final float LEVEL_BOUNDS_X = 800;
+    public static final long FIRE_RATE = 750;
+    public static final long STUN_TIME = 1500;
+    public static final float HURT_MOMENTUM_X = 0.60f;
+    public static final float HURT_MOMENTUM_Y = 0.20f;
 
     // values that affect player movement
     // these should be set in a subclass
@@ -88,6 +92,7 @@ public abstract class Player extends GameObject {
             } else {
                 velocityY = 0f;
                 moveAmountY = 0.5f;
+                isRocketJump = false;
             }
         } else {
             isPushed = false;
@@ -112,9 +117,13 @@ public abstract class Player extends GameObject {
             if (!isStunned)
                 stunTime = System.currentTimeMillis();
             isStunned = true;
+            isRocketJump = false;
+        } else {
+            isRocketJump = true;
         }
         isPushed = true;
         airGroundState = AirGroundState.AIR;
+        playerState = PlayerState.JUMPING;
     }
 
     protected void applyMovementX() {
@@ -137,18 +146,22 @@ public abstract class Player extends GameObject {
             }
 
         } else {
-            //air movement - player can only slow themselves while above max air speed, determined by walk speed
-            if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY) && velocityX > -walkSpeed) {
-                if(velocityX >= -walkSpeed/accelFactor) {
-                    velocityX -= walkSpeed/accelFactor;
+            //air movement - player can only slow themselves while above max air speed, determined by walk speed 
+            //or airSpeed when rocket jumping
+            float moveVar;
+            if(isRocketJump) moveVar = airSpeed;
+            else moveVar = walkSpeed;
+            if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY) && velocityX > -moveVar) {
+                if(velocityX >= -moveVar) {
+                    velocityX -= moveVar/accelFactor;
                 } else {
-                    velocityX = -walkSpeed;
+                    velocityX = -moveVar/accelFactor;
                 }
-            } else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY) && velocityX < walkSpeed) {
-                if(velocityX <= walkSpeed/accelFactor) {
-                    velocityX += walkSpeed/accelFactor;
+            } else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY) && velocityX < moveVar) {
+                if(velocityX <= moveVar) {
+                    velocityX += moveVar/accelFactor;
                 } else {
-                    velocityX = walkSpeed;
+                    velocityX = moveVar/accelFactor;
                 }
             }
         }
@@ -168,7 +181,7 @@ public abstract class Player extends GameObject {
 
             previousAirGroundState = airGroundState;
             if (isStunned) {
-                if ((System.currentTimeMillis() - stunTime) > 3000) {
+                if ((System.currentTimeMillis() - stunTime) > STUN_TIME) {
                     isStunned = false;
                 }
             }
@@ -179,7 +192,7 @@ public abstract class Player extends GameObject {
             // move player with respect to map collisions based on how much player needs to move this frame
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
-            if(fireFrame >= 60) {
+            if(System.currentTimeMillis() - fireFrame > FIRE_RATE) {
                 if(MouseControls.isMousePressed() && !isStunned) {
                     // original position
                     int rocketX = Math.round(getX() + getWidth()/2.0f);
@@ -194,10 +207,8 @@ public abstract class Player extends GameObject {
                         new Point(rocketEndX, rocketEndY), rocketSpeed, lifeTime
                         ); // ^ where we want the mouse to point
                     map.addEnemy(rocket);
-                    fireFrame = 0;
+                    fireFrame = System.currentTimeMillis();
                 }
-            } else {
-                fireFrame++;
             }
             
             handlePlayerAnimation();
@@ -284,13 +295,11 @@ public abstract class Player extends GameObject {
         // if walk left key is pressed, move player to the left
         
         if (!isStunned && Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-            //moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
         }
 
         // if walk right key is pressed, move player to the right
         else if (!isStunned && Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-            //moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
         } else if (!isStunned && Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.STANDING;
@@ -418,7 +427,9 @@ public abstract class Player extends GameObject {
 
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
-        if (!isInvincible) {
+        if (!isInvincible && !isStunned) {
+            velocityX *= HURT_MOMENTUM_X;
+            velocityY *= HURT_MOMENTUM_Y;
             applyKnockback(mapEntity, DEFAULT_KNOCKBACK, true);
 
             // if map entity is an enemy, kill player on touch
