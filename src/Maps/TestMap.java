@@ -2,6 +2,7 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.FireFrog;
 import Enemies.FlyEnemy;
 import Engine.ImageLoader;
 import GameObject.Frame;
@@ -31,6 +32,14 @@ public class TestMap extends Map {
 
         FlyEnemy FlyEnemy = new FlyEnemy(getMapTile(16, 213).getLocation().addY(2), getMapTile(19, 150).getLocation().addY(2), Direction.RIGHT);
         enemies.add(FlyEnemy);
+
+        FlyEnemy FlyEnemy2 = new FlyEnemy(getMapTile(4, 169).getLocation().addY(2), getMapTile(6, 125).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy2);
+
+        FireFrog FireFrog = new FireFrog(getMapTile(18, 110).getLocation().addY(2), getMapTile(18, 150).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FireFrog);
+
+
 
         return enemies;
     }
