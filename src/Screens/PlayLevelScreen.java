@@ -26,6 +26,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
     private BufferedImage levelBufferedImage;
+    boolean backgroundSwitched = false;
+
+
+    BufferedImage[] biomeBackgrounds;
+    int[] biomeHeights = {7900, 6748, 4800, 2630};
+    int currentBiome = 0;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -41,7 +47,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.addListener(this);
 
         try {
-            levelBufferedImage = ImageIO.read(getClass().getResourceAsStream("/levelBackground.png"));
+            biomeBackgrounds = new BufferedImage[] {
+                ImageIO.read(getClass().getResourceAsStream("/levelBackground.png")),
+                ImageIO.read(getClass().getResourceAsStream("/lushBackground.png")),
+                ImageIO.read(getClass().getResourceAsStream("/lavaBackground.png")),
+                ImageIO.read(getClass().getResourceAsStream("/iceBackground.png")),
+            };
+            levelBufferedImage = biomeBackgrounds[0];
         } catch (IOException e) {
             System.out.println("cannot load background");
             e.printStackTrace();
@@ -54,30 +66,47 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void update() {
+        double y = player.getY();
+        // System.out.println("Player Y coordinate: " + y); //Testing line
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 player.update();
                 map.update(player);
-                break;
-            // if level has been completed, bring up level cleared screen
-            case LEVEL_COMPLETED:
-                if (levelCompletedStateChangeStart) {
-                    screenTimer = 130;
-                    levelCompletedStateChangeStart = false;
-                } else {
-                    levelClearedScreen.update();
-                    screenTimer--;
-                    if (screenTimer == 0) {
-                        goBackToMenu();
+
+                int newBiome = currentBiome;
+
+                for (int i = 0; i < biomeHeights.length; i++) {
+                    if (y <= biomeHeights[i]) {
+                        newBiome = i;
                     }
                 }
+
+                if (newBiome != currentBiome) {
+                    currentBiome = newBiome;
+                    levelBufferedImage = biomeBackgrounds[currentBiome];
+                    System.out.println("You are in biome " + currentBiome);
+                }
+                
                 break;
-            // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
-            case LEVEL_LOSE:
-                levelLoseScreen.update();
-                break;
+            // if level has been completed, bring up level cleared screen
+            // case LEVEL_COMPLETED:
+            //     if (levelCompletedStateChangeStart) {
+            //         screenTimer = 130;
+            //         levelCompletedStateChangeStart = false;
+            //     } else {
+            //         levelClearedScreen.update();
+            //         screenTimer--;
+            //         if (screenTimer == 0) {
+            //             goBackToMenu();
+            //         }
+            //     }
+            //     break;
+            // // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
+            // case LEVEL_LOSE:
+            //     levelLoseScreen.update();
+            //     break;
         }
     }
 
@@ -85,7 +114,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
-            graphicsHandler.drawImage(levelBufferedImage,0,0);
+            graphicsHandler.drawImage(levelBufferedImage,0,0,800,617);
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
                 break;
@@ -127,6 +156,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
+        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE, LUSH_CAVE
     }
 }
