@@ -115,6 +115,7 @@ public abstract class Player extends GameObject {
 
         if(applyStun) {
             if (!isStunned)
+                Sound.playSFX(Sound.STUN_SOUND);
                 stunTime = System.currentTimeMillis();
             isStunned = true;
             isRocketJump = false;
