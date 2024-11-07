@@ -152,7 +152,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
 
-                String formattedTime = String.format("%20d:%20d", minutes, seconds);
+                String formattedTime = String.format("%02d:%02d", minutes, seconds);
 
                 graphicsHandler.drawString("Time: " + formattedTime,650, 20, timerFont, Color.WHITE);
 
