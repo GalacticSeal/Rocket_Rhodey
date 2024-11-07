@@ -13,9 +13,12 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public abstract class Player extends GameObject {
     // new temp variables (this is going to be ugly)
+
     protected float terminalFactorY = 0; //acceleration factor after reaching terminal velocity on the y-axis
     protected float terminalFactorX = 0; //acceleration factor after reaching terminal velocity on the y-axis
 
@@ -115,6 +118,7 @@ public abstract class Player extends GameObject {
 
         if(applyStun) {
             if (!isStunned)
+                Sound.playSFX(Sound.STUN_SOUND);
                 stunTime = System.currentTimeMillis();
             isStunned = true;
             isRocketJump = false;
@@ -423,7 +427,42 @@ public abstract class Player extends GameObject {
                 velocityY = 0;
             }
         }
+
+        if (airGroundState == AirGroundState.GROUND) {
+            if (entityCollidedWith instanceof SlipperyPlatform) {
+                setM(0.01);
+            }
+            else {
+                setM(0.1);
+            }
+        }
+
+        if (airGroundState == AirGroundState.GROUND) {
+            if (entityCollidedWith instanceof DissapearingPlatform) {
+
+                // Set a delay (e.g., 2 seconds) for the initial removal
+        int initialRemovalDelay = 2000; // delay in milliseconds (2 seconds)
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Set platform to INACTIVE after delay
+                entityCollidedWith.setMapEntityStatus(MapEntityStatus.DISSAPEARING);
+
+                // Set a second delay (e.g., 3 seconds) to make the platform reappear
+                int reappearDelay = 3000;
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        // Code to make the platform reappear
+                        entityCollidedWith.setMapEntityStatus(MapEntityStatus.ACTIVE);
+                    }
+                }, reappearDelay);
+            }
+        }, initialRemovalDelay);
+        }
     }
+    }
+
 
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
@@ -527,4 +566,9 @@ public abstract class Player extends GameObject {
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
     }
     */
+
+
+    public void setM(double slip){
+            this.degradeFactor = (float) slip;
+    }
 }

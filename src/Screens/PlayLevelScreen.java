@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.Sound;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -65,6 +66,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 ImageIO.read(getClass().getResourceAsStream("/iceBackground.png")),
             };
             levelBufferedImage = biomeBackgrounds[0];
+            Sound.playMusic(0);
         } catch (IOException e) {
             System.out.println("cannot load background");
             e.printStackTrace();
@@ -116,6 +118,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     currentBiome = newBiome;
                     levelBufferedImage = biomeBackgrounds[currentBiome];
                     //System.out.println("You are in biome " + currentBiome); //debug statement
+                    Sound.playMusic(currentBiome);
                 }
 
                 //elapsedTime = (int) ((System.currentTimeMillis() - startTime) / 1000);
