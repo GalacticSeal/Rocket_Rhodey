@@ -3,7 +3,9 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Frame;
+import GameObject.Rectangle;
 import Level.*;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -35,6 +37,37 @@ public class TestMap extends Map {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
         CheckpointTile checkpointTile = new CheckpointTile(getMapTile(8, 245).getLocation().x, getMapTile(5,244 ).getLocation().y, new Frame(ImageLoader.load("Checkpoint.png")));
         enhancedMapTiles.add(checkpointTile);
+
+        SlipperyPlatform slipTile4 = new SlipperyPlatform(getMapTile(18, 245).getLocation().x, getMapTile(1,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        enhancedMapTiles.add(slipTile4);
+
+        SlipperyPlatform slipTile3 = new SlipperyPlatform(getMapTile(17, 245).getLocation().x, getMapTile(17,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        enhancedMapTiles.add(slipTile3);
+
+        SlipperyPlatform slipTile2 = new SlipperyPlatform(getMapTile(16, 245).getLocation().x, getMapTile(16,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        enhancedMapTiles.add(slipTile2);
+
+        SlipperyPlatform slipTile = new SlipperyPlatform(getMapTile(15, 245).getLocation().x, getMapTile(15,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        enhancedMapTiles.add(slipTile);
+
+        DissapearingPlatform dissapearingTile = new DissapearingPlatform(getMapTile(2, 245).getLocation().x, getMapTile(2,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        enhancedMapTiles.add(dissapearingTile);
+
+        DissapearingPlatform dissapearingTile2 = new DissapearingPlatform(getMapTile(4, 245).getLocation().x, getMapTile(4,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        enhancedMapTiles.add(dissapearingTile2);
+
+
+      
+        HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
+                ImageLoader.load("TestTileSet.png"),
+                getMapTile(4, 242).getLocation(),
+                getMapTile(14, 242).getLocation(),
+                TileType.NOT_PASSABLE,
+                1,
+                new Rectangle(0, 6,15,30),
+                Direction.RIGHT
+        );
+        enhancedMapTiles.add(hmp);
 
         return enhancedMapTiles;
     }

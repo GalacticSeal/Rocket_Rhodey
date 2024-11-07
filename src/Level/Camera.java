@@ -99,24 +99,49 @@ public class Camera extends Rectangle {
     }
 
     // determine which enhanced map tiles are active (exist and are within range of the camera)
-    private ArrayList<EnhancedMapTile> loadActiveEnhancedMapTiles() {
-        ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
-        for (int i = map.getEnhancedMapTiles().size() - 1; i >= 0; i--) {
-            EnhancedMapTile enhancedMapTile = map.getEnhancedMapTiles().get(i);
+    // private ArrayList<EnhancedMapTile> loadActiveEnhancedMapTiles() {
+    //     ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
+    //     for (int i = map.getEnhancedMapTiles().size() - 1; i >= 0; i--) {
+    //         EnhancedMapTile enhancedMapTile = map.getEnhancedMapTiles().get(i);
 
-            if (isMapEntityActive(enhancedMapTile)) {
-                activeEnhancedMapTiles.add(enhancedMapTile);
-                if (enhancedMapTile.mapEntityStatus == MapEntityStatus.INACTIVE) {
-                    enhancedMapTile.setMapEntityStatus(MapEntityStatus.ACTIVE);
-                }
-            } else if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
-                enhancedMapTile.setMapEntityStatus(MapEntityStatus.INACTIVE);
-            } else if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.REMOVED) {
-                map.getEnhancedMapTiles().remove(i);
-            }
+    //         if (isMapEntityActive(enhancedMapTile)) {
+    //             activeEnhancedMapTiles.add(enhancedMapTile);
+    //             if (enhancedMapTile.mapEntityStatus == MapEntityStatus.INACTIVE) {
+    //                 enhancedMapTile.setMapEntityStatus(MapEntityStatus.ACTIVE);
+    //             }
+    //         } else if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
+    //             enhancedMapTile.setMapEntityStatus(MapEntityStatus.INACTIVE);
+    //         } else if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.REMOVED) {
+    //             map.getEnhancedMapTiles().remove(i);
+    //         }
+    //     }
+    //     return activeEnhancedMapTiles;
+    // }
+
+    // Determine which enhanced map tiles are active (exist and are within range of the camera)
+private ArrayList<EnhancedMapTile> loadActiveEnhancedMapTiles() {
+    ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
+    for (int i = map.getEnhancedMapTiles().size() - 1; i >= 0; i--) {
+        EnhancedMapTile enhancedMapTile = map.getEnhancedMapTiles().get(i);
+
+        // Only add to active list if the tile is active and within range
+        if (isMapEntityActive(enhancedMapTile) && enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
+            activeEnhancedMapTiles.add(enhancedMapTile);
         }
-        return activeEnhancedMapTiles;
+
+        // Check status to determine visibility
+        if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE && !isMapEntityActive(enhancedMapTile)) {
+            // If out of range, make inactive
+            enhancedMapTile.setMapEntityStatus(MapEntityStatus.INACTIVE);
+        }
+        
+        // Remove the entity only if it's marked as REMOVED
+        if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.REMOVED) {
+            map.getEnhancedMapTiles().remove(i);
+        }
     }
+    return activeEnhancedMapTiles;
+}
 
     // determine which npcs are active (exist and are within range of the camera)
     private ArrayList<NPC> loadActiveNPCs() {
