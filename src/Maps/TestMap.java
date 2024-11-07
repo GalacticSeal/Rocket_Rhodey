@@ -51,16 +51,16 @@ public class TestMap extends Map {
         CheckpointTile checkpointTile = new CheckpointTile(getMapTile(8, 248).getLocation().x, getMapTile(5,247 ).getLocation().y, new Frame(ImageLoader.load("Checkpoint.png")));
         enhancedMapTiles.add(checkpointTile);
 
-        SlipperyPlatform slipTile4 = new SlipperyPlatform(getMapTile(18, 245).getLocation().x, getMapTile(1,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        SlipperyPlatform slipTile4 = new SlipperyPlatform(getMapTile(18, 245).getLocation().x, getMapTile(18,244 ).getLocation().y, new Frame(ImageLoader.load("iceTile.png")));
         enhancedMapTiles.add(slipTile4);
 
-        SlipperyPlatform slipTile3 = new SlipperyPlatform(getMapTile(17, 245).getLocation().x, getMapTile(17,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        SlipperyPlatform slipTile3 = new SlipperyPlatform(getMapTile(17, 245).getLocation().x, getMapTile(17,244 ).getLocation().y, new Frame(ImageLoader.load("iceTile.png")));
         enhancedMapTiles.add(slipTile3);
 
-        SlipperyPlatform slipTile2 = new SlipperyPlatform(getMapTile(16, 245).getLocation().x, getMapTile(16,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        SlipperyPlatform slipTile2 = new SlipperyPlatform(getMapTile(16, 245).getLocation().x, getMapTile(16,244 ).getLocation().y, new Frame(ImageLoader.load("iceTile.png")));
         enhancedMapTiles.add(slipTile2);
 
-        SlipperyPlatform slipTile = new SlipperyPlatform(getMapTile(15, 245).getLocation().x, getMapTile(15,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
+        SlipperyPlatform slipTile = new SlipperyPlatform(getMapTile(15, 245).getLocation().x, getMapTile(15,244 ).getLocation().y, new Frame(ImageLoader.load("iceTile.png")));
         enhancedMapTiles.add(slipTile);
 
         DissapearingPlatform dissapearingTile = new DissapearingPlatform(getMapTile(2, 245).getLocation().x, getMapTile(2,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
@@ -72,12 +72,12 @@ public class TestMap extends Map {
 
       
         HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
-                ImageLoader.load("TestTileSet.png"),
+                ImageLoader.load("TestTileSet2.png"),
                 getMapTile(4, 242).getLocation(),
                 getMapTile(14, 242).getLocation(),
                 TileType.NOT_PASSABLE,
                 1,
-                new Rectangle(0, 6,15,30),
+                new Rectangle(0, 6,60,30),
                 Direction.RIGHT
         );
         enhancedMapTiles.add(hmp);

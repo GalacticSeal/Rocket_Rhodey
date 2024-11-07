@@ -69,12 +69,32 @@ public class CommonTileset extends Tileset {
         // mapTiles.add(sunTile);
 
         //green crystal
-        Frame greenCrystalFrame = new FrameBuilder(getSubImage(2, 0))
-        .withScale(tileScale)
-        .build();
+        // Frame greenCrystalFrame = new FrameBuilder(getSubImage(2, 0))
+        // .withScale(tileScale)
+        // .build();
 
-        MapTileBuilder greenCrystalTile = new MapTileBuilder(greenCrystalFrame)                         
-        .withTileType(TileType.PASSABLE);
+        // MapTileBuilder greenCrystalTile = new MapTileBuilder(greenCrystalFrame)                         
+        // .withTileType(TileType.PASSABLE);
+
+        // mapTiles.add(greenCrystalTile);
+
+        // green crystal
+        Frame[] greenCrystalFrame = new Frame[] {
+                new FrameBuilder(getSubImage(2, 0), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 3), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 4), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 5), 65)
+                        .withScale(tileScale)
+                        .build()
+        };
+
+        MapTileBuilder greenCrystalTile = new MapTileBuilder(greenCrystalFrame);
 
         mapTiles.add(greenCrystalTile);
 
@@ -259,13 +279,29 @@ public class CommonTileset extends Tileset {
 
 
         // lush cave hanging leaf
-        Frame lushCaveHangingLeafFrame = new FrameBuilder(getSubImage(2, 3))
-                .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
-                .build();
+        // Frame lushCaveHangingLeafFrame = new FrameBuilder(getSubImage(2, 3))
+        //         .withScale(tileScale)
+        //         .withBounds(0, 6, 16, 4)
+        //         .build();
 
-        MapTileBuilder lushCaveHangingLeafTile = new MapTileBuilder(lushCaveHangingLeafFrame)
-                .withTileType(TileType.PASSABLE);
+        // MapTileBuilder lushCaveHangingLeafTile = new MapTileBuilder(lushCaveHangingLeafFrame)
+        //         .withTileType(TileType.PASSABLE);
+
+        // mapTiles.add(lushCaveHangingLeafTile);
+
+        Frame[] lushCaveHangingLeafFrames = new Frame[] {
+                new FrameBuilder(getSubImage(2, 3), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 1), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 2), 65)
+                        .withScale(tileScale)
+                        .build(),
+        };
+
+        MapTileBuilder lushCaveHangingLeafTile = new MapTileBuilder(lushCaveHangingLeafFrames);
 
         mapTiles.add(lushCaveHangingLeafTile);
 
@@ -621,13 +657,27 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(iceCaveInnerTile);
 
-        //Ice Stalactite
-        Frame iceStalactiteFrame = new FrameBuilder(getSubImage(6, 4))
-        .withScale(tileScale)
-        .build();
+        // //Ice Stalactite
+        // Frame iceStalactiteFrame = new FrameBuilder(getSubImage(6, 4))
+        // .withScale(tileScale)
+        // .build();
 
-        MapTileBuilder iceStalactiteTile = new MapTileBuilder(iceStalactiteFrame)                         
-        .withTileType(TileType.PASSABLE);
+        // MapTileBuilder iceStalactiteTile = new MapTileBuilder(iceStalactiteFrame)                         
+        // .withTileType(TileType.PASSABLE);
+
+        // mapTiles.add(iceStalactiteTile);
+
+        //Ice Stalactite
+        Frame[] iceStalactiteFrames = new Frame[]{
+                new FrameBuilder(getSubImage(6, 4), 500)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 0), 50)
+                        .withScale(tileScale)
+                        .build()
+        };
+
+        MapTileBuilder iceStalactiteTile = new MapTileBuilder(iceStalactiteFrames);
 
         mapTiles.add(iceStalactiteTile);
 
