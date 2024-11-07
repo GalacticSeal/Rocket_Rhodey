@@ -93,7 +93,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     if (currentTime - lastUpdateTime >= 1000) {
                     elapsedTime++;
                     lastUpdateTime = currentTime;
-                    System.out.println("Elapsed time: " + elapsedTime);
                     minutes = elapsedTime / 60;
                     seconds = elapsedTime % 60;
 
