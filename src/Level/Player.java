@@ -92,6 +92,9 @@ public abstract class Player extends GameObject {
         if(!isPushed) {
             if (airGroundState == AirGroundState.AIR) {
             velocityY += gravity;
+            if (Keyboard.isKeyDown(CROUCH_KEY)) {
+                velocityY += gravity; //applies gravity a second time if the player holds down while airborne
+            }
             } else {
                 velocityY = 0f;
                 moveAmountY = 0.5f;
