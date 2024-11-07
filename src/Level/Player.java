@@ -445,7 +445,7 @@ public abstract class Player extends GameObject {
             @Override
             public void run() {
                 // Set platform to INACTIVE after delay
-                entityCollidedWith.setMapEntityStatus(MapEntityStatus.INACTIVE);
+                entityCollidedWith.setMapEntityStatus(MapEntityStatus.DISSAPEARING);
 
                 // Set a second delay (e.g., 3 seconds) to make the platform reappear
                 int reappearDelay = 3000;

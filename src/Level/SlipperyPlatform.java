@@ -4,8 +4,6 @@ import Utils.AirGroundState;
 
 public class SlipperyPlatform extends EnhancedMapTile {
 
-    private int slip = 25;
-    private int def = 2;
 
     public SlipperyPlatform(float x, float y, Frame frame){
         super(x, y, frame, TileType.NOT_PASSABLE);

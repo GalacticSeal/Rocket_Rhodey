@@ -118,30 +118,60 @@ public class Camera extends Rectangle {
     //     return activeEnhancedMapTiles;
     // }
 
-    // Determine which enhanced map tiles are active (exist and are within range of the camera)
+//     // Determine which enhanced map tiles are active (exist and are within range of the camera)
+// private ArrayList<EnhancedMapTile> loadActiveEnhancedMapTiles() {
+//     ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
+//     for (int i = map.getEnhancedMapTiles().size() - 1; i >= 0; i--) {
+//         EnhancedMapTile enhancedMapTile = map.getEnhancedMapTiles().get(i);
+
+//         // Only add to active list if the tile is active and within range
+//         if (isMapEntityActive(enhancedMapTile) && enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
+//             activeEnhancedMapTiles.add(enhancedMapTile);
+//         }
+
+//         // Check status to determine visibility
+//         if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE && !isMapEntityActive(enhancedMapTile)) {
+//             // If out of range, make inactive
+//             enhancedMapTile.setMapEntityStatus(MapEntityStatus.INACTIVE);
+//         }
+//             else {
+//                 enhancedMapTile.setMapEntityStatus(MapEntityStatus.ACTIVE);
+//             }
+        
+//         // Remove the entity only if it's marked as REMOVED
+//         // if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.REMOVED) {
+//         //     map.getEnhancedMapTiles().remove(i);
+//         // }
+//     }
+//     return activeEnhancedMapTiles;
+// }
+
 private ArrayList<EnhancedMapTile> loadActiveEnhancedMapTiles() {
     ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
+
     for (int i = map.getEnhancedMapTiles().size() - 1; i >= 0; i--) {
         EnhancedMapTile enhancedMapTile = map.getEnhancedMapTiles().get(i);
+        boolean isWithinRange = isMapEntityActive(enhancedMapTile);
 
         // Only add to active list if the tile is active and within range
-        if (isMapEntityActive(enhancedMapTile) && enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
+        if (isWithinRange && enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
             activeEnhancedMapTiles.add(enhancedMapTile);
         }
 
-        // Check status to determine visibility
-        if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE && !isMapEntityActive(enhancedMapTile)) {
-            // If out of range, make inactive
+        // Transition out-of-range tiles to INACTIVE, unless they're DISAPPEARING
+        if (!isWithinRange && enhancedMapTile.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
             enhancedMapTile.setMapEntityStatus(MapEntityStatus.INACTIVE);
         }
-        
-        // Remove the entity only if it's marked as REMOVED
-        if (enhancedMapTile.getMapEntityStatus() == MapEntityStatus.REMOVED) {
-            map.getEnhancedMapTiles().remove(i);
+
+        // Reactivate INACTIVE tiles when they return to range (ignore DISAPPEARING tiles)
+        else if (isWithinRange && enhancedMapTile.getMapEntityStatus() == MapEntityStatus.INACTIVE) {
+            enhancedMapTile.setMapEntityStatus(MapEntityStatus.ACTIVE);
         }
     }
+
     return activeEnhancedMapTiles;
 }
+
 
     // determine which npcs are active (exist and are within range of the camera)
     private ArrayList<NPC> loadActiveNPCs() {
