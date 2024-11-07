@@ -48,7 +48,7 @@ public class TestMap extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() { 
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        CheckpointTile checkpointTile = new CheckpointTile(getMapTile(8, 245).getLocation().x, getMapTile(5,244 ).getLocation().y, new Frame(ImageLoader.load("Checkpoint.png")));
+        CheckpointTile checkpointTile = new CheckpointTile(getMapTile(8, 248).getLocation().x, getMapTile(5,247 ).getLocation().y, new Frame(ImageLoader.load("Checkpoint.png")));
         enhancedMapTiles.add(checkpointTile);
 
         SlipperyPlatform slipTile4 = new SlipperyPlatform(getMapTile(18, 245).getLocation().x, getMapTile(1,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
