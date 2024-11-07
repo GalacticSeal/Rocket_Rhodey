@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -11,6 +12,7 @@ import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import java.awt.Color;
 import java.util.HashMap;
 
 // This class is for the green dinosaur enemy that shoots fireballs
@@ -39,7 +41,7 @@ public class DinosaurEnemy extends Enemy {
     protected DinosaurState previousDinosaurState;
 
     public DinosaurEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("IceWizardEnemy.png"), 17, 19), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("IceWizardEnemy.png"), 17, 22), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -129,13 +131,13 @@ public class DinosaurEnemy extends Enemy {
             }
 
             // define where fireball will spawn on the map (y location) relative to dinosaur enemy's location
-            int fireballY = Math.round(getY()) + 4;
+            int fireballY = Math.round(getY()) + 13;
 
             // create Fireball enemy
-            // Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
+            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
 
             // add fireball enemy to the map for it to spawn in the level
-            // map.addEnemy(fireball);
+            map.addEnemy(fireball);
 
             // change dinosaur back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
             dinosaurState = DinosaurState.WALK;
@@ -163,17 +165,22 @@ public class DinosaurEnemy extends Enemy {
         }
     }
 
+    public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
+        // drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
+    }
+
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(3)
-                            .withBounds(3, 5, 11, 16)
+                            .withBounds(3, 5, 11, 15)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                             .withScale(3)
-                            .withBounds(3, 5, 11, 16)
+                            .withBounds(3, 5, 11, 15)
                             .build()
             });
 
@@ -181,19 +188,19 @@ public class DinosaurEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 5, 11, 16)
+                            .withBounds(3, 5, 11, 15)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 5, 11, 16)
+                            .withBounds(3, 5, 11, 15)
                             .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(2, 1))
                             .withScale(3)
-                            .withBounds(3, 5, 11, 16)
+                            .withBounds(3, 5, 11, 15)
                             .build(),
             });
 
@@ -201,7 +208,7 @@ public class DinosaurEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(2, 1))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 5, 11, 16)
+                            .withBounds(3, 5, 11, 15)
                             .build(),
             });
         }};
