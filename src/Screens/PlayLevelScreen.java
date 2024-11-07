@@ -1,5 +1,8 @@
 package Screens;
 
+import java.awt.*;
+import javax.swing.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -25,9 +28,17 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+
     private BufferedImage levelBufferedImage;
     boolean backgroundSwitched = false;
 
+    private long lastUpdateTime;
+    private int elapsedTime = 0;
+    private Font timerFont;
+    private int minutes;
+    private int seconds;
+
+    private GraphicsHandler timer;
 
     BufferedImage[] biomeBackgrounds;
     int[] biomeHeights = {7900, 6748, 4800, 2630};
@@ -63,6 +74,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+
+        lastUpdateTime = System.currentTimeMillis();
+        timerFont = new Font("Arial", Font.BOLD, 20);
     }
 
     public void update() {
@@ -72,6 +86,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
+
+                long currentTime = System.currentTimeMillis();
+                    if (currentTime - lastUpdateTime >= 1000) {
+                    elapsedTime++;
+                    lastUpdateTime = currentTime;
+                    System.out.println("Elapsed time: " + elapsedTime);
+                    minutes = elapsedTime / 60;
+                    seconds = elapsedTime % 60;
+
+                    draw(timer);
+
+                }
+
+                
+
                 player.update();
                 map.update(player);
 
@@ -88,6 +117,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     levelBufferedImage = biomeBackgrounds[currentBiome];
                     //System.out.println("You are in biome " + currentBiome); //debug statement
                 }
+
+                //elapsedTime = (int) ((System.currentTimeMillis() - startTime) / 1000);
                 
                 break;
             // if level has been completed, bring up level cleared screen
@@ -117,13 +148,19 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             graphicsHandler.drawImage(levelBufferedImage,0,0,800,617);
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
+
+                String formattedTime = String.format("%20d:%20d", minutes, seconds);
+
+                graphicsHandler.drawString("Time: " + formattedTime,650, 20, timerFont, Color.WHITE);
+
+                timer = graphicsHandler;
                 break;
-            case LEVEL_COMPLETED:
-                levelClearedScreen.draw(graphicsHandler);
-                break;
-            case LEVEL_LOSE:
-                levelLoseScreen.draw(graphicsHandler);
-                break;
+            // case LEVEL_COMPLETED:
+            //     levelClearedScreen.draw(graphicsHandler);
+            //     break;
+            // case LEVEL_LOSE:
+            //     levelLoseScreen.draw(graphicsHandler);
+            //     break;
         }
     }
 
@@ -156,6 +193,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE, LUSH_CAVE
+        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
 }
