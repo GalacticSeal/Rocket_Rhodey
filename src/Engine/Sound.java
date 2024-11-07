@@ -9,6 +9,10 @@ import javax.sound.sampled.Clip;
 public class Sound {
     private static File[] musicFiles = {
         // new File( %location%.wav )
+        new File(Config.RESOURCES_PATH + "/music/07 - Concrete Halls.wav"),
+        new File(Config.RESOURCES_PATH + "/music/Lost Colony - SA2.wav"),
+        new File(Config.RESOURCES_PATH + "/music/11 - Warmth.wav"),
+        new File(Config.RESOURCES_PATH + "/music/Icecap - SA1.wav")
     };
     private static File[] soundEffects = {
         // new File( %location%.wav )
