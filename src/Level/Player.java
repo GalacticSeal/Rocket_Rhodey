@@ -39,6 +39,7 @@ public abstract class Player extends GameObject {
     public static final long STUN_TIME = 1500;
     public static final float HURT_MOMENTUM_X = 0.60f;
     public static final float HURT_MOMENTUM_Y = 0.20f;
+    public static final float SUPERJUMP_MOD = 2f;
 
     // values that affect player movement
     // these should be set in a subclass
@@ -115,6 +116,10 @@ public abstract class Player extends GameObject {
         double distanceH = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));
         double powRatio = -power/distanceH; //explosion knockback calculation
 
+        if(!isRocketJump) {
+            velocityY /= SUPERJUMP_MOD;
+        }
+
         //Apply momentum to player from explosion
         velocityX += (float) (distanceX*powRatio);
         velocityY += (float) (distanceY*powRatio);
@@ -124,7 +129,6 @@ public abstract class Player extends GameObject {
                 Sound.playSFX(Sound.STUN_SOUND);
                 stunTime = System.currentTimeMillis();
             isStunned = true;
-            isRocketJump = false;
         } else {
             isRocketJump = true;
         }
