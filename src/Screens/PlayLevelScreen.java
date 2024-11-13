@@ -33,6 +33,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private BufferedImage levelBufferedImage;
     boolean backgroundSwitched = false;
 
+    private boolean isDarkening = false;
+    private int darkeningTimer = 0;
+    private final int darkeningDuration = 10;
+
     private long lastUpdateTime;
     private int elapsedTime = 0;
     private Font timerFont;
@@ -97,7 +101,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     seconds = elapsedTime % 60;
 
                     draw(timer);
-
                 }
 
                 
@@ -118,6 +121,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     levelBufferedImage = biomeBackgrounds[currentBiome];
                     //System.out.println("You are in biome " + currentBiome); //debug statement
                     Sound.playMusic(currentBiome);
+
+                    isDarkening = true;
+                    darkeningTimer = darkeningDuration;
+                }
+
+                if (isDarkening) {
+                    darkeningTimer--;
+                    if (darkeningTimer <= 0) {
+                        isDarkening = false;
+                    }
                 }
 
                 //elapsedTime = (int) ((System.currentTimeMillis() - startTime) / 1000);
@@ -148,6 +161,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         switch (playLevelScreenState) {
             case RUNNING:
             graphicsHandler.drawImage(levelBufferedImage,0,0,800,617);
+
+
+            if (isDarkening) {
+                graphicsHandler.setTransparency(0.3f);
+
+                graphicsHandler.fillRect(0,0,800,617, new Color(0,0,0));
+            }
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
 

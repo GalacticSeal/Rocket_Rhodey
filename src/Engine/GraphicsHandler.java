@@ -26,6 +26,17 @@ public class GraphicsHandler {
         g.drawImage(image, x, y, width, height, null);
     }
 
+    public void setTransparency(float alpha) {
+        Graphics2D g2d = (Graphics2D) getGraphics();
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+    }
+
+    public void fillRect(int x, int y, int width, int height, Color color) {
+        Graphics2D g2d = (Graphics2D) getGraphics();
+        g2d.setColor(color);
+        g2d.fillRect(x, y, width, height);
+    }
+
     public void drawImage(BufferedImage image, int x, int y, int width, int height, ImageEffect imageEffect) {
         switch (imageEffect) {
             case NONE:
