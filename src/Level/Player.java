@@ -412,7 +412,17 @@ public abstract class Player extends GameObject {
     }
 
     @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) { }
+    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) { 
+        if(direction == Direction.LEFT && velocityX <= 0) {
+            if (hasCollided) {
+                velocityX = 0f;
+            }
+        } else if(direction == Direction.RIGHT && velocityX >= 0) {
+            if (hasCollided) {
+                velocityX = 0f;
+            }
+        }
+    }
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
