@@ -39,7 +39,7 @@ public abstract class Player extends GameObject {
     public static final long STUN_TIME = 1500;
     public static final float HURT_MOMENTUM_X = 0.60f;
     public static final float HURT_MOMENTUM_Y = 0.20f;
-    public static final float SUPERJUMP_MOD = 2f;
+    public static final float SUPERJUMP_MOD = 2.75f;
 
     // values that affect player movement
     // these should be set in a subclass
