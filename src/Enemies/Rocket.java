@@ -24,7 +24,7 @@ public class Rocket extends Enemy {
     protected static final int ROCKET_WIDTH = 7;
     protected static final int ROCKET_HEIGHT = 7;
 
-    public Rocket(Point location, Point mouseTarget, float movementSpeed, int existenceFrames) {
+    public Rocket(Point location, Point mouseTarget, float movementSpeed, int existenceFrames, boolean isDisplaced) {
         super(location.x-ROCKET_WIDTH, location.y-ROCKET_HEIGHT, new SpriteSheet(ImageLoader.load("Fireball.png"), ROCKET_WIDTH, ROCKET_HEIGHT), "DEFAULT");
 
         //turning mouse position from rocket spawn position into right triangle
@@ -37,6 +37,13 @@ public class Rocket extends Enemy {
         double ratioT = movementSpeed/mouseHyp; //triangle ratio calculation
         ratioX = (float) (mouseXT*ratioT);
         ratioY = (float) (mouseYT*ratioT);
+
+        //displaces projectile forward if isDisplaced is true
+        //setX(getX()-getWidth()/2f);
+        if(isDisplaced) {
+            setX(getX()-getWidth()+ratioX*5f);
+            setY(getY()+getHeight()+ratioY*5f);
+        }
 
         // how long the rocket will exist for before disappearing
         this.existenceFrames = existenceFrames;
