@@ -11,7 +11,6 @@ import Level.MapEntityStatus;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
-
 import java.util.HashMap;
 
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
@@ -95,7 +94,7 @@ public class Rocket extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
+                            .withScale(5)
                             .withBounds(1, 1, 5, 5)
                             .build()
             });
