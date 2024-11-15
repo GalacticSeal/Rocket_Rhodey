@@ -35,7 +35,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     private boolean isDarkening = false;
     private int darkeningTimer = 0;
-    private final int darkeningDuration = 10;
+    private final int darkeningDuration = 3;
 
     private long lastUpdateTime;
     private int elapsedTime = 0;
@@ -46,7 +46,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private GraphicsHandler timer;
 
     BufferedImage[] biomeBackgrounds;
-    int[] biomeHeights = {7900, 6748, 4800, 2630};
+    int[] biomeHeights = {12700, 9525, 6350, 3175};
     int currentBiome = 0;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
