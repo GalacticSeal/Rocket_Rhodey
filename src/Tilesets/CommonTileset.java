@@ -401,7 +401,7 @@ public class CommonTileset extends Tileset {
         // default cave tile faced down
         Frame defaultCaveFrameD = new FrameBuilder(getSubImage(0,0))
                 .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
+                // .withBounds(0, 6, 16, 4)
                 .withImageEffect(ImageEffect.FLIP_VERTICAL)
                 .build();
 
@@ -524,7 +524,7 @@ public class CommonTileset extends Tileset {
         // Default cave corner tile 2
         Frame DefaultCaveCornerFrame2 = new FrameBuilder(getSubImage(4,0))
                 .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
+                // .withBounds(0, 6, 16, 8)
                 .withImageEffect(ImageEffect.FLIP_VERTICAL)
                 .build();
 
@@ -536,7 +536,7 @@ public class CommonTileset extends Tileset {
         // Default cave corner tile 3
         Frame DefaultCaveCornerFrame3 = new FrameBuilder(getSubImage(4,0))
                 .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
+                // .withBounds(0, 6, 16, 8)
                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                 .build();
 
@@ -558,7 +558,7 @@ public class CommonTileset extends Tileset {
         // Default cave tile Right 90 2
         Frame DefaultCaveFrameR902 = new FrameBuilder(getSubImage(4,4))
                 .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
+                // .withBounds(0, 6, 16, 4)
                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                 .build();
 
