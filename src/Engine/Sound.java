@@ -12,13 +12,20 @@ public class Sound {
         new File(Config.RESOURCES_PATH + "/music/07 - Concrete Halls.wav"),
         new File(Config.RESOURCES_PATH + "/music/Lost Colony - SA2.wav"),
         new File(Config.RESOURCES_PATH + "/music/11 - Warmth.wav"),
-        new File(Config.RESOURCES_PATH + "/music/Icecap - SA1.wav")
+        new File(Config.RESOURCES_PATH + "/music/Icecap - SA1.wav"),
+        
+        // title theme
+        new File(Config.RESOURCES_PATH + "/music/blaster_master_title_djka.wav")
     };
     private static File[] soundEffects = {
         // new File( %location%.wav )
         new File(Config.RESOURCES_PATH + "action_jump.wav"),
         new File(Config.RESOURCES_PATH + "rpg_fire.wav"),
-        new File(Config.RESOURCES_PATH + "stun_gun.wav")
+        new File(Config.RESOURCES_PATH + "stun_gun.wav"),
+        // menu sounds
+        new File(Config.RESOURCES_PATH + "menu_hover.wav"),
+        new File(Config.RESOURCES_PATH + "menu_select.wav"),
+        new File(Config.RESOURCES_PATH + "rocket.wav")
     };
     public static final int JUMP_SOUND = 0;
     public static final int RPG_SOUND = 1;

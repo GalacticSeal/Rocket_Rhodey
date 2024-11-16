@@ -63,6 +63,7 @@ public class KeybindsScreen extends Screen {
     private void select() {
         menuItemSelected = currentMenuItemHovered;
         if (menuItemSelected == 0) {
+            Sound.playSFX(5);
             // this will change movement settings to the movement type.
             Keybinds.setCrouchKey(Key.S);
             Keybinds.setJumpKey(Key.W);
@@ -71,6 +72,7 @@ public class KeybindsScreen extends Screen {
             Keybinds.setMoveRightKey(Key.D);
             screenCoordinator.setGameState(GameState.OPTIONS);
         } else if (menuItemSelected == 1) {
+            Sound.playSFX(5);
             // this will change movement settings to the movement type.
             Keybinds.setCrouchKey(Key.DOWN);
             Keybinds.setJumpKey(Key.UP);
@@ -79,6 +81,7 @@ public class KeybindsScreen extends Screen {
             Keybinds.setMoveRightKey(Key.RIGHT);
             screenCoordinator.setGameState(GameState.OPTIONS);
         } else if (menuItemSelected == 2) {
+            Sound.playSFX(4);
             screenCoordinator.setGameState(GameState.OPTIONS);
         }
     }
@@ -139,17 +142,26 @@ public class KeybindsScreen extends Screen {
                 keyLocker.unlockKey(Key.SPACE);
             }
             if (Math.abs(MouseControls.getMouseY() - 135) < 20) {
-                currentMenuItemHovered = 0;
+                if (currentMenuItemHovered != 0){
+                    currentMenuItemHovered = 0;
+                    Sound.playSFX(3);
+                }
                 if (pressed) {
                     select();
                 }
             } else if (Math.abs(MouseControls.getMouseY() - 235) < 20) {
-                currentMenuItemHovered = 1;
+                if (currentMenuItemHovered != 1){
+                    currentMenuItemHovered = 1;
+                    Sound.playSFX(3);
+                }
                 if (pressed) {
                     select();
                 }
             } else if (Math.abs(MouseControls.getMouseY() - 335) < 20) {
-                currentMenuItemHovered = 2;
+                if (currentMenuItemHovered != 2){
+                    currentMenuItemHovered = 2;
+                    Sound.playSFX(3);
+                }
                 if (pressed) {
                     select();
                 }
