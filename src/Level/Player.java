@@ -524,7 +524,7 @@ public abstract class Player extends GameObject {
     //}
 
     // if player has died, this will be the update cycle
-    public void updatePlayerDead() {
+    /*public void updatePlayerDead() {
         // change player animation to DEATH
         if (!currentAnimationName.startsWith("DEATH")) {
             if (facingDirection == Direction.RIGHT) {
@@ -549,7 +549,7 @@ public abstract class Player extends GameObject {
                 }
             }
         }
-    }
+    }*/
 
     public PlayerState getPlayerState() {
         return playerState;
