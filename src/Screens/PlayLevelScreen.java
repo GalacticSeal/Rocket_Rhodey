@@ -42,6 +42,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private Font timerFont;
     private int minutes;
     private int seconds;
+    public String finalTime;
+    private String formattedTime;
 
     private GraphicsHandler timer;
 
@@ -76,7 +78,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             e.printStackTrace();
         }
 
-        levelClearedScreen = new LevelClearedScreen();
+        levelClearedScreen = new LevelClearedScreen(finalTime);
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
@@ -137,19 +139,22 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 
                 break;
             // if level has been completed, bring up level cleared screen
-            // case LEVEL_COMPLETED:
-            //     if (levelCompletedStateChangeStart) {
-            //         screenTimer = 130;
-            //         levelCompletedStateChangeStart = false;
-            //     } else {
-            //         levelClearedScreen.update();
-            //         screenTimer--;
-            //         if (screenTimer == 0) {
-            //             goBackToMenu();
-            //         }
-            //     }
-            //     break;
-            // // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
+            case LEVEL_COMPLETED:
+                if (levelCompletedStateChangeStart) {
+                    screenTimer = 250;
+                    levelCompletedStateChangeStart = false;
+                    finalTime = formattedTime;
+
+                    levelClearedScreen = new LevelClearedScreen(finalTime);
+                } else {
+                    levelClearedScreen.update();
+                    screenTimer--;
+                    if (screenTimer == 0) {
+                        goBackToMenu();
+                    }
+                }
+                break;
+            // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             // case LEVEL_LOSE:
             //     levelLoseScreen.update();
             //     break;
@@ -171,15 +176,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
 
-                String formattedTime = String.format("%02d:%02d", minutes, seconds);
-
+                formattedTime = String.format("%02d:%02d", minutes, seconds);
                 graphicsHandler.drawString("Time: " + formattedTime,650, 20, timerFont, Color.WHITE);
 
                 timer = graphicsHandler;
                 break;
-            // case LEVEL_COMPLETED:
-            //     levelClearedScreen.draw(graphicsHandler);
-            //     break;
+            case LEVEL_COMPLETED:
+                levelClearedScreen.draw(graphicsHandler);
+                break;
             // case LEVEL_LOSE:
             //     levelLoseScreen.draw(graphicsHandler);
             //     break;
@@ -198,12 +202,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
-    @Override
-    public void onDeath() {
-        if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
-            playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
-        }
-    }
+    // @Override
+    // public void onDeath() {
+    //     if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
+    //         playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+    //     }
+    // }
 
     public void resetLevel() {
         initialize();
