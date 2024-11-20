@@ -57,15 +57,15 @@ public class Explosion extends Enemy {
             put("SMOKE", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                         .withScale(2)
-                        .withBounds(1, 1, 25, 30)
+                        .withBounds(1, 1, 25, 27)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 28)
                         .withScale(2)
-                        .withBounds(1, 1, 25, 30)
+                        .withBounds(1, 1, 25, 27)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 4), 48)
                         .withScale(2)
-                        .withBounds(1, 1, 25, 30)
+                        .withBounds(1, 1, 25, 27)
                         .build(),
             });
         }};
