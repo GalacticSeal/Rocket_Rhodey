@@ -127,14 +127,6 @@ public abstract class Player extends GameObject {
         if(applyStun) {
             if (!isStunned)
                 Sound.playSFX(Sound.STUN_SOUND);
-                // playerState = PlayerState.STUN_LEFT;
-                // Player.update(STUN_LEFT);
-                // if (facingDirection == Direction.RIGHT) {
-                //     currentAnimationName = "STUN_RIGHT";
-                // } else if (facingDirection == Direction.LEFT) {
-                //     currentAnimationName = "STUN_LEFT";
-                // }
-                playerState = PlayerState.STUNNED;
                 stunTime = System.currentTimeMillis();
             isStunned = true;
         } else {
@@ -272,6 +264,18 @@ public abstract class Player extends GameObject {
             case JUMPING:
                 playerJumping();
                 break;
+            case STUNNED:
+                playerStunned();
+                break;
+        }
+    }
+    protected void playerStunned(){
+        if (facingDirection == Direction.RIGHT) {
+            currentAnimationName = "STUN_RIGHT";
+            System.out.println("right stun");
+        } else if (facingDirection == Direction.LEFT) {
+            currentAnimationName = "STUN_LEFT";
+            System.out.println("left stun");
         }
     }
 
@@ -419,6 +423,11 @@ public abstract class Player extends GameObject {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
         }
+        if (isStunned) {
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "STUN_RIGHT" : "STUN_LEFT";
+            
+        }
+
     }
 
     @Override
@@ -494,10 +503,10 @@ public abstract class Player extends GameObject {
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible && !isStunned) {
+            playerState = PlayerState.STUNNED;
             velocityX *= HURT_MOMENTUM_X;
             velocityY *= HURT_MOMENTUM_Y;
             applyKnockback(mapEntity, DEFAULT_KNOCKBACK, true);
-
             // if map entity is an enemy, kill player on touch
             // if (mapEntity instanceof Enemy) {
             //     levelState = LevelState.PLAYER_DEAD;

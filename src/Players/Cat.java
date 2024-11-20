@@ -156,13 +156,13 @@ public class Cat extends Player {
                         .build()
     });
         put("STUN_LEFT", new Frame[] {
-        new FrameBuilder(spriteSheet.getSprite(1, 1))
+        new FrameBuilder(spriteSheet.getSprite(1, 1),-1)
                 .withScale(2)
                 .withBounds(9,9, 10, 25)
                 .build()
         });
         put("STUN_RIGHT", new Frame[] {
-        new FrameBuilder(spriteSheet.getSprite(1, 1))
+        new FrameBuilder(spriteSheet.getSprite(1, 1),-1)
                 .withScale(2)
                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL) 
                 .withBounds(9,9, 10, 25)

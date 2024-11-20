@@ -3,7 +3,6 @@ package Builders;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.Rectangle;
-
 import java.awt.image.BufferedImage;
 
 // Builder class to instantiate a Frame class
@@ -56,5 +55,14 @@ public class FrameBuilder {
 
     public Frame build() {
         return new Frame(image, imageEffect, scale, bounds, delay);
+    }
+
+    public FrameBuilder withDuration(int i) {
+        if (delay >= 0) {
+            this.delay = delay;
+        } else {
+            this.delay = 0; 
+        }
+        return this; 
     }
 }

@@ -1,15 +1,7 @@
 package Maps;
 
 import Enemies.BugEnemy;
-import Enemies.DinosaurEnemy;
-import Enemies.FireFrog;
-import Enemies.FlyEnemy;
-
-import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
-import EnhancedMapTiles.HorizontalMovingPlatform;
-import GameObject.Frame;
-import GameObject.Rectangle;
 import Level.*;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -28,8 +20,8 @@ public class TestMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        // BugEnemy bugEnemy = new BugEnemy(getMapTile(10, 79).getLocation().subtractY(25), Direction.RIGHT);
-        // enemies.add(bugEnemy);
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(10, 395).getLocation().subtractY(25), Direction.RIGHT);
+        enemies.add(bugEnemy);
 
         // DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(8, 25).getLocation().addY(2), getMapTile(12, 150).getLocation().addY(2), Direction.RIGHT);
         // enemies.add(dinosaurEnemy);
