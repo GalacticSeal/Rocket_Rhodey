@@ -77,7 +77,7 @@ public class TestMap extends Map {
         // DissapearingPlatform dissapearingTile2 = new DissapearingPlatform(getMapTile(4, 245).getLocation().x, getMapTile(4,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
         // enhancedMapTiles.add(dissapearingTile2);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(2, 7).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(12, 0).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         // HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(

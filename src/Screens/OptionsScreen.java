@@ -58,9 +58,10 @@ public class OptionsScreen extends Screen {
     private void select() {
         menuItemSelected = currentMenuItemHovered;
         if (menuItemSelected == 0) {
-            // keybind
+            Sound.playSFX(4);
             screenCoordinator.setGameState(GameState.KEYBINDS);
         } else if (menuItemSelected == 1) {
+            Sound.playSFX(4);
             screenCoordinator.setGameState(GameState.MENU);
         }
     }
@@ -79,9 +80,11 @@ public class OptionsScreen extends Screen {
             if (Keyboard.isKeyDown(Key.DOWN) &&  keyPressTimer == 0) {
                 keyPressTimer = 14;
                 currentMenuItemHovered++;
+                Sound.playSFX(3);
             } else if (Keyboard.isKeyDown(Key.UP) &&  keyPressTimer == 0) {
                 keyPressTimer = 14;
                 currentMenuItemHovered--;
+                Sound.playSFX(3);
             } else {
                 if (keyPressTimer > 0) {
                     keyPressTimer--;
@@ -115,12 +118,18 @@ public class OptionsScreen extends Screen {
                 keyLocker.unlockKey(Key.SPACE);
             }
             if (Math.abs(MouseControls.getMouseY() - 135) < 20) {
-                currentMenuItemHovered = 0;
+                if (currentMenuItemHovered != 0){
+                    currentMenuItemHovered = 0;
+                    Sound.playSFX(3);
+                }
                 if (pressed) {
                     select();
                 }
             } else if (Math.abs(MouseControls.getMouseY() - 335) < 20) {
-                currentMenuItemHovered = 1;
+                if (currentMenuItemHovered != 1){
+                    currentMenuItemHovered = 1;
+                    Sound.playSFX(3);
+                }
                 if (pressed) {
                     select();
                 }
