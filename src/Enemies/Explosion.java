@@ -47,6 +47,7 @@ public class Explosion extends Enemy {
         // if explosion touches player, it pushes the player
         if(!pushedPlayer) {
             player.applyKnockback(this, knockPower, false);
+            
         }
         pushedPlayer = true;
     }
@@ -57,15 +58,15 @@ public class Explosion extends Enemy {
             put("SMOKE", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                         .withScale(2)
-                        .withBounds(1, 1, 25, 27)
+                        .withBounds(1, 1, 20, 27)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 28)
                         .withScale(2)
-                        .withBounds(1, 1, 25, 27)
+                        .withBounds(1, 1, 20, 27)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 4), 48)
                         .withScale(2)
-                        .withBounds(1, 1, 25, 27)
+                        .withBounds(1, 1, 20, 27)
                         .build(),
             });
         }};
