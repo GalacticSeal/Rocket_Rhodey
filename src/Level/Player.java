@@ -108,9 +108,10 @@ public abstract class Player extends GameObject {
 
     public void applyKnockback(MapEntity mapEntity, float power, boolean applyStun) {
         //turning mouse position from rocket spawn position into right triangle
-        Point source = new Point(mapEntity.getX()-mapEntity.getWidth()/2f, mapEntity.getY()+mapEntity.getHeight()/2f);
-        float distanceX = source.x-getX();
-        float distanceY = source.y-getY();
+        Point source = new Point(mapEntity.getX()+mapEntity.getWidth()/2f, mapEntity.getY()+mapEntity.getHeight()/2f);
+        Point playerPos = new Point(getX()+getWidth()/2f, getY()+getHeight()/2f);
+        float distanceX = source.x-playerPos.x;
+        float distanceY = source.y-playerPos.y;
 
         //hypotenuse of mouse position to location - used for determining movement ratios
         double distanceH = Math.sqrt(Math.pow(distanceX, 2)+Math.pow(distanceY, 2));

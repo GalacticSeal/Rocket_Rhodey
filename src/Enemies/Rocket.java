@@ -20,8 +20,8 @@ public class Rocket extends Enemy {
     private int existenceFrames;
     private float ratioX;
     private float ratioY;
-    protected static final int ROCKET_WIDTH = 7;
-    protected static final int ROCKET_HEIGHT = 7;
+    protected static final int ROCKET_WIDTH = 13;
+    protected static final int ROCKET_HEIGHT = 9;
 
     public Rocket(Point location, Point mouseTarget, float movementSpeed, int existenceFrames, boolean isDisplaced) {
         super(location.x-ROCKET_WIDTH, location.y-ROCKET_HEIGHT, new SpriteSheet(ImageLoader.load("Shell.png"), 13, 9), "DEFAULT");

@@ -17,11 +17,11 @@ public class Explosion extends Enemy {
     private int existenceFrames;
     private boolean pushedPlayer;
     private float knockPower = 11.20f;
-    protected static final int BOOM_WIDTH = 7;
-    protected static final int BOOM_HEIGHT = 7;
+    protected static final int BOOM_WIDTH = 40;
+    protected static final int BOOM_HEIGHT = 40;
 
     public Explosion(Point location, int existenceFrames) {
-        super(location.x-(BOOM_WIDTH-Rocket.ROCKET_WIDTH), location.y+(BOOM_HEIGHT-Rocket.ROCKET_HEIGHT), new SpriteSheet(ImageLoader.load("Rocket.png"), 40, 40), "SMOKE");
+        super(location.x-(BOOM_WIDTH-Rocket.ROCKET_WIDTH)/2f, location.y+(-BOOM_HEIGHT+Rocket.ROCKET_HEIGHT)/2f, new SpriteSheet(ImageLoader.load("Rocket.png"), 40, 40), "SMOKE");
 
         // how long the explosion will exist for before disappearing
         this.existenceFrames = existenceFrames;
