@@ -21,7 +21,7 @@ public class Explosion extends Enemy {
     protected static final int BOOM_HEIGHT = 7;
 
     public Explosion(Point location, int existenceFrames) {
-        super(location.x-(BOOM_WIDTH-Rocket.ROCKET_WIDTH), location.y+(BOOM_HEIGHT-Rocket.ROCKET_HEIGHT), new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+        super(location.x-(BOOM_WIDTH-Rocket.ROCKET_WIDTH), location.y+(BOOM_HEIGHT-Rocket.ROCKET_HEIGHT), new SpriteSheet(ImageLoader.load("Rocket.png"), 40, 40), "SMOKE");
 
         // how long the explosion will exist for before disappearing
         this.existenceFrames = existenceFrames;
@@ -54,11 +54,19 @@ public class Explosion extends Enemy {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("DEFAULT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(5)
-                            .withBounds(1, 1, 5, 5)
-                            .build()
+            put("SMOKE", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                        .withScale(2)
+                        .withBounds(1, 1, 25, 30)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 28)
+                        .withScale(2)
+                        .withBounds(1, 1, 25, 30)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 4), 48)
+                        .withScale(2)
+                        .withBounds(1, 1, 25, 30)
+                        .build(),
             });
         }};
     }

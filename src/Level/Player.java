@@ -127,6 +127,14 @@ public abstract class Player extends GameObject {
         if(applyStun) {
             if (!isStunned)
                 Sound.playSFX(Sound.STUN_SOUND);
+                // playerState = PlayerState.STUN_LEFT;
+                // Player.update(STUN_LEFT);
+                // if (facingDirection == Direction.RIGHT) {
+                //     currentAnimationName = "STUN_RIGHT";
+                // } else if (facingDirection == Direction.LEFT) {
+                //     currentAnimationName = "STUN_LEFT";
+                // }
+                playerState = PlayerState.STUNNED;
                 stunTime = System.currentTimeMillis();
             isStunned = true;
         } else {
