@@ -418,11 +418,18 @@ public abstract class Player extends GameObject {
         if(direction == Direction.LEFT && velocityX <= 0) {
             if (hasCollided) {
                 velocityX = 0f;
+                // velocityY = .5f;
+                // gravity = .05f;
             }
         } else if(direction == Direction.RIGHT && velocityX >= 0) {
             if (hasCollided) {
                 velocityX = 0f;
+                // velocityY = .5f;
+                // gravity = .05f;
             }
+            // else if(!hasCollided && airGroundState == AirGroundState.GROUND || airGroundState == AirGroundState.AIR ){
+            //     gravity = .275f;
+            // }
         }
     }
 
