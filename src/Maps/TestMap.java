@@ -6,6 +6,7 @@ import Enemies.FireFrog;
 import Enemies.FlyEnemy;
 
 import Engine.ImageLoader;
+import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Frame;
 import GameObject.Rectangle;
@@ -20,7 +21,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(4, 395).getLocation();
+        this.playerStartPosition = getMapTile(12, 396).getLocation();
     }
     
     @Override
@@ -52,6 +53,12 @@ public class TestMap extends Map {
         // CheckpointTile checkpointTile = new CheckpointTile(getMapTile(8, 248).getLocation().x, getMapTile(5,247 ).getLocation().y, new Frame(ImageLoader.load("Checkpoint.png")));
         // enhancedMapTiles.add(checkpointTile);
 
+        // CheckpointTile checkpointTile2 = new CheckpointTile(getMapTile(5, 114).getLocation().x, getMapTile(5,114 ).getLocation().y, new Frame(ImageLoader.load("Checkpoint.png")));
+        // enhancedMapTiles.add(checkpointTile2);
+
+        // CheckpointTile checkpointTile3 = new CheckpointTile(getMapTile(14, 40).getLocation().x, getMapTile(14,49 ).getLocation().y, new Frame(ImageLoader.load("Checkpoint.png")));
+        // enhancedMapTiles.add(checkpointTile3);
+
         // SlipperyPlatform slipTile4 = new SlipperyPlatform(getMapTile(18, 245).getLocation().x, getMapTile(18,244 ).getLocation().y, new Frame(ImageLoader.load("iceTile.png")));
         // enhancedMapTiles.add(slipTile4);
 
@@ -70,8 +77,9 @@ public class TestMap extends Map {
         // DissapearingPlatform dissapearingTile2 = new DissapearingPlatform(getMapTile(4, 245).getLocation().x, getMapTile(4,244 ).getLocation().y, new Frame(ImageLoader.load("TestTileSet.png")));
         // enhancedMapTiles.add(dissapearingTile2);
 
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(2, 7).getLocation());
+        enhancedMapTiles.add(endLevelBox);
 
-      
         // HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
         //         ImageLoader.load("TestTileSet2.png"),
         //         getMapTile(4, 242).getLocation(),
@@ -102,10 +110,7 @@ public class TestMap extends Map {
         // );
         // enhancedMapTiles.add(hmp);
 
-        // EndLevelBox endLevelBox = new EndLevelBox(getMapTile(2, 7).getLocation());
-        // enhancedMapTiles.add(endLevelBox);
-
-    //     return enhancedMapTiles;
+       
     // }
 
     // @Override

@@ -207,7 +207,7 @@ public abstract class Player extends GameObject {
                 if(MouseControls.isMousePressed() && !isStunned) {
                     // original position
                     int rocketX = Math.round(getX() + getWidth()/2.0f);
-                    int rocketY = Math.round(getY() + getHeight()/2.0f);
+                    int rocketY = Math.round(getY() + getHeight()/3.0f);
                     // ending position
                     float rocketEndX = MouseControls.getMouseX() - map.getCamera().getX();
                     float rocketEndY = map.getCamera().getY() + MouseControls.getMouseY();
@@ -215,8 +215,8 @@ public abstract class Player extends GameObject {
                     int lifeTime = 120; 
                     // Aiming the rocket
                     Rocket rocket = new Rocket(new Point(rocketX, rocketY),  // original position
-                        new Point(rocketEndX, rocketEndY), rocketSpeed, lifeTime
-                        ); // ^ where we want the mouse to point
+                        new Point(rocketEndX, rocketEndY), rocketSpeed, lifeTime, true); 
+                        // ^ where we want the mouse to point
                     map.addEnemy(rocket);
                     fireFrame = System.currentTimeMillis();
                 }
@@ -229,10 +229,12 @@ public abstract class Player extends GameObject {
             // update player's animation
             super.update();
 
-            if(getX() < 0) {
-                setX(0);
+            if(getX() < -15) {
+                setX(-15);
+                if(velocityX <= 0) velocityX = 0f;
             } else if(getX() > LEVEL_BOUNDS_X-getWidth()) {
                 setX(LEVEL_BOUNDS_X-getWidth());
+                if(velocityX >= 0) velocityX = 0f;
             }
         }
 

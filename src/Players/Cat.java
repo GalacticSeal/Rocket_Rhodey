@@ -9,7 +9,6 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
-import java.awt.Color;
 import java.util.HashMap;
 
 // This is the class for the Cat player character
@@ -156,6 +155,19 @@ public class Cat extends Player {
                         .withBounds(14,9, 10, 25)
                         .build()
     });
+        put("STUN_LEFT", new Frame[] {
+        new FrameBuilder(spriteSheet.getSprite(1, 1))
+                .withScale(2)
+                .withBounds(9,9, 10, 25)
+                .build()
+        });
+        put("STUN_RIGHT", new Frame[] {
+        new FrameBuilder(spriteSheet.getSprite(1, 1))
+                .withScale(2)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL) 
+                .withBounds(9,9, 10, 25)
+                .build()
+        });
 
 
            
