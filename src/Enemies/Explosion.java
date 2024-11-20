@@ -17,11 +17,11 @@ public class Explosion extends Enemy {
     private int existenceFrames;
     private boolean pushedPlayer;
     private float knockPower = 11.20f;
-    protected static final int BOOM_WIDTH = 7;
-    protected static final int BOOM_HEIGHT = 7;
+    protected static final int BOOM_WIDTH = 40;
+    protected static final int BOOM_HEIGHT = 40;
 
     public Explosion(Point location, int existenceFrames) {
-        super(location.x-(BOOM_WIDTH-Rocket.ROCKET_WIDTH), location.y+(BOOM_HEIGHT-Rocket.ROCKET_HEIGHT), new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+        super(location.x-(BOOM_WIDTH-Rocket.ROCKET_WIDTH)/2f, location.y+(-BOOM_HEIGHT+Rocket.ROCKET_HEIGHT)/2f, new SpriteSheet(ImageLoader.load("Rocket.png"), 40, 40), "SMOKE");
 
         // how long the explosion will exist for before disappearing
         this.existenceFrames = existenceFrames;
@@ -47,6 +47,7 @@ public class Explosion extends Enemy {
         // if explosion touches player, it pushes the player
         if(!pushedPlayer) {
             player.applyKnockback(this, knockPower, false);
+            
         }
         pushedPlayer = true;
     }
@@ -54,11 +55,19 @@ public class Explosion extends Enemy {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("DEFAULT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(5)
-                            .withBounds(1, 1, 5, 5)
-                            .build()
+            put("SMOKE", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                        .withScale(2)
+                        .withBounds(1, 1, 20, 27)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 28)
+                        .withScale(2)
+                        .withBounds(1, 1, 20, 27)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 4), 48)
+                        .withScale(2)
+                        .withBounds(1, 1, 20, 27)
+                        .build(),
             });
         }};
     }

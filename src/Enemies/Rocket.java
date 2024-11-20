@@ -20,11 +20,11 @@ public class Rocket extends Enemy {
     private int existenceFrames;
     private float ratioX;
     private float ratioY;
-    protected static final int ROCKET_WIDTH = 7;
-    protected static final int ROCKET_HEIGHT = 7;
+    protected static final int ROCKET_WIDTH = 13;
+    protected static final int ROCKET_HEIGHT = 9;
 
     public Rocket(Point location, Point mouseTarget, float movementSpeed, int existenceFrames, boolean isDisplaced) {
-        super(location.x-ROCKET_WIDTH, location.y-ROCKET_HEIGHT, new SpriteSheet(ImageLoader.load("Fireball.png"), ROCKET_WIDTH, ROCKET_HEIGHT), "DEFAULT");
+        super(location.x-ROCKET_WIDTH, location.y-ROCKET_HEIGHT, new SpriteSheet(ImageLoader.load("Shell.png"), 13, 9), "DEFAULT");
 
         //turning mouse position from rocket spawn position into right triangle
         float mouseXT = mouseTarget.x-(location.x-ROCKET_WIDTH/2f);
@@ -85,7 +85,7 @@ public class Rocket extends Enemy {
     private void createExplosion() {
         //add code for creating explosion
         // create Fireball enemy
-        Explosion explode = new Explosion(new Point(getX(), getY()), 15);
+        Explosion explode = new Explosion(new Point(getX()-15, getY()-15), 15);
 
         //add fireball enemy to the map for it to spawn in the level
         map.addEnemy(explode);
@@ -101,7 +101,7 @@ public class Rocket extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(5)
+                            .withScale(2)
                             .withBounds(1, 1, 5, 5)
                             .build()
             });
