@@ -70,14 +70,18 @@ public class MenuScreen extends Screen {
         keyPressTimer = 0;
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
+        Sound.playMusic(4);
     }
     private void select() {
         menuItemSelected = currentMenuItemHovered;
         if (menuItemSelected == 0) {
+            Sound.playSFX(5);
             screenCoordinator.setGameState(GameState.LEVEL);
         } else if (menuItemSelected == 1) {
+            Sound.playSFX(4);
             screenCoordinator.setGameState(GameState.OPTIONS);
         } else if (menuItemSelected == 2) {
+            Sound.playSFX(4);
             screenCoordinator.setGameState(GameState.CREDITS);
         }
     }
@@ -138,17 +142,26 @@ public class MenuScreen extends Screen {
                 keyLocker.unlockKey(Key.SPACE);
             }
             if (Math.abs(MouseControls.getMouseY() - 235) < 20) {
-                currentMenuItemHovered = 0;
+                if (currentMenuItemHovered != 0) {
+                    currentMenuItemHovered = 0;
+                    Sound.playSFX(3);
+                }
                 if (pressed) {
                     select();
                 }
             } else if (Math.abs(MouseControls.getMouseY() - 285) < 20) {
-                currentMenuItemHovered = 1;
+                if (currentMenuItemHovered != 1) {
+                    currentMenuItemHovered = 1;
+                    Sound.playSFX(3);
+                }
                 if (pressed) {
                     select();
                 }
             } else if (Math.abs(MouseControls.getMouseY() - 335) < 20) {
-                currentMenuItemHovered = 2;
+                if (currentMenuItemHovered != 2) {
+                    currentMenuItemHovered = 2;
+                    Sound.playSFX(3);
+                }
                 if (pressed) {
                     select();
                 }

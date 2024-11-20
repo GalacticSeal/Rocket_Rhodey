@@ -3,21 +3,39 @@ package Screens;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Engine.ScreenManager;
+import GameObject.Sprite;
 import SpriteFont.SpriteFont;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 // This class is for the level cleared screen
 public class LevelClearedScreen extends Screen {
     protected SpriteFont winMessage;
+    protected SpriteFont endTime;
 
-    public LevelClearedScreen() {
+    private BufferedImage endScreen;
+
+    private String finalTime;
+
+    public LevelClearedScreen(String finalTime) {
+        this.finalTime = finalTime;
         initialize();
     }
 
     @Override
     public void initialize() {
-        winMessage = new SpriteFont("Level Cleared", 320, 239, "Arial", 30, Color.white);
+        winMessage = new SpriteFont("Level Cleared", 320, 170, "Arial", 30, Color.white);
+        endTime = new SpriteFont("Your time: " + finalTime, 310, 239, "Arial", 30, Color.white);
+        try {
+            endScreen = ImageIO.read(getClass().getResourceAsStream("/Finalebackground.png"));
+        } catch (IOException e) {
+            System.out.println("cannot load background");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -26,8 +44,9 @@ public class LevelClearedScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        // paint entire screen black and dislpay level cleared text
-        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
+        // paint entire screen black and display level cleared text
+        graphicsHandler.drawImage(endScreen, 0, 0,800,617);
         winMessage.draw(graphicsHandler);
+        endTime.draw(graphicsHandler);
     }
 }
