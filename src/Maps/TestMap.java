@@ -1,5 +1,9 @@
 package Maps;
 
+import Enemies.BugEnemy;
+import Enemies.DinosaurEnemy;
+import Enemies.FireFrog;
+import Enemies.FlyEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -23,20 +27,20 @@ public class TestMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        // BugEnemy bugEnemy = new BugEnemy(getMapTile(10, 79).getLocation().subtractY(25), Direction.RIGHT);
-        // enemies.add(bugEnemy);
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(10, 398).getLocation().subtractY(25), Direction.RIGHT);
+        enemies.add(bugEnemy);
 
-        // DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(8, 25).getLocation().addY(2), getMapTile(12, 150).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(dinosaurEnemy);
+        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(8, 25).getLocation().addY(2), getMapTile(12, 150).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(dinosaurEnemy);
 
-        // FlyEnemy FlyEnemy = new FlyEnemy(getMapTile(16, 213).getLocation().addY(2), getMapTile(19, 150).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(FlyEnemy);
+        FlyEnemy FlyEnemy = new FlyEnemy(getMapTile(10, 360).getLocation().addY(2), getMapTile(8, 360).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy);
 
-        // FlyEnemy FlyEnemy2 = new FlyEnemy(getMapTile(4, 169).getLocation().addY(2), getMapTile(6, 125).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(FlyEnemy2);
+        FlyEnemy FlyEnemy2 = new FlyEnemy(getMapTile(9, 173).getLocation().addY(2), getMapTile(11, 173).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy2);
 
-        // FireFrog FireFrog = new FireFrog(getMapTile(18, 110).getLocation().addY(2), getMapTile(18, 150).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(FireFrog);
+        FireFrog FireFrog = new FireFrog(getMapTile(18, 110).getLocation().addY(2), getMapTile(18, 150).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FireFrog);
 
 
 

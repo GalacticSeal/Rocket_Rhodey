@@ -9,7 +9,6 @@ import Level.Enemy;
 import Level.MapEntityStatus;
 import Level.Player;
 import Utils.Point;
-import java.awt.Color;
 import java.util.HashMap;
 
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
@@ -65,15 +64,15 @@ public class Explosion extends Enemy {
             put("SMOKE", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                         .withScale(2)
-                        .withBounds(6, 9, 24, 24)
+                        .withBounds(6, 9, 28, 24)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 28)
                         .withScale(2)
-                        .withBounds(6, 9, 24, 24)
+                        .withBounds(6, 9, 28, 24)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 4), 48)
                         .withScale(2)
-                        .withBounds(6, 9, 24, 24)
+                        .withBounds(6, 9, 28, 24)
                         .build(),
             });
         }};
