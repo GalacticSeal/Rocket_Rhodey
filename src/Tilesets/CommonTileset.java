@@ -643,7 +643,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder defaultCaveStalactiteTile = new MapTileBuilder(defaultCaveStalactiteFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(defaultCaveStalactiteTile);
 
@@ -782,7 +782,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder defaultCaveStalagmiteTile = new MapTileBuilder(defaultCaveStalagmiteFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(defaultCaveStalagmiteTile);
 
