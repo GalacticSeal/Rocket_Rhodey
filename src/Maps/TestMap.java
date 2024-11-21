@@ -10,33 +10,51 @@ import Tilesets.CommonTileset;
 import Utils.Direction;
 import java.util.ArrayList;
 
+import Enemies.BugEnemy;
+import Enemies.DinosaurEnemy;
+import Enemies.FlyEnemy;
+import Enemies.DogEnemy;
+import Enemies.FireFrog;
+
 
 // Represents a test map to be used in a level
 public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(12, 395).getLocation();
+        this.playerStartPosition = getMapTile(12, 68).getLocation();
     }
     
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        // BugEnemy bugEnemy = new BugEnemy(getMapTile(10, 79).getLocation().subtractY(25), Direction.RIGHT);
+        // BugEnemy bugEnemy = new BugEnemy(getMapTile(8, 68).getLocation().subtractY(25), Direction.RIGHT);
         // enemies.add(bugEnemy);
 
-        // DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(8, 25).getLocation().addY(2), getMapTile(12, 150).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(dinosaurEnemy);
+        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(14, 321).getLocation().addY(2), getMapTile(20, 322).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(dinosaurEnemy);
 
-        // FlyEnemy FlyEnemy = new FlyEnemy(getMapTile(16, 213).getLocation().addY(2), getMapTile(19, 150).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(FlyEnemy);
+        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(18, 378).getLocation().addY(2), getMapTile(24, 379).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(dinosaurEnemy2);
 
-        // FlyEnemy FlyEnemy2 = new FlyEnemy(getMapTile(4, 169).getLocation().addY(2), getMapTile(6, 125).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(FlyEnemy2);
+        FlyEnemy FlyEnemy = new FlyEnemy(getMapTile(4, 258).getLocation().addY(2), getMapTile(20, 259).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy);
 
-        // FireFrog FireFrog = new FireFrog(getMapTile(18, 110).getLocation().addY(2), getMapTile(18, 150).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(FireFrog);
+        FlyEnemy FlyEnemy2 = new FlyEnemy(getMapTile(4, 224).getLocation().addY(2), getMapTile(22, 225).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy2);
+
+        // DogEnemy  DogEnemy = new DogEnemy(getMapTile(19, 379).getLocation().addY(2), Direction.RIGHT);
+        // enemies.add(DogEnemy);
+
+        FireFrog FireFrog = new FireFrog(getMapTile(6, 175).getLocation(), getMapTile(15, 176).getLocation(), Direction.RIGHT);
+        enemies.add(FireFrog);
+
+        FireFrog FireFrog2 = new FireFrog(getMapTile(14, 155).getLocation(), getMapTile(18, 156).getLocation(), Direction.RIGHT);
+        enemies.add(FireFrog2);
+
+        FireFrog FireFrog3 = new FireFrog(getMapTile(3, 136).getLocation(), getMapTile(7, 137).getLocation(), Direction.RIGHT);
+        enemies.add(FireFrog3);
 
 
 
