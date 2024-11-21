@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
@@ -8,6 +9,7 @@ import Level.Enemy;
 import Level.MapEntityStatus;
 import Level.Player;
 import Utils.Point;
+import java.awt.Color;
 import java.util.HashMap;
 
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
@@ -52,21 +54,26 @@ public class Explosion extends Enemy {
         pushedPlayer = true;
     }
 
+    public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
+        // drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
+    }
+
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("SMOKE", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                         .withScale(2)
-                        .withBounds(1, 1, 20, 27)
+                        .withBounds(6, 9, 24, 24)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 28)
                         .withScale(2)
-                        .withBounds(1, 1, 20, 27)
+                        .withBounds(6, 9, 24, 24)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 4), 48)
                         .withScale(2)
-                        .withBounds(1, 1, 20, 27)
+                        .withBounds(6, 9, 24, 24)
                         .build(),
             });
         }};
