@@ -16,7 +16,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(2, 296).getLocation();
+        this.playerStartPosition = getMapTile(12, 395).getLocation();
     }
     
     @Override
