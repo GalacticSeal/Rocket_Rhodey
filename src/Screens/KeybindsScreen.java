@@ -26,7 +26,7 @@ public class KeybindsScreen extends Screen {
     
     protected SpriteFont optionsLabel, movementsLabel, movementsLabel2, goBack,checkPointLabel;
     //private String[] movementType = {"WASD","Arrow Keys"};
-    protected final int MAX_MENU_ITEMS = 2;
+    protected final int MAX_MENU_ITEMS = 3;
     protected final Color LIT_COLOR = new Color(255, 215, 0);
     protected final Color UNLIT_COLOR = new Color(49, 207, 240);
     
@@ -81,6 +81,8 @@ public class KeybindsScreen extends Screen {
             Keybinds.setMoveRightKey(Key.RIGHT);
             screenCoordinator.setGameState(GameState.OPTIONS);
         } else if (menuItemSelected == 2) {
+            
+        } else if (menuItemSelected == 3) {
             Sound.playSFX(4);
             screenCoordinator.setGameState(GameState.OPTIONS);
         }
@@ -120,21 +122,31 @@ public class KeybindsScreen extends Screen {
             if (currentMenuItemHovered == 0) {
                 movementsLabel.setColor(LIT_COLOR);
                 movementsLabel2.setColor(UNLIT_COLOR);
+                checkPointLabel.setColor(UNLIT_COLOR);
                 goBack.setColor(UNLIT_COLOR);
                 pointerLocationX = 170;
                 pointerLocationY = 130;
             } else if (currentMenuItemHovered == 1) {
                 movementsLabel.setColor(UNLIT_COLOR);
                 movementsLabel2.setColor(LIT_COLOR);
+                checkPointLabel.setColor(UNLIT_COLOR);
                 goBack.setColor(UNLIT_COLOR);
                 pointerLocationX = 170;
                 pointerLocationY = 230;
             } else if (currentMenuItemHovered == 2) {
                 movementsLabel.setColor(UNLIT_COLOR);
                 movementsLabel2.setColor(UNLIT_COLOR);
-                goBack.setColor(LIT_COLOR);
+                checkPointLabel.setColor(LIT_COLOR);
+                goBack.setColor(UNLIT_COLOR);
                 pointerLocationX = 170;
                 pointerLocationY = 330;
+            } else if (currentMenuItemHovered == 3) {
+                movementsLabel.setColor(UNLIT_COLOR);
+                movementsLabel2.setColor(UNLIT_COLOR);
+                checkPointLabel.setColor(UNLIT_COLOR);
+                goBack.setColor(LIT_COLOR);
+                pointerLocationX = 170;
+                pointerLocationY = 430;
             }
 
             // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
@@ -160,6 +172,14 @@ public class KeybindsScreen extends Screen {
             } else if (Math.abs(MouseControls.getMouseY() - 335) < 20) {
                 if (currentMenuItemHovered != 2){
                     currentMenuItemHovered = 2;
+                    Sound.playSFX(3);
+                }
+                if (pressed) {
+                    select();
+                }
+            } else if (Math.abs(MouseControls.getMouseY() - 435) < 20) {
+                if (currentMenuItemHovered != 3){
+                    currentMenuItemHovered = 3;
                     Sound.playSFX(3);
                 }
                 if (pressed) {
