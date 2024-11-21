@@ -691,6 +691,45 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(iceStalagmiteTile);
 
+        //Lush cave Inner tile
+        Frame lushInnerFrame = new FrameBuilder(getSubImage(8, 1))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder lushInnerTile = new MapTileBuilder(lushInnerFrame)                         
+        .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lushInnerTile);
+
+        //Lava cave stalagmite animated
+        Frame[] lavaCaveStalactiteFrame = new Frame[] {
+                new FrameBuilder(getSubImage(6, 2), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 2), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 4), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 5), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(6, 1), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(6, 0), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(5, 2), 65)
+                        .withScale(tileScale)
+                        .build(),
+        };
+
+        MapTileBuilder lavaCaveStalactiteTile = new MapTileBuilder(lavaCaveStalactiteFrame);
+
+        mapTiles.add(lavaCaveStalactiteTile);
+
 
 
         
