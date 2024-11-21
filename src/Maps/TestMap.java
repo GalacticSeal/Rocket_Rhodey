@@ -1,5 +1,7 @@
 package Maps;
 
+import Enemies.DinosaurEnemy;
+import Enemies.FlyEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -16,7 +18,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(12, 68).getLocation();
+        this.playerStartPosition = getMapTile(12, 396).getLocation();
     }
     
     @Override
@@ -29,11 +31,17 @@ public class TestMap extends Map {
         // DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(8, 25).getLocation().addY(2), getMapTile(12, 150).getLocation().addY(2), Direction.RIGHT);
         // enemies.add(dinosaurEnemy);
 
-        // FlyEnemy FlyEnemy = new FlyEnemy(getMapTile(16, 213).getLocation().addY(2), getMapTile(19, 150).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(FlyEnemy);
+        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(15, 321).getLocation().addY(2), getMapTile(19, 321).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(dinosaurEnemy2);
 
-        // FlyEnemy FlyEnemy2 = new FlyEnemy(getMapTile(4, 169).getLocation().addY(2), getMapTile(6, 125).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(FlyEnemy2);
+        FlyEnemy FlyEnemy = new FlyEnemy(getMapTile(16, 350).getLocation().addY(2), getMapTile(19, 350).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy);
+
+        FlyEnemy FlyEnemy2 = new FlyEnemy(getMapTile(5, 376).getLocation().addY(2), getMapTile(8, 376).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy2);
+
+        FlyEnemy FlyEnemy3 = new FlyEnemy(getMapTile(12, 290).getLocation().addY(2), getMapTile(17, 290).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(FlyEnemy3);
 
         // FireFrog FireFrog = new FireFrog(getMapTile(18, 110).getLocation().addY(2), getMapTile(18, 150).getLocation().addY(2), Direction.RIGHT);
         // enemies.add(FireFrog);
