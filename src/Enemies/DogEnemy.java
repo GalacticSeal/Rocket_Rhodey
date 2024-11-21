@@ -11,6 +11,9 @@ import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 // This class is for the black bug enemy
@@ -20,13 +23,17 @@ public class DogEnemy extends Enemy {
 
     private float gravity = .5f;
     private float movementSpeed = .5f;
+    private float enemyJump = 9.5f;
+    private float velocityY = 0f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
+    private static ArrayList<DogEnemy> dogList = new ArrayList<DogEnemy>(15);
 
     public DogEnemy(Point location, Direction facingDirection) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("dog.png"), 27, 17), "WALK_LEFT");
         this.startFacingDirection = facingDirection;
+        dogList.add(this);
         this.initialize();
     }
 
@@ -42,16 +49,24 @@ public class DogEnemy extends Enemy {
         airGroundState = AirGroundState.GROUND;
     }
 
+    public static void dogJump() {
+        for(DogEnemy dog : dogList) {
+            if (dog.airGroundState == AirGroundState.GROUND) dog.velocityY -= dog.enemyJump; //only jumps when grounded
+        }
+    }
+
     @Override
     public void update(Player player) {
         float moveAmountX = 0;
         float moveAmountY = 0;
 
         // add gravity (if in air, this will cause bug to fall)
-        moveAmountY += gravity;
+        velocityY += gravity;
+        moveAmountY += velocityY;
 
         // if on ground, walk forward based on facing direction
         if (airGroundState == AirGroundState.GROUND) {
+            if(velocityY > 0) velocityY = 0; //sets velocity to 0 if landed
             if (facingDirection == Direction.RIGHT) {
                 moveAmountX += movementSpeed;
             } else {
