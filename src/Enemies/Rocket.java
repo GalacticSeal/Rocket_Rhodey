@@ -86,6 +86,7 @@ public class Rocket extends Enemy {
         //add code for creating explosion
         // create Fireball enemy
         Explosion explode = new Explosion(new Point(getX()-15, getY()-15), 15);
+        DogEnemy.dogJump();
 
         //add fireball enemy to the map for it to spawn in the level
         map.addEnemy(explode);

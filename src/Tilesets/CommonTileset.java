@@ -637,15 +637,15 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(iceCaveTile30LP2);
 
-        // Ice cave corner tile
-        Frame iceCaveCornerFrame = new FrameBuilder(getSubImage(6, 2))
+        // Default Cave stalactite
+        Frame defaultCaveStalactiteFrame = new FrameBuilder(getSubImage(6, 2))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder iceCaveCornerTile = new MapTileBuilder(iceCaveCornerFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder defaultCaveStalactiteTile = new MapTileBuilder(defaultCaveStalactiteFrame)
+                .withTileType(TileType.PASSABLE);
 
-        mapTiles.add(iceCaveCornerTile);
+        mapTiles.add(defaultCaveStalactiteTile);
 
          // Default Ice cave tile
          Frame iceCaveInnerFrame = new FrameBuilder(getSubImage(6, 3))
@@ -690,6 +690,121 @@ public class CommonTileset extends Tileset {
         .withTileType(TileType.PASSABLE);
 
         mapTiles.add(iceStalagmiteTile);
+
+        //Lush cave Inner tile
+        Frame lushInnerFrame = new FrameBuilder(getSubImage(8, 1))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder lushInnerTile = new MapTileBuilder(lushInnerFrame)                         
+        .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(lushInnerTile);
+
+        //Lava cave stalagmite animated
+        Frame[] lavaCaveStalactiteFrame = new Frame[] {
+                new FrameBuilder(getSubImage(6, 2), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 2), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 4), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 5), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(6, 1), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(6, 0), 65)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(5, 2), 65)
+                        .withScale(tileScale)
+                        .build(),
+        };
+
+        MapTileBuilder lavaCaveStalactiteTile = new MapTileBuilder(lavaCaveStalactiteFrame);
+
+        mapTiles.add(lavaCaveStalactiteTile);
+
+        // Dif interval than og
+        Frame[] lushCaveHangingLeaf2Frames = new Frame[] {
+                new FrameBuilder(getSubImage(2, 3), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 1), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 2), 120)
+                        .withScale(tileScale)
+                        .build(),
+        };
+
+        MapTileBuilder lushCaveHangingLeaf2Tile = new MapTileBuilder(lushCaveHangingLeaf2Frames);
+
+        mapTiles.add(lushCaveHangingLeaf2Tile);
+
+        //Dif interval than og
+        Frame[] lavaCaveStalactite2Frame = new Frame[] {
+                new FrameBuilder(getSubImage(6, 2), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 2), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 4), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(8, 5), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(6, 1), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(6, 0), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(5, 2), 120)
+                        .withScale(tileScale)
+                        .build(),
+        };
+
+        MapTileBuilder lavaCaveStalactite2Tile = new MapTileBuilder(lavaCaveStalactite2Frame);
+
+        mapTiles.add(lavaCaveStalactite2Tile);
+
+        // Default Cave stalagmite
+        Frame defaultCaveStalagmiteFrame = new FrameBuilder(getSubImage(8, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder defaultCaveStalagmiteTile = new MapTileBuilder(defaultCaveStalagmiteFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(defaultCaveStalagmiteTile);
+
+        // Dif interval than og
+        Frame[] greenCrystal2Frame = new Frame[] {
+                new FrameBuilder(getSubImage(2, 0), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 3), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 4), 120)
+                        .withScale(tileScale)
+                        .build(),
+                new FrameBuilder(getSubImage(7, 5), 120)
+                        .withScale(tileScale)
+                        .build()
+        };
+
+        MapTileBuilder greenCrystal2Tile = new MapTileBuilder(greenCrystal2Frame);
+
+        mapTiles.add(greenCrystal2Tile);
 
 
 
