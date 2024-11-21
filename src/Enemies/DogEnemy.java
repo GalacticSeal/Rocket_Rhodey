@@ -25,7 +25,7 @@ public class DogEnemy extends Enemy {
     private AirGroundState airGroundState;
 
     public DogEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("PolarBear.png"), 27, 17), "WALK_LEFT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("dog.png"), 27, 17), "WALK_LEFT");
         this.startFacingDirection = facingDirection;
         this.initialize();
     }
