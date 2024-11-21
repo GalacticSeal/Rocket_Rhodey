@@ -270,7 +270,7 @@ public class TestMap extends Map {
         
         
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(24, 1).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(23, 1).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
