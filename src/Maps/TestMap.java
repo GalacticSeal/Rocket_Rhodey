@@ -1,7 +1,11 @@
 package Maps;
 
 import Enemies.BugEnemy;
+import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.HorizontalMovingPlatform;
+import GameObject.Frame;
+import GameObject.Rectangle;
 import Level.*;
 import Tilesets.CommonTileset;
 import Utils.Direction;
