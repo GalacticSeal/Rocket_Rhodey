@@ -1,10 +1,5 @@
 package Maps;
 
-import Enemies.BugEnemy;
-import Enemies.DinosaurEnemy;
-import Enemies.FireFrog;
-import Enemies.FlyEnemy;
-
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
