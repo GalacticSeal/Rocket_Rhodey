@@ -2,7 +2,7 @@
 
 ## What is this?
 This is a game created for Quinnipiac's SER225 Agile Development class.
-The game is a platformer game where the player used a rocket launcher to propel themselves up a mountain dodging various obstacles and making precise jumps along the way. The goal of the game is to reach the top of the mountain.
+The game is an upward scrolling platformer game where the player used a rocket launcher to propel themselves up a mountain dodging various obstacles and making precise jumps along the way. The goal of the game is to reach the top of the mountain.
 
 ## How to run this project?
 Clone this repo as is and run it out of the box with Java (min version 8).
