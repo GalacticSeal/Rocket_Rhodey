@@ -12,8 +12,8 @@ The main method for the game is in the `Game` package > `Game.java` file.<br>
 The main method for the map editor is in the `MapEditor` package > `MapEditor.java` file.
 
 ## Credits
-**Jason Handrahan**
-**Jesse Chaput**
-**Isiais Bareto**
-**Jeremy Wiening**
-**Paul Zegarek**
+**Jason Handrahan**,
+**Jesse Chaput**,
+**Isaias Barreto**,
+**Jeremy Wiening**,
+**Paul Zegarek**,
