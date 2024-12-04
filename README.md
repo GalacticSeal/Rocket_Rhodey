@@ -16,4 +16,4 @@ The main method for the map editor is in the `MapEditor` package > `MapEditor.ja
 **Jesse Chaput**,
 **Isaias Barreto**,
 **Jeremy Wiening**,
-**Paul Zegarek**,
+**Paul Zegarek**.
