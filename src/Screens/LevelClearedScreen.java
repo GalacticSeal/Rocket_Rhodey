@@ -1,6 +1,7 @@
 package Screens;
 
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
 import Engine.ScreenManager;
 import GameObject.Sprite;
@@ -30,12 +31,7 @@ public class LevelClearedScreen extends Screen {
     public void initialize() {
         winMessage = new SpriteFont("Level Cleared", 320, 170, "Arial", 30, Color.white);
         endTime = new SpriteFont("Your time: " + finalTime, 310, 239, "Arial", 30, Color.white);
-        try {
-            endScreen = ImageIO.read(getClass().getResourceAsStream("/Finalebackground.png"));
-        } catch (IOException e) {
-            System.out.println("cannot load background");
-            e.printStackTrace();
-        }
+        endScreen = ImageLoader.load("/Finalebackground.png");
     }
 
     @Override

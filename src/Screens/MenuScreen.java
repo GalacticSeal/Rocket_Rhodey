@@ -60,11 +60,7 @@ public class MenuScreen extends Screen {
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
         // background = new TitleScreenMap();
-        try {
-            menuBufferedImage = ImageIO.read(getClass().getResourceAsStream("/RocketMenuBack.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        menuBufferedImage = ImageLoader.load("RocketMenuBack.png");
         // background.setAdjustCamera(false);//add code here for background 
         
         keyPressTimer = 0;

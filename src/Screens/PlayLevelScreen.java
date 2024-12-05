@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
 import Engine.Sound;
 import Game.GameState;
@@ -64,19 +65,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.setMap(map);
         this.player.addListener(this);
 
-        try {
-            biomeBackgrounds = new BufferedImage[] {
-                ImageIO.read(getClass().getResourceAsStream("/levelBackground.png")),
-                ImageIO.read(getClass().getResourceAsStream("/lushBackground.png")),
-                ImageIO.read(getClass().getResourceAsStream("/lavaBackground.png")),
-                ImageIO.read(getClass().getResourceAsStream("/iceBackground.png")),
+        biomeBackgrounds = new BufferedImage[] {
+                    ImageLoader.load("/levelBackground.png"),
+                    ImageLoader.load("/lushBackground.png"),
+                    ImageLoader.load("/lavaBackground.png"),
+                    ImageLoader.load("/iceBackground.png"),
             };
-            levelBufferedImage = biomeBackgrounds[0];
-            Sound.playMusic(0);
-        } catch (IOException e) {
-            System.out.println("cannot load background");
-            e.printStackTrace();
-        }
+        levelBufferedImage = biomeBackgrounds[0];
+        Sound.playMusic(0);
 
         levelClearedScreen = new LevelClearedScreen(finalTime);
         levelLoseScreen = new LevelLoseScreen(this);

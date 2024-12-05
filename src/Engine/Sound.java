@@ -2,30 +2,31 @@ package Engine;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class Sound {
-    private static File[] musicFiles = {
+    private static URL[] musicFiles = {
         // new File( %location%.wav )
-        new File(Config.RESOURCES_PATH + "/music/07 - Concrete Halls.wav"),
-        new File(Config.RESOURCES_PATH + "/music/Lost Colony - SA2.wav"),
-        new File(Config.RESOURCES_PATH + "/music/11 - Warmth.wav"),
-        new File(Config.RESOURCES_PATH + "/music/Icecap - SA1.wav"),
+        Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "/music/07 - Concrete Halls.wav"),
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "/music/Lost Colony - SA2.wav"),
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "/music/11 - Warmth.wav"),
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "/music/Icecap - SA1.wav"),
         
         // title theme
-        new File(Config.RESOURCES_PATH + "/music/blaster_master_title_djka.wav")
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "/music/blaster_master_title_djka.wav")
     };
-    private static File[] soundEffects = {
+    private static URL[] soundEffects = {
         // new File( %location%.wav )
-        new File(Config.RESOURCES_PATH + "action_jump.wav"),
-        new File(Config.RESOURCES_PATH + "rpg_fire.wav"),
-        new File(Config.RESOURCES_PATH + "stun_gun.wav"),
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "action_jump.wav"),
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "rpg_fire.wav"),
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "stun_gun.wav"),
         // menu sounds
-        new File(Config.RESOURCES_PATH + "menu_hover.wav"),
-        new File(Config.RESOURCES_PATH + "menu_select.wav"),
-        new File(Config.RESOURCES_PATH + "rocket.wav")
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "menu_hover.wav"),
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "menu_select.wav"),
+            Sound.class.getClassLoader().getResource(Config.RESOURCES_PATH + "rocket.wav")
     };
     public static final int JUMP_SOUND = 0;
     public static final int RPG_SOUND = 1;
